@@ -26,7 +26,7 @@ class FixtureService {
       );
       if (response.statusCode == 200) {
         res = response.body;
-        // log(res);
+        // print(res);
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
@@ -69,6 +69,7 @@ class FixtureService {
       print(e);
     }
   }
+
   static void updateFixture(String fixtureId, Map<String, dynamic> data) async {
     try {
       Response res = await Client().put(

@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
-
 import '../controllers/data_controller.dart';
-import '../services/fixture_service.dart';
 import '/exports/exports.dart';
 import '/models/fixture.dart';
 import '/models/league.dart';
@@ -39,7 +36,6 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   @override
   void initState() {
     super.initState();
-
     Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _timer = timer;
@@ -47,9 +43,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
       widget.controller.fetchLeagueData(
         "65590acab19d56d5417f608f",
       );
-      widget.controller.fetchLeagueData(
-        "65590acab19d56d5417f608f",
-      );
+      widget.controller
+          .fetchFixtureData("65590acab19d56d5417f608f", widget.matchId);
     });
 
     // FixtureService.getRunningFixtures(widget.data.id, widget.matchId).then((x) {
@@ -70,9 +65,6 @@ class _LeagueWidgetState extends State<LeagueWidget> {
 
   @override
   void dispose() {
-    // if (_leaguesController.hasListener) {
-    //   _leaguesController.close();
-    // }
     _timer?.cancel();
     super.dispose();
   }
@@ -92,17 +84,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: SizedBox(),
-                //  teamLogo == null
-                // ? Image.asset(
-                //     "assets/images/nobg.png",
-                //     width: 80,
-                //     height: 80,
-                //   )
-                //     Image.network(
-                //   Apis.image + teamLogo!,
-                //   width: 50,
-                //   height: 50,
-                // ),
+               
               ),
               Text(
                 title ?? "League name",
@@ -222,7 +204,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                 Expanded(
                   child: SizedBox(
                     width: 20,
-                    child: Text.rich(
+                    child: fixture.isLive ? Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(text: "${fixture.homeGoals}\n"),
@@ -231,7 +213,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                       ),
                       textAlign: TextAlign.center,
                       style: textStyle,
-                    ),
+                    ) : null,
                   ),
                 ),
               ],
@@ -276,22 +258,31 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                 color: Colors.grey.shade300,
               ),
             ),
-            child: Column(
-              children: [
-                _cardHeader(
-                  title: widget.data.name,
-                ),
-                Divider(
-                  color: Colors.grey.shade300,
-                ),
-                ...List.generate(
-                  widget.controller.fixtureData.length,
-                  (i) => cardContent(
-                    fixture: widget.controller.fixtureData[i],
+            child:
+                Consumer<DataController>(builder: (context, controller, child) {
+              // controller.fetchLeagueData(
+              //   "65590acab19d56d5417f608f",
+              // );
+              // controller.fetchLeagueData(
+              //   "65590acab19d56d5417f608f",
+              // );
+              return Column(
+                children: [
+                  _cardHeader(
+                    title: widget.data.name,
                   ),
-                ),
-              ],
-            ),
+                  Divider(
+                    color: Colors.grey.shade300,
+                  ),
+                  ...List.generate(
+                    controller.fixtureData.length,
+                    (i) => cardContent(
+                      fixture: controller.fixtureData[i],
+                    ),
+                  ),
+                ],
+              );
+            }),
           );
   }
 }

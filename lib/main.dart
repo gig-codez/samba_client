@@ -49,7 +49,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   showFlutterNotification(message);
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  print('Handling a background message ${message.messageId}');
+  debugPrint('Handling a background message ${message.messageId}');
 }
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
@@ -94,6 +94,7 @@ void showFlutterNotification(RemoteMessage message) {
   RemoteNotification? notification = message.notification;
   AndroidNotification? android = message.notification?.android;
   if (notification != null && android != null && !kIsWeb) {
+    print("Message Tapped ${message.data}");
     flutterLocalNotificationsPlugin.show(
       notification.hashCode,
       notification.title,
@@ -104,9 +105,17 @@ void showFlutterNotification(RemoteMessage message) {
           channel.name,
           channelDescription: channel.description,
           icon: 'launch_background',
-          color: Colors.blue,
+          color: Color.fromARGB(255, 237, 169, 52),
           colorized: true,
           priority: Priority.high,
+          importance: Importance.max,
+          actions: [
+            const AndroidNotificationAction(
+              'open',
+              'Open',
+              showsUserInterface: true,
+            ),
+          ],
         ),
       ),
     );
@@ -141,7 +150,7 @@ void main() async {
   FirebaseMessaging.onMessage.listen(showFlutterNotification);
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print(message.toMap().toString());
+    print("Message Tapped ${message.toMap()}");
   });
 
   // Rendering the app in full screen mode.

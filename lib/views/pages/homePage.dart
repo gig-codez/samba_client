@@ -18,11 +18,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController? tabController;
+  Timer? _timer;
   // int tabs = 0;
   @override
   void initState() {
     super.initState();
-    context.read<DataController>().setLeagueId("65590acab19d56d5417f608f");
+          Provider.of<DataController>(context, listen: false)
+          .fetchLeagueData("65590acab19d56d5417f608f");
+   
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      Provider.of<DataController>(context, listen: false)
+          .fetchLeagueData("65590acab19d56d5417f608f");
+      Provider.of<DataController>(context, listen: false)
+          .fetchMatchDates("65590acab19d56d5417f608f");
+    });
     Timer.periodic(const Duration(milliseconds: 200), (timer) async {
       log("${timer.tick} $tabs");
       var matchDates =
@@ -44,6 +53,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
+    _timer?.cancel();
     tabController?.dispose();
     super.dispose();
   }
@@ -71,19 +81,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int tabs = 0;
   @override
   Widget build(BuildContext context) {
-    Provider.of<DataController>(context, listen: true).setLeagueId(
-      "65590acab19d56d5417f608f",
-    );
-
-    Provider.of<DataController>(context)
+    Provider.of<DataController>(context, listen: false)
         .fetchLeagueData("65590acab19d56d5417f608f");
-    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    //   print('A new onMessageOpenedApp event was published!');
-    // });
-
     return Consumer<DataController>(builder: (context, controller, child) {
       // tabs = controller.matchDates.lengths;
+      // if (controller.matchDates.isEmpty) {
       controller.fetchMatchDates("65590acab19d56d5417f608f");
+      // }
       if (tabs == 0) {
         // log("inside $tabs");
         tabController = TabController(
