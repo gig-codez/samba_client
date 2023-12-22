@@ -174,74 +174,79 @@ class TableRowWidget {
       cells: [
         DataCell(
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "$id",
-                style: style,
+              Row(
+                children: [
+                  Text(
+                    "$id",
+                    style: style,
+                  ),
+                  const SizedBox.square(
+                    dimension: 2,
+                  ),
+                  Image.network(
+                    Apis.image + image,
+                    width: 35,
+                    height: 35,
+                  ),
+                  const SizedBox.square(
+                    dimension: 10,
+                  ),
+                  Text(teamName)
+                ],
               ),
               const SizedBox.square(
-                dimension: 2,
+                dimension: 30,
               ),
-              Image.network(
-                Apis.image + image,
-                width: 35,
-                height: 35,
-              ),
-              const SizedBox.square(
-                dimension: 10,
-              ),
-              Text(teamName)
-            ],
-          ),
-        ),
-        DataCell(
-          Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                "$p ",
-                style: style,
-              ),
-              const SizedBox.square(
-                dimension: 10,
-              ),
-              Text(
-                "$w ",
-                style: style,
-              ),
-              const SizedBox.square(
-                dimension: 10,
-              ),
-              Text(
-                "$d ",
-                style: style,
-              ),
-              const SizedBox.square(
-                dimension: 10,
-              ),
-              Text(
-                "$l ",
-                style: style,
-              ),
-              const SizedBox.square(
-                dimension: 10,
-              ),
-              Text(
-                "$gd ",
-                style: style,
-              ),
-              const SizedBox.square(
-                dimension: 10,
-              ),
-              Text(
-                "$pts ",
-                style: style,
-              ),
-              const SizedBox.square(
-                dimension: 10,
-              ),
-              const SizedBox.square(
-                dimension: 10,
+              Row(
+                children: [
+                  Text(
+                    "$p ",
+                    style: style,
+                  ),
+                  const SizedBox.square(
+                    dimension: 10,
+                  ),
+                  Text(
+                    "$w ",
+                    style: style,
+                  ),
+                  const SizedBox.square(
+                    dimension: 10,
+                  ),
+                  Text(
+                    "$d ",
+                    style: style,
+                  ),
+                  const SizedBox.square(
+                    dimension: 10,
+                  ),
+                  Text(
+                    "$l ",
+                    style: style,
+                  ),
+                  const SizedBox.square(
+                    dimension: 10,
+                  ),
+                  Text(
+                    "$gd ",
+                    style: style,
+                  ),
+                  const SizedBox.square(
+                    dimension: 10,
+                  ),
+                  Text(
+                    "$pts ",
+                    style: style,
+                  ),
+                  const SizedBox.square(
+                    dimension: 10,
+                  ),
+                  const SizedBox.square(
+                    dimension: 10,
+                  ),
+                ],
               ),
             ],
           ),

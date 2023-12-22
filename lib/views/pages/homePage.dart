@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:intl/intl.dart';
 import '../../controllers/data_controller.dart';
 
+import '../../main.dart';
 import '../../services/match_date_service.dart';
 import '../../widgets/LeagueWidget.dart';
 import '/exports/exports.dart';
@@ -20,12 +20,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController? tabController;
   Timer? _timer;
   // int tabs = 0;
+
   @override
   void initState() {
     super.initState();
-          Provider.of<DataController>(context, listen: false)
-          .fetchLeagueData("65590acab19d56d5417f608f");
-   
+    setUpMessage();
+    Provider.of<DataController>(context, listen: false)
+        .fetchLeagueData("65590acab19d56d5417f608f");
+
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       Provider.of<DataController>(context, listen: false)
           .fetchLeagueData("65590acab19d56d5417f608f");
@@ -63,13 +65,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     String currentDate = DateFormat('EEE d MMM').format(DateTime.now());
     // Customize the logic to determine the label based on the relation to the current date
     if (stringDate.split(" ").first == currentDate.split(" ").first &&
-        stringDate.split(" ")[1] == currentDate.split(" ")[1]) {
+        stringDate.split(" ")[1] == currentDate.split(" ")[1] &&
+        (stringDate.split(" ").last == currentDate.split(" ").last)) {
       return 'Today';
     } else if (int.parse(stringDate.split(" ")[1]) ==
-        (int.parse(currentDate.split(" ")[1]) - 1)) {
+            (int.parse(currentDate.split(" ")[1]) - 1) &&
+        (stringDate.split(" ").last == currentDate.split(" ").last)) {
       return 'Yesterday';
     } else if (int.parse(stringDate.split(" ")[1]) ==
-        (int.parse(currentDate.split(" ")[1]) + 1)) {
+            (int.parse(currentDate.split(" ")[1]) + 1) &&
+        (stringDate.split(" ").last == currentDate.split(" ").last)) {
       return 'Tomorrow';
     } else {
       return DateFormat('EEE d MMM').format(date);
@@ -84,25 +89,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     Provider.of<DataController>(context, listen: false)
         .fetchLeagueData("65590acab19d56d5417f608f");
     return Consumer<DataController>(builder: (context, controller, child) {
-      // tabs = controller.matchDates.lengths;
-      // if (controller.matchDates.isEmpty) {
       controller.fetchMatchDates("65590acab19d56d5417f608f");
       // }
       if (tabs == 0) {
-        // log("inside $tabs");
         tabController = TabController(
           length: tabs,
           initialIndex: tabs == 0 ? 0 : tabs - 1,
           vsync: this,
         );
       }
+
       // debounce++;
       return Scaffold(
         appBar: AppBar(
           leading: const CircleAvatar(
             backgroundImage: AssetImage("assets/lptl.png"),
           ),
-          title: const Text('LPTL Stats'),
+          title: const Text('LPTL'),
         ),
         body: Column(
           children: [

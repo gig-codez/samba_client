@@ -13,7 +13,27 @@ class PlayerService {
       );
       if (response.statusCode == 200) {
         res = response.body;
-        // print(res);
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
+    } on SocketException catch (e) {
+      debugPrint(e.message);
+    } on HttpException catch (e) {
+      debugPrint(e.message);
+    } catch (e) {
+      // throw Exception(e.toString());
+    }
+    return playersModelFromJson(res).message;
+  }
+
+  static Future<List<Message>> getTransferredPlayers(String teamId) async {
+    String res = "";
+    try {
+      final response = await Client().get(
+        Uri.parse("${Apis.transferredPlayers}$teamId/transferred"),
+      );
+      if (response.statusCode == 200) {
+        res = response.body;
       }
     } on ClientException catch (e) {
       debugPrint(e.message);

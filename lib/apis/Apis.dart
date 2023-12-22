@@ -7,6 +7,7 @@ class Apis {
   static String fetchSinglePlayer = "${apiUrl}player/players/";
   static String updatePlayer = "${apiUrl}player/update/";
   static String deletePlayer = "${apiUrl}player/delete/";
+  static String transferredPlayers = "${apiUrl}player/";
   // league routes
   static String fetchLeagues = "${apiUrl}league/leagues";
   static String fetchSingleLeague = "${apiUrl}league/leagues/";

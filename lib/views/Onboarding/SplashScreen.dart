@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
 
       if (status == AnimationStatus.completed ||
           status == AnimationStatus.dismissed) {
-        Future.delayed(const Duration(seconds: 2), () {
+        Future.delayed(const Duration(seconds: 3), () {
           Routes.pushReplace(Routes.home);
         });
       }
@@ -69,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen>
             ),
           ),
           SizedBox.square(
-            dimension: MediaQuery.of(context).size.width * 0.15,
+            dimension: MediaQuery.of(context).size.width * 0.05,
           ),
           Text(
             "THE LPTL",
@@ -78,15 +78,46 @@ class _SplashScreenState extends State<SplashScreen>
                 .titleMedium!
                 .copyWith(fontSize: 25, fontWeight: FontWeight.w600),
           ),
-          SizedBox.square(
-            dimension: MediaQuery.of(context).size.width * 0.35,
+          SizedBox(
+            height: MediaQuery.of(context).size.width * 0.15,
           ),
           SpinKitCircle(
-            size: 70,
+            size: 50,
             color: primaryColor,
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.width * 0.35,
+            height: MediaQuery.of(context).size.width * 0.15,
+          ),
+          Center(
+            child: Text(
+              "Sponsors\n",
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(fontSize: 25, fontWeight: FontWeight.w600),
+            ),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                4,
+                (index) => FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Image.asset(
+                      "assets/sponsors/sp${index + 1}.jpeg",
+                      height: 80,
+                      width: 100,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox.square(
+            dimension: MediaQuery.of(context).size.width * 0.25,
           ),
           Text(
             "Powered by Samba Stats",

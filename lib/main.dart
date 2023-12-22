@@ -3,8 +3,14 @@
 /// Name: Mugamba Bruno
 /// Date: 03/11/2023
 
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:samba_client/services/device_manager.dart';
+import 'package:samba_client/services/fixture_service.dart';
+import 'package:samba_client/test.dart';
 import '/theme/Theme.dart';
 
 import '/exports/exports.dart';
@@ -48,8 +54,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await setupFlutterNotifications();
   showFlutterNotification(message);
   // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  debugPrint('Handling a background message ${message.messageId}');
+  // make sure you call `initializeApp` before using other Firebase services
+  debugPrint('Handling a background message ${message}');
 }
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
@@ -94,7 +100,6 @@ void showFlutterNotification(RemoteMessage message) {
   RemoteNotification? notification = message.notification;
   AndroidNotification? android = message.notification?.android;
   if (notification != null && android != null && !kIsWeb) {
-    print("Message Tapped ${message.data}");
     flutterLocalNotificationsPlugin.show(
       notification.hashCode,
       notification.title,
@@ -105,21 +110,49 @@ void showFlutterNotification(RemoteMessage message) {
           channel.name,
           channelDescription: channel.description,
           icon: 'launch_background',
-          color: Color.fromARGB(255, 237, 169, 52),
-          colorized: true,
+          // color: Color.fromARGB(255, 237, 169, 52),
+          // colorized: true,
           priority: Priority.high,
           importance: Importance.max,
-          actions: [
-            const AndroidNotificationAction(
-              'open',
-              'Open',
-              showsUserInterface: true,
-            ),
-          ],
         ),
       ),
     );
   }
+}
+
+@pragma('vm:entry-point')
+void setUpMessage() {
+  FirebaseMessaging.instance.getInitialMessage().asStream().listen((message) {
+    if (message != null) {
+      log("On initial message event.");
+      debugPrint(message.data.toString());
+      Routes.animateToPage(TestPage());
+    }
+  });
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    log("On message event.");
+    debugPrint(message.data.toString());
+    Routes.animateToPage(TestPage());
+  });
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    log("Message opened app");
+    debugPrint(message.data.toString());
+    // working on match rooms when notification opens the app
+    if (message.data["type"] == "fixture") {
+      FixtureService.getFixtures("65590acab19d56d5417f608f")
+          .asStream()
+          .listen((fixtures) {
+        var fixture = fixtures
+            .where((element) => element.id == message.data["data"])
+            .first;
+        Routes.animateToPage(
+          TeamsPage(
+            data: fixture,
+          ),
+        );
+      });
+    }
+  });
 }
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
@@ -148,11 +181,8 @@ void main() async {
   }
 
   FirebaseMessaging.onMessage.listen(showFlutterNotification);
-
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print("Message Tapped ${message.toMap()}");
-  });
-
+  setUpMessage();
+  await DeviceManager.clearAll();
   // Rendering the app in full screen mode.
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
@@ -167,11 +197,15 @@ void main() async {
       systemNavigationBarColor: Colors.black12,
     ),
   );
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
   // DeviceManager.clearAll();
   DeviceManager.checkDeviceId().asStream().listen((event) {
     if (event) {
-      FirebaseMessaging.instance.getToken().then((token) {
-        DeviceManager.saveDeviceKey(token!);
+      FirebaseMessaging.instance.getToken().asStream().listen((token) {
+        print("Token $token");
+        DeviceManager.saveDeviceKey(
+            token!, "${androidInfo.model}_${androidInfo.serialNumber}");
       });
     }
   });

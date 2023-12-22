@@ -62,37 +62,50 @@ class _TablePageState extends State<TablePage> {
                               scrollDirection: Axis.horizontal,
                               child: DataTable(
                                 columns: const [
-                                  DataColumn2(label: Text("#    Team")),
                                   DataColumn2(
                                     // fixedWidth: 100,
                                     label: Row(
-                                      // mainAxisAlignment:
-                                      //     MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text("P "),
-                                        const SizedBox.square(
-                                          dimension: 10,
+                                        Row(
+                                          children: [
+                                            Text("#    Team"),
+                                            SizedBox.square(
+                                              dimension: 170,
+                                            ),
+                                          ],
                                         ),
-                                        Text("W "),
-                                        const SizedBox.square(
-                                          dimension: 10,
+                                        // const SizedBox.square(
+                                        //   dimension: 20,
+                                        // ),
+                                        Row(
+                                          children: [
+                                            Text("P "),
+                                            SizedBox.square(
+                                              dimension: 10,
+                                            ),
+                                            Text("W "),
+                                            SizedBox.square(
+                                              dimension: 10,
+                                            ),
+                                            Text("D "),
+                                            SizedBox.square(
+                                              dimension: 10,
+                                            ),
+                                            Text("L "),
+                                            SizedBox.square(
+                                              dimension: 10,
+                                            ),
+                                            Text("GD "),
+                                            SizedBox.square(
+                                              dimension: 10,
+                                            ),
+                                            Text("Pts "),
+                                          ],
                                         ),
-                                        Text("D "),
-                                        const SizedBox.square(
-                                          dimension: 10,
-                                        ),
-                                        Text("L "),
-                                        const SizedBox.square(
-                                          dimension: 10,
-                                        ),
-                                        Text("GD "),
-                                        const SizedBox.square(
-                                          dimension: 10,
-                                        ),
-                                        Text("Pts "),
                                       ],
                                     ),
-                               
                                   ),
                                 ],
                                 rows: List.generate(

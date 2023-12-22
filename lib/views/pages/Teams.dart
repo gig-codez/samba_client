@@ -3,6 +3,7 @@ import '/views/pages/teamPages/LineUp.dart';
 
 import '../../widgets/PlayingTeams.dart';
 import '/exports/exports.dart';
+import 'Transfers.dart';
 import 'teamPages/stats_page.dart';
 import 'teamPages/table_page.dart';
 
@@ -20,7 +21,7 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _topTabController = TabController(length: 2, vsync: this);
+    _topTabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -55,6 +56,9 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
                           Tab(
                             text: "Table",
                           ),
+                          Tab(
+                            text: "Transfers",
+                          ),
                         ],
                         controller: _topTabController,
                         physics: const NeverScrollableScrollPhysics(),
@@ -71,6 +75,9 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
                             TablePage(
                               leagueId: widget.data.league,
                             ),
+                            TransfersPage(
+                              data: widget.data,
+                            )
                           ],
                         ),
                       )
