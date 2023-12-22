@@ -124,19 +124,43 @@ void showFlutterNotification(RemoteMessage message) {
 void setUpMessage() {
   FirebaseMessaging.instance.getInitialMessage().asStream().listen((message) {
     if (message != null) {
-      log("On initial message event.");
-      debugPrint(message.data.toString());
-      Routes.animateToPage(TestPage());
+      if (message.data["type"] == "fixture") {
+        FixtureService.getFixtures("65590acab19d56d5417f608f")
+            .asStream()
+            .listen((fixtures) {
+          var fixture = fixtures
+              .where((element) => element.id == message.data["data"])
+              .first;
+          Routes.animateToPage(
+            TeamsPage(
+              data: fixture,
+            ),
+          );
+        });
+      }
     }
   });
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    log("On message event.");
-    debugPrint(message.data.toString());
-    Routes.animateToPage(TestPage());
+    // log("On message event.");
+    // debugPrint(message.data.toString());
+    if (message.data["type"] == "fixture") {
+      FixtureService.getFixtures("65590acab19d56d5417f608f")
+          .asStream()
+          .listen((fixtures) {
+        var fixture = fixtures
+            .where((element) => element.id == message.data["data"])
+            .first;
+        Routes.animateToPage(
+          TeamsPage(
+            data: fixture,
+          ),
+        );
+      });
+    }
   });
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    log("Message opened app");
-    debugPrint(message.data.toString());
+    // log("Message opened app");
+    // debugPrint(message.data.toString());
     // working on match rooms when notification opens the app
     if (message.data["type"] == "fixture") {
       FixtureService.getFixtures("65590acab19d56d5417f608f")
@@ -203,7 +227,7 @@ void main() async {
   DeviceManager.checkDeviceId().asStream().listen((event) {
     if (event) {
       FirebaseMessaging.instance.getToken().asStream().listen((token) {
-        print("Token $token");
+        // print("Token $token");
         DeviceManager.saveDeviceKey(
             token!, "${androidInfo.model}_${androidInfo.serialNumber}");
       });
