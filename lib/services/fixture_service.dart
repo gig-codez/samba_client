@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../exports/exports.dart';
 import '../models/fixture.dart';
 
@@ -19,21 +21,25 @@ class FixtureService {
 
   static Future<List<Datum>> getRunningFixtures(
       String leagueId, String matchId) async {
-    String res = "";
+
     try {
       Response response = await Client().get(
         Uri.parse("${Apis.runningFixture}$leagueId/$matchId"),
       );
       if (response.statusCode == 200) {
-        res = response.body;
+       return fixtureModelFromJson(response.body).data;
         // print(res);
+      } else {
+        return Future.error(jsonDecode(response.body)['message']);
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
+      return Future.error(e.message);
     } on FormatException catch (e) {
-      debugPrint(e.message);
+        debugPrint(e.message);
+      return Future.error(e.message);
     }
-    return fixtureModelFromJson(res).data;
+   
   }
 
   // function to add a fixture

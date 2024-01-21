@@ -5,6 +5,7 @@
 
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
@@ -67,6 +68,8 @@ Future<void> setupFlutterNotifications() async {
   if (isFlutterLocalNotificationsInitialized) {
     return;
   }
+  // IOSFlutterLocalNotificationsPlugin()
+  //     .requestPermissions(alert: true, badge: true, sound: true);
   channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
@@ -74,7 +77,7 @@ Future<void> setupFlutterNotifications() async {
         'This channel is used for important notifications.', // description
     importance: Importance.high,
   );
-
+// NotificationChannel()
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   /// Create an Android Notification Channel.
@@ -99,7 +102,8 @@ Future<void> setupFlutterNotifications() async {
 void showFlutterNotification(RemoteMessage message) {
   RemoteNotification? notification = message.notification;
   AndroidNotification? android = message.notification?.android;
-  if (notification != null && android != null && !kIsWeb) {
+  AppleNotification? ios = message.notification?.apple;
+  if (notification != null && android != null && ios != null && !kIsWeb) {
     flutterLocalNotificationsPlugin.show(
       notification.hashCode,
       notification.title,
@@ -114,6 +118,12 @@ void showFlutterNotification(RemoteMessage message) {
           // colorized: true,
           priority: Priority.high,
           importance: Importance.max,
+        ),
+        iOS: DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+          subtitle: notification.body,
         ),
       ),
     );
@@ -222,17 +232,34 @@ void main() async {
     ),
   );
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-  // DeviceManager.clearAll();
-  DeviceManager.checkDeviceId().asStream().listen((event) {
-    if (event) {
-      FirebaseMessaging.instance.getToken().asStream().listen((token) {
-        // print("Token $token");
-        DeviceManager.saveDeviceKey(
-            token!, "${androidInfo.model}_${androidInfo.serialNumber}");
-      });
-    }
-  });
+  if (Platform.isIOS) {
+    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    // DeviceManager.clearAll();
+    DeviceManager.checkDeviceId().asStream().listen((event) {
+      if (event) {
+        FirebaseMessaging.instance.getAPNSToken().asStream().listen((token) {
+          // print("Token $token");
+         if (token != null) {
+            DeviceManager.saveDeviceKey(
+              token, "${iosInfo.model}_${iosInfo.localizedModel}");
+         }
+        });
+      }
+    });
+  } else {
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    // DeviceManager.clearAll();
+    DeviceManager.checkDeviceId().asStream().listen((event) {
+      if (event) {
+        FirebaseMessaging.instance.getToken().asStream().listen((token) {
+          // print("Token $token");
+          DeviceManager.saveDeviceKey(
+              token!, "${androidInfo.model}_${androidInfo.serialNumber}");
+        });
+      }
+    });
+  }
+
   // main entry point for the app.
   runApp(
     MultiProvider(

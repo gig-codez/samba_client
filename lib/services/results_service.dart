@@ -1,20 +1,26 @@
+import 'dart:convert';
+
 import '/exports/exports.dart';
 import '/models/result.dart';
 
 class ResultService {
   static Future<List<Datum>> getResult() async {
-    String res = "";
+  
     try {
       Response response = await Client().get(
         Uri.parse(Apis.fetchResults),
       );
       if (response.statusCode == 200) {
-        res = response.body;
+      
+       return artworkModelFromJson(response.body).data;
+      } else {
+        return Future.error(jsonDecode(response.body)['message']);
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
+      return Future.error(e.message);
     }
-    return artworkModelFromJson(res).data;
+
   }
 
   static void updateResult(String leagueId, String teamId) async {

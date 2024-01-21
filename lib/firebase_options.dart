@@ -59,10 +59,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyB9AjD2HwnagvAtuFjfzBLITWIPztCkfvs',
-    appId: '1:395731031915:ios:cb0b17b4a4b3080f1f5e2e',
+    appId: '1:395731031915:ios:4f323313bfb93f5a1f5e2e',
     messagingSenderId: '395731031915',
     projectId: 'notify-a7382',
     storageBucket: 'notify-a7382.appspot.com',
-    iosBundleId: 'com.example.sambaClient',
+    iosBundleId: 'com.app.sambaClient',
   );
 }

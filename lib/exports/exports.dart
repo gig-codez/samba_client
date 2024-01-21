@@ -31,8 +31,8 @@ export 'package:flutter_svg/flutter_svg.dart';
 export 'package:accordion/accordion.dart';
 export 'package:accordion/controllers.dart';
 export 'package:http/http.dart';
-// models
-
+// extensions
+export '/extensions/int_extension.dart';
 // controllers
 export '/controllers/AppController.dart';
 // apis

@@ -76,9 +76,9 @@ class _TablePageState extends State<TablePage> {
                                             ),
                                           ],
                                         ),
-                                        // const SizedBox.square(
-                                        //   dimension: 20,
-                                        // ),
+                                        const SizedBox.square(
+                                          dimension: 0,
+                                        ),
                                         Row(
                                           children: [
                                             Text("P "),

@@ -4,7 +4,6 @@ import '/views/pages/teamPages/LineUp.dart';
 import '../../widgets/PlayingTeams.dart';
 import '/exports/exports.dart';
 import 'Transfers.dart';
-import 'teamPages/stats_page.dart';
 import 'teamPages/table_page.dart';
 
 class TeamsPage extends StatefulWidget {
@@ -34,7 +33,10 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 0,
+        title: Text("${widget.data.hometeam.name} vs ${widget.data.awayteam.name}"),
+        leading: BackButton(
+          onPressed: () => Routes.popPage(),
+        )
       ),
       body: SafeArea(
         child: Padding(
@@ -89,10 +91,10 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Routes.popPage(),
-        child: const Icon(Icons.arrow_back),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () => Routes.popPage(),
+      //   child: const Icon(Icons.arrow_back),
+      // ),
     );
   }
 }

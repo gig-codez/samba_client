@@ -87,7 +87,7 @@ class TableRowWidget {
       ),
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text(
@@ -107,42 +107,42 @@ class TableRowWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$p"),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$w"),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$d"),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$l"),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$gd"),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$pts"),
@@ -173,82 +173,60 @@ class TableRowWidget {
       color: MaterialStateProperty.all(color),
       cells: [
         DataCell(
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    "$id",
-                    style: style,
-                  ),
-                  const SizedBox.square(
-                    dimension: 2,
-                  ),
-                  Image.network(
-                    Apis.image + image,
-                    width: 35,
-                    height: 35,
-                  ),
-                  const SizedBox.square(
-                    dimension: 10,
-                  ),
-                  Text(teamName)
-                ],
-              ),
-              const SizedBox.square(
-                dimension: 30,
-              ),
-              Row(
-                children: [
-                  Text(
-                    "$p ",
-                    style: style,
-                  ),
-                  const SizedBox.square(
-                    dimension: 10,
-                  ),
-                  Text(
-                    "$w ",
-                    style: style,
-                  ),
-                  const SizedBox.square(
-                    dimension: 10,
-                  ),
-                  Text(
-                    "$d ",
-                    style: style,
-                  ),
-                  const SizedBox.square(
-                    dimension: 10,
-                  ),
-                  Text(
-                    "$l ",
-                    style: style,
-                  ),
-                  const SizedBox.square(
-                    dimension: 10,
-                  ),
-                  Text(
-                    "$gd ",
-                    style: style,
-                  ),
-                  const SizedBox.square(
-                    dimension: 10,
-                  ),
-                  Text(
-                    "$pts ",
-                    style: style,
-                  ),
-                  const SizedBox.square(
-                    dimension: 10,
-                  ),
-                  const SizedBox.square(
-                    dimension: 10,
-                  ),
-                ],
-              ),
-            ],
+          SizedBox(
+            // width: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "$id"
+                    ),
+                    const SizedBox.square(
+                      dimension: 2,
+                    ),
+                    Image.network(
+                      Apis.image + image,
+                      width: 35,
+                      height: 35,
+                    ),
+                    const SizedBox.square(
+                      dimension: 10,
+                    ),
+                    Text(teamName)
+                  ],
+                ),
+                const SizedBox.square(
+                  dimension: 30,
+                ),
+                  Row(
+                                          children: [
+                                            Text("$p "),
+                                            const SizedBox.square(
+                                              dimension: 10,
+                                            ),
+                                            Text("${w?.zeros } "),
+                                            const SizedBox.square(
+                                              dimension: 10,
+                                            ),
+                                            Text("${d?.zeros} "),
+                                            const SizedBox.square(
+                                              dimension: 10,
+                                            ),
+                                            Text("${l?.zeros} "),
+                                            const SizedBox.square(
+                                              dimension: 10,
+                                            ),
+                                            Text("${gd?.zeros} "),
+                                            const SizedBox.square(
+                                              dimension: 10,
+                                            ),
+                                            Text("${pts?.zeros} "),
+                                          ],
+                                        ),
+              ],
+            ),
           ),
         ),
       ],

@@ -46,21 +46,6 @@ class _LeagueWidgetState extends State<LeagueWidget> {
       widget.controller
           .fetchFixtureData("65590acab19d56d5417f608f", widget.matchId);
     });
-
-    // FixtureService.getRunningFixtures(widget.data.id, widget.matchId).then((x) {
-    //   if (mounted) {
-    //     if (x.isEmpty) {
-    //       setState(() {
-    //         showHide = false;
-    //       });
-    //     } else {
-    //       setState(() {
-    //         showHide = true;
-    //       });
-    //     }
-    //   }
-    // });
-    // fetchLeagues();
   }
 
   @override
@@ -84,7 +69,6 @@ class _LeagueWidgetState extends State<LeagueWidget> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: SizedBox(),
-               
               ),
               Text(
                 title ?? "League name",
@@ -132,7 +116,9 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                       fixture!.matchEnded
                           ? "FT"
                           : fixture.isLive
-                              ? fixture.elapsedTime
+                              ? fixture.elapsedTime.isEmpty
+                                  ? "FT"
+                                  : fixture.elapsedTime
                               : fixture.kickofftime,
                       style: textStyle.copyWith(fontSize: 15),
                       textAlign: TextAlign.center,
@@ -204,16 +190,18 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                 Expanded(
                   child: SizedBox(
                     width: 20,
-                    child: fixture.isLive ? Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(text: "${fixture.homeGoals}\n"),
-                          TextSpan(text: "\n ${fixture.awayGoals}"),
-                        ],
-                      ),
-                      textAlign: TextAlign.center,
-                      style: textStyle,
-                    ) : null,
+                    child: fixture.isLive
+                        ? Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(text: "${fixture.homeGoals}\n"),
+                                TextSpan(text: "\n ${fixture.awayGoals}"),
+                              ],
+                            ),
+                            textAlign: TextAlign.center,
+                            style: textStyle,
+                          )
+                        : null,
                   ),
                 ),
               ],

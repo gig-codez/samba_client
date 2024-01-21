@@ -1,8 +1,4 @@
-// To parse this JSON data, do
-//
-//     final fixtureModel = fixtureModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 FixtureModel fixtureModelFromJson(String str) =>

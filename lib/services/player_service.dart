@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import '../exports/exports.dart';
@@ -13,17 +14,17 @@ class PlayerService {
       );
       if (response.statusCode == 200) {
         res = response.body;
+          return playersModelFromJson(res).message;
+      } else {
+        return Future.error(json.decode(response.body)['message']);
       }
     } on ClientException catch (e) {
-      debugPrint(e.message);
+       return Future.error(e.message);
     } on SocketException catch (e) {
-      debugPrint(e.message);
+       return Future.error(e.message);
     } on HttpException catch (e) {
-      debugPrint(e.message);
-    } catch (e) {
-      // throw Exception(e.toString());
-    }
-    return playersModelFromJson(res).message;
+         return Future.error(e.message);
+    } 
   }
 
   static Future<List<Message>> getTransferredPlayers(String teamId) async {
@@ -34,17 +35,21 @@ class PlayerService {
       );
       if (response.statusCode == 200) {
         res = response.body;
+        return playersModelFromJson(res).message;
+      } else{
+         return Future.error(jsonDecode(response.body)['message']);
       }
     } on ClientException catch (e) {
-      debugPrint(e.message);
+
+      return Future.error(e.message);
     } on SocketException catch (e) {
-      debugPrint(e.message);
+      
+       return Future.error(e.message);
     } on HttpException catch (e) {
-      debugPrint(e.message);
-    } catch (e) {
-      // throw Exception(e.toString());
+
+       return Future.error(e.message);
     }
-    return playersModelFromJson(res).message;
+    
   }
 
 // delete player

@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           leading: const CircleAvatar(
             backgroundImage: AssetImage("assets/lptl.png"),
           ),
-          title: const Text('LPTL'),
+          title: const Text('FUFA'),
         ),
         body: Column(
           children: [
