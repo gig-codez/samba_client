@@ -1,5 +1,5 @@
 class Apis {
-  static String apiUrl = "http://15.237.71.190:3000/"; //15.237.71.190
+  static String apiUrl = "http://165.232.121.139:3000/"; //15.237.71.190
   static String image = "${apiUrl}images/";
   // players routes
   static String fetchPlayers = "${apiUrl}player/players/";

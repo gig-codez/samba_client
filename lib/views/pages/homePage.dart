@@ -102,8 +102,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       // debounce++;
       return Scaffold(
         appBar: AppBar(
-          leading: const CircleAvatar(
-            backgroundImage: AssetImage("assets/lptl.png"),
+          leading: const Image(
+            image: AssetImage("assets/leagues/fufa.png"),
           ),
           title: const Text('FUFA'),
         ),
