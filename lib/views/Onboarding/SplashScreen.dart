@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
                 );
               },
               child: Image.asset(
-                'assets/lptl.png',
+                'assets/leagues/fufa.png',
                 height: 120,
                 width: 120,
               ),
@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen>
             dimension: MediaQuery.of(context).size.width * 0.05,
           ),
           Text(
-            "THE LPTL",
+            "FUFA",
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
@@ -97,25 +97,25 @@ class _SplashScreenState extends State<SplashScreen>
                   .copyWith(fontSize: 25, fontWeight: FontWeight.w600),
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                4,
-                (index) => FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Image.asset(
-                      "assets/sponsors/sp${index + 1}.jpeg",
-                      height: 80,
-                      width: 100,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // SingleChildScrollView(
+          //   scrollDirection: Axis.horizontal,
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: List.generate(
+          //       4,
+          //       (index) => FittedBox(
+          //         child: Padding(
+          //           padding: const EdgeInsets.all(2.0),
+          //           child: Image.asset(
+          //             "assets/sponsors/sp${index + 1}.jpeg",
+          //             height: 80,
+          //             width: 100,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           SizedBox.square(
             dimension: MediaQuery.of(context).size.width * 0.25,
           ),

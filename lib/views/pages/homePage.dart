@@ -116,9 +116,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 tabs: List.generate(
                   tabs,
                   (index) => Tab(
-                    text: _getTabLabel(
-                      DateTime.parse(controller.matchDates[index].date),
-                    ),
+                    text: DateTime.parse(controller.matchDates[index].date).formated(),
+                    
                   ),
                 ),
               ),

@@ -1,5 +1,5 @@
 import '/models/league.dart';
-import '/services/league_service.dart';
+
 import '/exports/exports.dart';
 import 'dart:async';
 
@@ -67,8 +67,8 @@ class _LeagueFixturesState extends State<LeagueFixtures> {
                               onPress: () {
                                 Routes.animateToPage(
                                   FixturesPage(
-                                    leagueId: snap.data![index].id ?? "",
-                                    leagueName: snap.data![index].name ?? "",
+                                    leagueId: snap.data![index].id,
+                                    leagueName: snap.data![index].name,
                                   ),
                                 );
                               },
