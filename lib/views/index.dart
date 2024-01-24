@@ -27,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
   // pages to render
   List<Widget> pages = [
     const HomePage(),
-
     // const Pages(),
     const ProfileScreen(),
   ];

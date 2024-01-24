@@ -41,10 +41,10 @@ class _LeagueWidgetState extends State<LeagueWidget> {
         _timer = timer;
       });
       widget.controller.fetchLeagueData(
-        "65590acab19d56d5417f608f",
+        leagueId,
       );
       widget.controller
-          .fetchFixtureData("65590acab19d56d5417f608f", widget.matchId);
+          .fetchFixtureData(leagueId, widget.matchId);
     });
   }
 

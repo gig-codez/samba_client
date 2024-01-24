@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:intl/intl.dart';
 import '../../controllers/data_controller.dart';
 
 import '../../main.dart';
@@ -26,18 +25,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
     setUpMessage();
     Provider.of<DataController>(context, listen: false)
-        .fetchLeagueData("65590acab19d56d5417f608f");
+        .fetchLeagueData(leagueId);
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       Provider.of<DataController>(context, listen: false)
-          .fetchLeagueData("65590acab19d56d5417f608f");
+          .fetchLeagueData(leagueId);
       Provider.of<DataController>(context, listen: false)
-          .fetchMatchDates("65590acab19d56d5417f608f");
+          .fetchMatchDates(leagueId);
     });
     Timer.periodic(const Duration(milliseconds: 200), (timer) async {
       log("${timer.tick} $tabs");
       var matchDates =
-          await MatchDateService.getMatchDates("65590acab19d56d5417f608f");
+          await MatchDateService.getMatchDates(leagueId);
       if (tabs == 0) {
         setState(() {
           tabs = matchDates.length;
