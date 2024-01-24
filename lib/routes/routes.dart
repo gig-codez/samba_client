@@ -1,9 +1,4 @@
-import '/views/pages/sections/LeagueFixtures.dart';
-import '/views/pages/sections/match_dates.dart';
-import '/views/pages/sections/Players.dart';
-import '/views/pages/sections/leagues.dart';
 
-import '../views/pages/sections/Teams.dart';
 import '/exports/exports.dart';
 
 class Routes {
@@ -32,14 +27,7 @@ class Routes {
     login: (context) => const LoginScreen(),
     home: (context) => const HomePage(),
     settings: (context) => const GeneralSettings(),
-    teams: (context) => const Teams(),
-    fixtures: (context) => const LeagueFixtures(),
-    leagues: (context) => const Leagues(),
-    notifications: (context) => const Notifications(),
-    players: (context) => const Players(),
-    matchdates: (context) => const MatchDates(),
   };
-
   // routes methods
   static void popPage() {
     Navigator.of(context).pop();

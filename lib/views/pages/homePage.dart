@@ -59,37 +59,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     tabController?.dispose();
     super.dispose();
   }
-
-  String _getTabLabel(DateTime date) {
-    String stringDate = DateFormat('EEE d MMM').format(date);
-    String currentDate = DateFormat('EEE d MMM').format(DateTime.now());
-    // Customize the logic to determine the label based on the relation to the current date
-    if (stringDate.split(" ").first == currentDate.split(" ").first &&
-        stringDate.split(" ")[1] == currentDate.split(" ")[1] &&
-        (stringDate.split(" ").last == currentDate.split(" ").last)) {
-      return 'Today';
-    } else if (int.parse(stringDate.split(" ")[1]) ==
-            (int.parse(currentDate.split(" ")[1]) - 1) &&
-        (stringDate.split(" ").last == currentDate.split(" ").last)) {
-      return 'Yesterday';
-    } else if (int.parse(stringDate.split(" ")[1]) ==
-            (int.parse(currentDate.split(" ")[1]) + 1) &&
-        (stringDate.split(" ").last == currentDate.split(" ").last)) {
-      return 'Tomorrow';
-    } else {
-      return DateFormat('EEE d MMM').format(date);
-    }
-  }
-
   int currentTab = 0;
   int debounce = 0;
   int tabs = 0;
   @override
   Widget build(BuildContext context) {
     Provider.of<DataController>(context, listen: false)
-        .fetchLeagueData("65590acab19d56d5417f608f");
+        .fetchLeagueData(leagueId);
     return Consumer<DataController>(builder: (context, controller, child) {
-      controller.fetchMatchDates("65590acab19d56d5417f608f");
+      controller.fetchMatchDates(leagueId);
       // }
       if (tabs == 0) {
         tabController = TabController(
@@ -105,7 +83,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           leading: const Image(
             image: AssetImage("assets/leagues/fufa.png"),
           ),
-          title: const Text('FUFA'),
+          title:  Text(appTitle),
         ),
         body: Column(
           children: [

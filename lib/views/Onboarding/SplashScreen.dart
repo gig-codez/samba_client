@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen>
             dimension: MediaQuery.of(context).size.width * 0.05,
           ),
           Text(
-            "FUFA",
+            appTitle,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
@@ -88,15 +88,15 @@ class _SplashScreenState extends State<SplashScreen>
           SizedBox(
             height: MediaQuery.of(context).size.width * 0.15,
           ),
-          Center(
-            child: Text(
-              "Sponsors\n",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(fontSize: 25, fontWeight: FontWeight.w600),
-            ),
-          ),
+          // Center(
+          //   child: Text(
+          //     "Sponsors\n",
+          //     style: Theme.of(context)
+          //         .textTheme
+          //         .titleMedium!
+          //         .copyWith(fontSize: 25, fontWeight: FontWeight.w600),
+          //   ),
+          // ),
           // SingleChildScrollView(
           //   scrollDirection: Axis.horizontal,
           //   child: Row(

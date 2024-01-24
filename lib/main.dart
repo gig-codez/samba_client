@@ -259,7 +259,7 @@ void main() async {
       }
     });
   }
-
+// bool.fromEnvironment("dart.vm.product");
   // main entry point for the app.
   runApp(
     MultiProvider(

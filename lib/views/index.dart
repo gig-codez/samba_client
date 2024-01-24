@@ -16,9 +16,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final String ext = "assets/bottom_navs/";
   List<Map<String, dynamic>> bottomNavs = [
     {"label": "Home", "icon": "home.svg", "un": "home_un.svg"},
-    {"label": "LiveScore", "icon": "livescore.svg", "un": "livescore_un.svg"},
-    {"label": "Stats", "icon": "stats.svg", "un": "stats_un.svg"},
-    {"label": "Pages", "icon": "page.svg", "un": "page_un.svg"},
+    // {"label": "LiveScore", "icon": "livescore.svg", "un": "livescore_un.svg"},
+    // {"label": "Stats", "icon": "stats.svg", "un": "stats_un.svg"},
+    // {"label": "Pages", "icon": "page.svg", "un": "page_un.svg"},
     {"label": "Profile", "icon": "profile.svg", "un": "profile_un.svg"},
   ];
   // page controller
@@ -27,9 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   // pages to render
   List<Widget> pages = [
     const HomePage(),
-    const LiveScore(),
-    const Stats(),
-    const Pages(),
+
+    // const Pages(),
     const ProfileScreen(),
   ];
   @override

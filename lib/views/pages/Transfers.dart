@@ -1,4 +1,4 @@
-import 'package:samba_client/services/player_service.dart';
+import '/services/player_service.dart';
 
 import '../../exports/exports.dart';
 import '../../models/fixture.dart';
@@ -54,7 +54,7 @@ class _TransfersPageState extends State<TransfersPage>
                     widget.data.hometeam.id),
                 builder: (context, snapshot) {
                   return snapshot.hasData
-                      ? snapshot.data!.isEmpty ? Center(child: Text("No transferred player yet."),) : ListView.builder(
+                      ? snapshot.data!.isEmpty ? const Center(child: Text("No transferred player yet."),) : ListView.builder(
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
                             return TransferWidget(
