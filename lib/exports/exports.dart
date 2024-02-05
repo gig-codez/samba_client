@@ -32,7 +32,7 @@ export '/extensions/int_extension.dart';
 // controllers
 export '/controllers/AppController.dart';
 // apis
-export '/apis/Apis.dart';
+export '../apis/apis.dart';
 // widgets
 export '/widgets/CustomButton.dart';
 export '/widgets/CommonTextField.dart';

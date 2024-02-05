@@ -43,8 +43,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
       widget.controller.fetchLeagueData(
         leagueId,
       );
-      widget.controller
-          .fetchFixtureData(leagueId, widget.matchId);
+      widget.controller.fetchFixtureData(leagueId, widget.matchId);
     });
   }
 
@@ -138,7 +137,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image.network(
-                                  Apis.image + fixture.hometeam.image,
+                                  fixture.hometeam.image,
                                   width: 44,
                                   height: 44,
                                 ),
@@ -165,7 +164,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image.network(
-                                  Apis.image + fixture.awayteam.image,
+                                  fixture.awayteam.image,
                                   width: 44,
                                   height: 44,
                                 ),

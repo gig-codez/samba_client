@@ -26,13 +26,13 @@ class TransferWidget extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: 70,
               child: ListTile(
-                leading: CircleAvatar(
+                leading: const CircleAvatar(
                   child: Icon(Icons.person),
                 ),
                 title: Text(player.name),
                 trailing: Text(
                   player.soldOut,
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 ),
               ),
             ),
@@ -49,19 +49,17 @@ class TransferWidget extends StatelessWidget {
                       flex: 3,
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(Apis.image + player.oldTeam.image),
+                          backgroundImage: NetworkImage(player.oldTeam.image),
                         ),
                         title: Text(player.oldTeam.name),
-                        trailing: Icon(Icons.arrow_forward),
+                        trailing: const Icon(Icons.arrow_forward),
                       ),
                     ),
                     Expanded(
                       flex: 3,
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(Apis.image + player.team.image),
+                          backgroundImage: NetworkImage(player.team.image),
                         ),
                         title: Text(player.team.name),
                       ),
