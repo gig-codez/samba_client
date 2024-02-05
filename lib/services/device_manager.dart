@@ -1,4 +1,4 @@
-import 'package:samba_client/exports/exports.dart';
+import '/exports/exports.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DeviceManager {

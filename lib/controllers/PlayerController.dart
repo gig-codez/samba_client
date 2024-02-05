@@ -1,4 +1,4 @@
-import 'package:samba_client/models/player.dart';
+import '/models/player.dart';
 
 import '../exports/exports.dart';
 import '../services/player_service.dart';

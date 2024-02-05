@@ -4,14 +4,13 @@
 /// Date: 03/11/2023
 
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
-import 'package:samba_client/services/device_manager.dart';
-import 'package:samba_client/services/fixture_service.dart';
-import 'package:samba_client/test.dart';
+import '/services/device_manager.dart';
+import '/services/fixture_service.dart';
+// import '/test.dart';
 import '/theme/Theme.dart';
 
 import '/exports/exports.dart';
@@ -114,8 +113,6 @@ void showFlutterNotification(RemoteMessage message) {
           channel.name,
           channelDescription: channel.description,
           icon: 'launch_background',
-          // color: Color.fromARGB(255, 237, 169, 52),
-          // colorized: true,
           priority: Priority.high,
           importance: Importance.max,
         ),
@@ -135,9 +132,7 @@ void setUpMessage() {
   FirebaseMessaging.instance.getInitialMessage().asStream().listen((message) {
     if (message != null) {
       if (message.data["type"] == "fixture") {
-        FixtureService.getFixtures("65590acab19d56d5417f608f")
-            .asStream()
-            .listen((fixtures) {
+        FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
           var fixture = fixtures
               .where((element) => element.id == message.data["data"])
               .first;
@@ -154,9 +149,7 @@ void setUpMessage() {
     // log("On message event.");
     // debugPrint(message.data.toString());
     if (message.data["type"] == "fixture") {
-      FixtureService.getFixtures("65590acab19d56d5417f608f")
-          .asStream()
-          .listen((fixtures) {
+      FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
         var fixture = fixtures
             .where((element) => element.id == message.data["data"])
             .first;
@@ -173,9 +166,7 @@ void setUpMessage() {
     // debugPrint(message.data.toString());
     // working on match rooms when notification opens the app
     if (message.data["type"] == "fixture") {
-      FixtureService.getFixtures("65590acab19d56d5417f608f")
-          .asStream()
-          .listen((fixtures) {
+      FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
         var fixture = fixtures
             .where((element) => element.id == message.data["data"])
             .first;
@@ -216,7 +207,7 @@ void main() async {
 
   FirebaseMessaging.onMessage.listen(showFlutterNotification);
   setUpMessage();
-  await DeviceManager.clearAll();
+  // await DeviceManager.clearAll();
   // Rendering the app in full screen mode.
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
@@ -239,10 +230,10 @@ void main() async {
       if (event) {
         FirebaseMessaging.instance.getAPNSToken().asStream().listen((token) {
           // print("Token $token");
-         if (token != null) {
+          if (token != null) {
             DeviceManager.saveDeviceKey(
-              token, "${iosInfo.model}_${iosInfo.localizedModel}");
-         }
+                token, "${iosInfo.model}_${iosInfo.identifierForVendor}");
+          }
         });
       }
     });
@@ -252,9 +243,8 @@ void main() async {
     DeviceManager.checkDeviceId().asStream().listen((event) {
       if (event) {
         FirebaseMessaging.instance.getToken().asStream().listen((token) {
-          // print("Token $token");
           DeviceManager.saveDeviceKey(
-              token!, "${androidInfo.model}_${androidInfo.serialNumber}");
+              token!, "${androidInfo.model}_${androidInfo.fingerprint}");
         });
       }
     });
