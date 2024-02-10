@@ -13,7 +13,7 @@ class DeviceManager {
       Uri.parse(Apis.saveDeviceId),
       body: {
         "deviceId": deviceKey,
-        "league": "65590acab19d56d5417f608f",
+        "league": leagueId,
         "device_uuid": device_uuid
       },
     ).then((value) {
