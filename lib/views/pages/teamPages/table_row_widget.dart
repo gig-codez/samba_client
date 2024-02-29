@@ -180,14 +180,12 @@ class TableRowWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      "$id"
-                    ),
+                    Text("$id"),
                     const SizedBox.square(
                       dimension: 2,
                     ),
                     Image.network(
-                      Apis.image + image,
+                      image,
                       width: 35,
                       height: 35,
                     ),
@@ -200,31 +198,31 @@ class TableRowWidget {
                 const SizedBox.square(
                   dimension: 30,
                 ),
-                  Row(
-                                          children: [
-                                            Text("$p "),
-                                            const SizedBox.square(
-                                              dimension: 10,
-                                            ),
-                                            Text("${w?.zeros } "),
-                                            const SizedBox.square(
-                                              dimension: 10,
-                                            ),
-                                            Text("${d?.zeros} "),
-                                            const SizedBox.square(
-                                              dimension: 10,
-                                            ),
-                                            Text("${l?.zeros} "),
-                                            const SizedBox.square(
-                                              dimension: 10,
-                                            ),
-                                            Text("${gd?.zeros} "),
-                                            const SizedBox.square(
-                                              dimension: 10,
-                                            ),
-                                            Text("${pts?.zeros} "),
-                                          ],
-                                        ),
+                Row(
+                  children: [
+                    Text("$p "),
+                    const SizedBox.square(
+                      dimension: 10,
+                    ),
+                    Text("${w?.zeros} "),
+                    const SizedBox.square(
+                      dimension: 10,
+                    ),
+                    Text("${d?.zeros} "),
+                    const SizedBox.square(
+                      dimension: 10,
+                    ),
+                    Text("${l?.zeros} "),
+                    const SizedBox.square(
+                      dimension: 10,
+                    ),
+                    Text("${gd?.zeros} "),
+                    const SizedBox.square(
+                      dimension: 10,
+                    ),
+                    Text("${pts?.zeros} "),
+                  ],
+                ),
               ],
             ),
           ),

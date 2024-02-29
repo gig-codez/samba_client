@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:intl/intl.dart';
 import '../../controllers/data_controller.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../../main.dart';
 import '../../services/match_date_service.dart';
 import '../../widgets/LeagueWidget.dart';
@@ -26,18 +25,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
     setUpMessage();
     Provider.of<DataController>(context, listen: false)
-        .fetchLeagueData("65590acab19d56d5417f608f");
+        .fetchLeagueData(leagueId);
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       Provider.of<DataController>(context, listen: false)
-          .fetchLeagueData("65590acab19d56d5417f608f");
+          .fetchLeagueData(leagueId);
       Provider.of<DataController>(context, listen: false)
-          .fetchMatchDates("65590acab19d56d5417f608f");
+          .fetchMatchDates(leagueId);
     });
     Timer.periodic(const Duration(milliseconds: 200), (timer) async {
       log("${timer.tick} $tabs");
-      var matchDates =
-          await MatchDateService.getMatchDates("65590acab19d56d5417f608f");
+      var matchDates = await MatchDateService.getMatchDates(leagueId);
       if (tabs == 0) {
         setState(() {
           tabs = matchDates.length;
@@ -60,36 +58,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  String _getTabLabel(DateTime date) {
-    String stringDate = DateFormat('EEE d MMM').format(date);
-    String currentDate = DateFormat('EEE d MMM').format(DateTime.now());
-    // Customize the logic to determine the label based on the relation to the current date
-    if (stringDate.split(" ").first == currentDate.split(" ").first &&
-        stringDate.split(" ")[1] == currentDate.split(" ")[1] &&
-        (stringDate.split(" ").last == currentDate.split(" ").last)) {
-      return 'Today';
-    } else if (int.parse(stringDate.split(" ")[1]) ==
-            (int.parse(currentDate.split(" ")[1]) - 1) &&
-        (stringDate.split(" ").last == currentDate.split(" ").last)) {
-      return 'Yesterday';
-    } else if (int.parse(stringDate.split(" ")[1]) ==
-            (int.parse(currentDate.split(" ")[1]) + 1) &&
-        (stringDate.split(" ").last == currentDate.split(" ").last)) {
-      return 'Tomorrow';
-    } else {
-      return DateFormat('EEE d MMM').format(date);
-    }
-  }
-
   int currentTab = 0;
   int debounce = 0;
   int tabs = 0;
   @override
   Widget build(BuildContext context) {
     Provider.of<DataController>(context, listen: false)
-        .fetchLeagueData("65590acab19d56d5417f608f");
+        .fetchLeagueData(leagueId);
     return Consumer<DataController>(builder: (context, controller, child) {
-      controller.fetchMatchDates("65590acab19d56d5417f608f");
+      controller.fetchMatchDates(leagueId);
       // }
       if (tabs == 0) {
         tabController = TabController(
@@ -102,10 +79,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       // debounce++;
       return Scaffold(
         appBar: AppBar(
-          leading: const CircleAvatar(
-            backgroundImage: AssetImage("assets/lptl.png"),
+          leading: const Image(
+            image: AssetImage("assets/leagues/fufa.png"),
           ),
-          title: const Text('FUFA'),
+          title: Text(appTitle),
         ),
         body: Column(
           children: [
@@ -116,9 +93,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 tabs: List.generate(
                   tabs,
                   (index) => Tab(
-                    text: _getTabLabel(
-                      DateTime.parse(controller.matchDates[index].date),
-                    ),
+                    text: DateTime.parse(controller.matchDates[index].date)
+                        .formated(),
                   ),
                 ),
               ),
@@ -141,6 +117,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
               ),
+            TapEffect(
+              child: Image.asset(
+                "assets/images/betpawa.jpeg",
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+              ),
+              onClick: () {
+                launchUrl(Uri.parse("https://betpawa.com/"),
+                    mode: LaunchMode.externalApplication);
+              },
+            ),
           ],
         ),
       );

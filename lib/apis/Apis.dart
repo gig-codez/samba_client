@@ -1,6 +1,5 @@
 class Apis {
-  static String apiUrl = "http://15.237.71.190:3000/"; //15.237.71.190
-  static String image = "${apiUrl}images/";
+  static String apiUrl = "http://165.232.121.139/";
   // players routes
   static String fetchPlayers = "${apiUrl}player/players/";
   static String createPlayer = "${apiUrl}player/addplayer";
@@ -31,7 +30,7 @@ class Apis {
   static String fetchResults = "${apiUrl}result/results";
   static String fetchSingleResult = "${apiUrl}result/results/";
 // deviceId
-  static String saveDeviceId = "${apiUrl}player/saveDeviceId";
+  static String saveDeviceId = "${apiUrl}notify/saveDeviceId";
   // match dates
   static String addMatchDates = "${apiUrl}match/add";
   static String getMatchDates = "${apiUrl}match/get/";

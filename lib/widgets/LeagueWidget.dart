@@ -41,10 +41,9 @@ class _LeagueWidgetState extends State<LeagueWidget> {
         _timer = timer;
       });
       widget.controller.fetchLeagueData(
-        "65590acab19d56d5417f608f",
+        leagueId,
       );
-      widget.controller
-          .fetchFixtureData("65590acab19d56d5417f608f", widget.matchId);
+      widget.controller.fetchFixtureData(leagueId, widget.matchId);
     });
   }
 
@@ -115,11 +114,11 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                     child: Text(
                       fixture!.matchEnded
                           ? "FT"
-                          : fixture.isLive
-                              ? fixture.elapsedTime.isEmpty
-                                  ? "FT"
-                                  : fixture.elapsedTime
-                              : fixture.kickofftime,
+                          : fixture.halfEnded && fixture.firstHalfEnded
+                              ? "HT"
+                              : fixture.isRunning
+                                  ? fixture.elapsedTime
+                                  : fixture.kickofftime,
                       style: textStyle.copyWith(fontSize: 15),
                       textAlign: TextAlign.center,
                     ),
@@ -138,7 +137,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image.network(
-                                  Apis.image + fixture.hometeam.image,
+                                  fixture.hometeam.image,
                                   width: 44,
                                   height: 44,
                                 ),
@@ -165,7 +164,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image.network(
-                                  Apis.image + fixture.awayteam.image,
+                                  fixture.awayteam.image,
                                   width: 44,
                                   height: 44,
                                 ),

@@ -1,4 +1,4 @@
-package com.app.lptl
+package com.app.fau
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -51,17 +51,19 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDFi4RZagWLWWklwpW4sLx8Sm-I8TM1RHs',
-    appId: '1:395731031915:android:3d5930d080319f721f5e2e',
+    appId: '1:395731031915:android:ca18cb808f8fcc4a1f5e2e',
     messagingSenderId: '395731031915',
     projectId: 'notify-a7382',
+    databaseURL: 'https://notify-a7382-default-rtdb.firebaseio.com',
     storageBucket: 'notify-a7382.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyB9AjD2HwnagvAtuFjfzBLITWIPztCkfvs',
-    appId: '1:395731031915:ios:4f323313bfb93f5a1f5e2e',
+    appId: '1:395731031915:ios:edcb7a8830e146041f5e2e',
     messagingSenderId: '395731031915',
     projectId: 'notify-a7382',
+    databaseURL: 'https://notify-a7382-default-rtdb.firebaseio.com',
     storageBucket: 'notify-a7382.appspot.com',
     iosBundleId: 'com.app.sambaClient',
   );

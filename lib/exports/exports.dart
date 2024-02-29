@@ -9,14 +9,10 @@ export '/views/auth/CreateAccount.dart';
 export '/views/auth/completeProfile.dart';
 export '/views/auth/login.dart';
 export '/views/pages/GeneralSettings.dart';
-export '/views/pages/Notifications.dart';
 
 // inner pages
 export '/views/index.dart';
 export '/views/pages/homePage.dart';
-export '/views/pages/Pages.dart';
-export '/views/pages/LiveScore.dart';
-export '/views/pages/Stats.dart';
 export '/views/pages/Profile.dart';
 export '/views/pages/Teams.dart';
 
@@ -36,13 +32,14 @@ export '/extensions/int_extension.dart';
 // controllers
 export '/controllers/AppController.dart';
 // apis
-export '/apis/Apis.dart';
+export '../apis/apis.dart';
 // widgets
 export '/widgets/CustomButton.dart';
 export '/widgets/CommonTextField.dart';
 export '/widgets/ProfileWidget.dart';
 // helpers
 export '/helpers/Helpers.dart';
+export '/helpers/global.dart';
 
 // routes
 export '/routes/routes.dart';
@@ -51,3 +48,6 @@ export '/routes/routes.dart';
 export '/tools/TapEffect.dart';
 export '/tools/TextStyles.dart';
 export '/tools/tools.dart';
+
+// extensions
+export '/extensions/datetime_extension.dart';
