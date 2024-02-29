@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       return Scaffold(
         appBar: AppBar(
           leading: const Image(
-            image: AssetImage("assets/leagues/fufa.png"),
+            image: AssetImage("assets/leagues/nangwa-no-bg.png"),
           ),
           title: Text(appTitle),
         ),
@@ -117,17 +117,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-            TapEffect(
-              child: Image.asset(
-                "assets/images/betpawa.jpeg",
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-              ),
-              onClick: () {
-                launchUrl(Uri.parse("https://betpawa.com/"),
-                    mode: LaunchMode.externalApplication);
-              },
-            ),
+            // TapEffect(
+            //   child: Image.asset(
+            //     "assets/images/betpawa.jpeg",
+            //     width: MediaQuery.of(context).size.width,
+            //     height: 50,
+            //   ),
+            //   onClick: () {
+            //     launchUrl(Uri.parse("https://betpawa.com/"),
+            //         mode: LaunchMode.externalApplication);
+            //   },
+            // ),
           ],
         ),
       );

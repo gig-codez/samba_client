@@ -1,2 +1,2 @@
-String leagueId = "65a1676750576beff4d9050e";
-String appTitle = "FAU";
+String leagueId = "65dc80b91e0e5f4850a681d5";
+String appTitle = "Nangwa League";
