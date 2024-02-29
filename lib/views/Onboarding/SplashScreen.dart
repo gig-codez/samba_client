@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
                 );
               },
               child: Image.asset(
-                'assets/leagues/fufa.png',
+                leagueLogo,
                 height: 120,
                 width: 120,
               ),

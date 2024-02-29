@@ -79,10 +79,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       // debounce++;
       return Scaffold(
         appBar: AppBar(
-          leading: const Image(
-            image: AssetImage("assets/leagues/nangwa-no-bg.png"),
+          leading: Image(
+            image: AssetImage(leagueLogo),
           ),
-          title: Text(appTitle),
+          title: Text(appTitle.toUpperCase()),
         ),
         body: Column(
           children: [
