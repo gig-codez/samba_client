@@ -114,11 +114,11 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                     child: Text(
                       fixture!.matchEnded
                           ? "FT"
-                          : fixture.isLive
-                              ? fixture.elapsedTime.isEmpty
-                                  ? "FT"
-                                  : fixture.elapsedTime
-                              : fixture.kickofftime,
+                          : fixture.halfEnded && fixture.firstHalfEnded
+                              ? "HT"
+                              : fixture.isRunning
+                                  ? fixture.elapsedTime
+                                  : fixture.kickofftime,
                       style: textStyle.copyWith(fontSize: 15),
                       textAlign: TextAlign.center,
                     ),

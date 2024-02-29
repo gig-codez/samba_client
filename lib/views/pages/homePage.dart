@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import '../../controllers/data_controller.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../../main.dart';
 import '../../services/match_date_service.dart';
 import '../../widgets/LeagueWidget.dart';
@@ -35,8 +35,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     });
     Timer.periodic(const Duration(milliseconds: 200), (timer) async {
       log("${timer.tick} $tabs");
-      var matchDates =
-          await MatchDateService.getMatchDates(leagueId);
+      var matchDates = await MatchDateService.getMatchDates(leagueId);
       if (tabs == 0) {
         setState(() {
           tabs = matchDates.length;
@@ -58,6 +57,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     tabController?.dispose();
     super.dispose();
   }
+
   int currentTab = 0;
   int debounce = 0;
   int tabs = 0;
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           leading: const Image(
             image: AssetImage("assets/leagues/fufa.png"),
           ),
-          title:  Text(appTitle),
+          title: Text(appTitle),
         ),
         body: Column(
           children: [
@@ -93,8 +93,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 tabs: List.generate(
                   tabs,
                   (index) => Tab(
-                    text: DateTime.parse(controller.matchDates[index].date).formated(),
-                    
+                    text: DateTime.parse(controller.matchDates[index].date)
+                        .formated(),
                   ),
                 ),
               ),
@@ -117,6 +117,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
               ),
+            TapEffect(
+              child: Image.asset(
+                "assets/images/betpawa.jpeg",
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+              ),
+              onClick: () {
+                launchUrl(Uri.parse("https://betpawa.com/"),
+                    mode: LaunchMode.externalApplication);
+              },
+            ),
           ],
         ),
       );

@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 FixtureModel fixtureModelFromJson(String str) =>
@@ -23,6 +22,9 @@ class FixtureModel {
 }
 
 class Datum {
+  final bool firstHalfEnded;
+  final bool secondHalfEnded;
+  final bool isRunning;
   final String id;
   final String league;
   final Team hometeam;
@@ -41,6 +43,9 @@ class Datum {
   final int v;
 
   Datum({
+    required this.firstHalfEnded,
+    required this.secondHalfEnded,
+    required this.isRunning,
     required this.id,
     required this.league,
     required this.hometeam,
@@ -60,6 +65,9 @@ class Datum {
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        firstHalfEnded: json["firstHalfEnded"],
+        secondHalfEnded: json["secondHalfEnded"],
+        isRunning: json["isRunning"],
         id: json["_id"],
         league: json["league"],
         hometeam: Team.fromJson(json["hometeam"]),
@@ -79,6 +87,9 @@ class Datum {
       );
 
   Map<String, dynamic> toJson() => {
+        "firstHalfEnded": firstHalfEnded,
+        "secondHalfEnded": secondHalfEnded,
+        "isRunning": isRunning,
         "_id": id,
         "league": league,
         "hometeam": hometeam.toJson(),

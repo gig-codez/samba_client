@@ -1,23 +1,20 @@
 import '/exports/exports.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'dart:convert';
 class DeviceManager {
   static const String _deviceKey = 'deviceKey';
 
-  static void saveDeviceKey(String deviceKey, String device_uuid) {
-    SharedPreferences.getInstance().then((prefs) {
-      prefs.setString(_deviceKey, deviceKey);
-    });
+  static void saveDeviceKey(String deviceKey, String deviceUuid) {
 
     Client().post(
       Uri.parse(Apis.saveDeviceId),
       body: {
         "deviceId": deviceKey,
         "league": leagueId,
-        "device_uuid": device_uuid
+        "device_uuid": deviceUuid
       },
     ).then((value) {
-      debugPrint(value.body);
+      json.decode(value.body);
     });
   }
 

@@ -50,7 +50,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 /// call. Be sure to annotate the handler with `@pragma('vm:entry-point')` above the function declaration.
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+  }
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setupFlutterNotifications();
   showFlutterNotification(message);
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -186,7 +190,11 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 void main() async {
   // Ensuring that all widgets are properly assembled.
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+  }
+
   FirebaseMessaging.instance.requestPermission(
     alert: true,
     announcement: false,
@@ -228,12 +236,13 @@ void main() async {
     // DeviceManager.clearAll();
     DeviceManager.checkDeviceId().asStream().listen((event) {
       if (event) {
-        FirebaseMessaging.instance.getAPNSToken().asStream().listen((token) {
-          // print("Token $token");
-          if (token != null) {
-            DeviceManager.saveDeviceKey(
-                token, "${iosInfo.model}_${iosInfo.identifierForVendor}");
-          }
+        FirebaseMessaging.instance.getAPNSToken().asStream().listen((apn) {
+          FirebaseMessaging.instance.getToken().asStream().listen((token) {
+            if (token != null) {
+              DeviceManager.saveDeviceKey(
+                  token, "${iosInfo.model}_${iosInfo.identifierForVendor}");
+            }
+          });
         });
       }
     });
