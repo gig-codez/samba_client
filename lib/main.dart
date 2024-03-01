@@ -50,10 +50,10 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 /// call. Be sure to annotate the handler with `@pragma('vm:entry-point')` above the function declaration.
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-  }
+  // if (Firebase.apps.isEmpty) {
+  //   await Firebase.initializeApp(
+  //       options: DefaultFirebaseOptions.currentPlatform);
+  // }
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setupFlutterNotifications();
   showFlutterNotification(message);
@@ -94,11 +94,11 @@ Future<void> setupFlutterNotifications() async {
 
   /// Update the iOS foreground notification presentation options to allow
   /// heads up notifications.
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+  //   alert: true,
+  //   badge: true,
+  //   sound: true,
+  // );
   isFlutterLocalNotificationsInitialized = true;
 }
 
@@ -133,55 +133,55 @@ void showFlutterNotification(RemoteMessage message) {
 
 @pragma('vm:entry-point')
 void setUpMessage() {
-  FirebaseMessaging.instance.getInitialMessage().asStream().listen((message) {
-    if (message != null) {
-      if (message.data["type"] == "fixture") {
-        FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
-          var fixture = fixtures
-              .where((element) => element.id == message.data["data"])
-              .first;
-          Routes.animateToPage(
-            TeamsPage(
-              data: fixture,
-            ),
-          );
-        });
-      }
-    }
-  });
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    // log("On message event.");
-    // debugPrint(message.data.toString());
-    if (message.data["type"] == "fixture") {
-      FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
-        var fixture = fixtures
-            .where((element) => element.id == message.data["data"])
-            .first;
-        Routes.animateToPage(
-          TeamsPage(
-            data: fixture,
-          ),
-        );
-      });
-    }
-  });
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    // log("Message opened app");
-    // debugPrint(message.data.toString());
-    // working on match rooms when notification opens the app
-    if (message.data["type"] == "fixture") {
-      FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
-        var fixture = fixtures
-            .where((element) => element.id == message.data["data"])
-            .first;
-        Routes.animateToPage(
-          TeamsPage(
-            data: fixture,
-          ),
-        );
-      });
-    }
-  });
+  // FirebaseMessaging.instance.getInitialMessage().asStream().listen((message) {
+  //   if (message != null) {
+  //     if (message.data["type"] == "fixture") {
+  //       FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
+  //         var fixture = fixtures
+  //             .where((element) => element.id == message.data["data"])
+  //             .first;
+  //         Routes.animateToPage(
+  //           TeamsPage(
+  //             data: fixture,
+  //           ),
+  //         );
+  //       });
+  //     }
+  //   }
+  // });
+  // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   // log("On message event.");
+  //   // debugPrint(message.data.toString());
+  //   if (message.data["type"] == "fixture") {
+  //     FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
+  //       var fixture = fixtures
+  //           .where((element) => element.id == message.data["data"])
+  //           .first;
+  //       Routes.animateToPage(
+  //         TeamsPage(
+  //           data: fixture,
+  //         ),
+  //       );
+  //     });
+  //   }
+  // });
+  // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //   // log("Message opened app");
+  //   // debugPrint(message.data.toString());
+  //   // working on match rooms when notification opens the app
+  //   if (message.data["type"] == "fixture") {
+  //     FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
+  //       var fixture = fixtures
+  //           .where((element) => element.id == message.data["data"])
+  //           .first;
+  //       Routes.animateToPage(
+  //         TeamsPage(
+  //           data: fixture,
+  //         ),
+  //       );
+  //     });
+  //   }
+  // });
 }
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
@@ -190,24 +190,24 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 void main() async {
   // Ensuring that all widgets are properly assembled.
   WidgetsFlutterBinding.ensureInitialized();
-  if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-  }
+  // if (Firebase.apps.isEmpty) {
+  //   await Firebase.initializeApp(
+  //       options: DefaultFirebaseOptions.currentPlatform);
+  // }
 
-  FirebaseMessaging.instance.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
+  // FirebaseMessaging.instance.requestPermission(
+  //   alert: true,
+  //   announcement: false,
+  //   badge: true,
+  //   carPlay: false,
+  //   criticalAlert: false,
+  //   provisional: false,
+  //   sound: true,
+  // );
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: true, badge: true, sound: true);
+  // FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+  //     alert: true, badge: true, sound: true);
 
   if (!kIsWeb) {
     await setupFlutterNotifications();
