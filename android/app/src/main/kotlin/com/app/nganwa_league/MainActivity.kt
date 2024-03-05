@@ -1,4 +1,4 @@
-package com.app.nangwa_league
+package com.app.nganwa_league
 
 import io.flutter.embedding.android.FlutterActivity
 

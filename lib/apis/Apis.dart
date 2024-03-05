@@ -1,5 +1,7 @@
 class Apis {
   static String apiUrl = "http://165.232.121.139/";
+  // Socket.IO server url
+
   // players routes
   static String fetchPlayers = "${apiUrl}player/players/";
   static String createPlayer = "${apiUrl}player/addplayer";

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:data_table_2/data_table_2.dart';
 import '../../../models/table_model.dart';
 import '../../../services/table_service.dart';
 import '/views/pages/teamPages/table_row_widget.dart';
@@ -62,7 +61,7 @@ class _TablePageState extends State<TablePage> {
                               scrollDirection: Axis.horizontal,
                               child: DataTable(
                                 columns: const [
-                                  DataColumn2(
+                                  DataColumn(
                                     // fixedWidth: 100,
                                     label: Row(
                                       mainAxisAlignment:

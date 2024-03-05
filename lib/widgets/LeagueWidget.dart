@@ -1,8 +1,10 @@
 import 'dart:async';
 import '../controllers/data_controller.dart';
+import '../services/WebSocketService.dart';
 import '/exports/exports.dart';
 import '/models/fixture.dart';
 import '/models/league.dart';
+import 'glowing_widget.dart';
 
 class LeagueWidget extends StatefulWidget {
   final Message data;
@@ -37,9 +39,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   void initState() {
     super.initState();
     Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _timer = timer;
-      });
+      if (mounted) _timer = timer;
+      // WebSocketService.fetchMatchTime();
       widget.controller.fetchLeagueData(
         leagueId,
       );
@@ -56,6 +57,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
 // card header
   Widget _cardHeader({String? title, String? teamLogo}) {
     BuildContext? context = navigatorKey.currentContext;
+    WebSocketService.fetchMatchTime();
+    WebSocketService.getServerState();
     return FittedBox(
       child: SizedBox(
         width: MediaQuery.of(context!).size.width,
@@ -67,7 +70,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(50),
-                child: SizedBox(),
+                child: const SizedBox(),
               ),
               Text(
                 title ?? "League name",
@@ -87,7 +90,10 @@ class _LeagueWidgetState extends State<LeagueWidget> {
     );
   }
 
-  Widget cardContent({Datum? fixture}) {
+  // variable to hold socketData
+  Map<String, dynamic> socketData = {};
+
+  Widget cardContent({Datum? fixture, required Map<String, dynamic> socket}) {
     BuildContext? context = navigatorKey.currentContext;
     TextStyle textStyle = Theme.of(context!)
         .textTheme
@@ -116,14 +122,15 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                           ? "FT"
                           : fixture.halfEnded && fixture.firstHalfEnded
                               ? "HT"
-                              : fixture.isRunning
-                                  ? fixture.elapsedTime
+                              : socket['running'] == true
+                                  ? socket['elapsedTime']
                                   : fixture.kickofftime,
                       style: textStyle.copyWith(fontSize: 15),
                       textAlign: TextAlign.center,
                     ),
                   ),
                 ),
+              if (socket['running'] == true) const GlowingWidget(glowSize: Size(5, 5)),
                 Expanded(
                   flex: 4,
                   child: FittedBox(
@@ -219,7 +226,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   @override
   Widget build(BuildContext context) {
     // log(widget.matchId);
-
+    // WebSocketService.fetchMatchTime();
+    // WebSocketService.getServerState();
     return widget.controller.fixtureData.isEmpty
         ? Center(
             child: Column(
@@ -247,28 +255,33 @@ class _LeagueWidgetState extends State<LeagueWidget> {
             ),
             child:
                 Consumer<DataController>(builder: (context, controller, child) {
-              // controller.fetchLeagueData(
-              //   "65590acab19d56d5417f608f",
-              // );
-              // controller.fetchLeagueData(
-              //   "65590acab19d56d5417f608f",
-              // );
-              return Column(
-                children: [
-                  _cardHeader(
-                    title: widget.data.name,
-                  ),
-                  Divider(
-                    color: Colors.grey.shade300,
-                  ),
-                  ...List.generate(
-                    controller.fixtureData.length,
-                    (i) => cardContent(
-                      fixture: controller.fixtureData[i],
-                    ),
-                  ),
-                ],
-              );
+              return StreamBuilder(
+                  stream: streamSocket.getResponse,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data != null) {
+                        // print("Responses => ${snapshot.data}");
+                        socketData = snapshot.data;
+                      }
+                    }
+                    return Column(
+                      children: [
+                        _cardHeader(
+                          title: widget.data.name,
+                        ),
+                        Divider(
+                          color: Colors.grey.shade300,
+                        ),
+                        ...List.generate(
+                          controller.fixtureData.length,
+                          (i) => cardContent(
+                            fixture: controller.fixtureData[i],
+                            socket: socketData,
+                          ),
+                        ),
+                      ],
+                    );
+                  });
             }),
           );
   }

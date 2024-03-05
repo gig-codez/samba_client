@@ -24,8 +24,6 @@ export 'package:smooth_page_indicator/smooth_page_indicator.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'package:flutter_svg/flutter_svg.dart';
-export 'package:accordion/accordion.dart';
-export 'package:accordion/controllers.dart';
 export 'package:http/http.dart';
 // extensions
 export '/extensions/int_extension.dart';

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 
 import '../../controllers/data_controller.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../main.dart';
+// import 'package:url_launcher/url_launcher.dart';
+// import '../../main.dart';
 import '../../models/match_date.dart';
 import '../../services/match_date_service.dart';
 import '../../widgets/LeagueWidget.dart';
@@ -21,18 +21,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Timer? _timer;
   // int tabs = 0;
   int currentTab(List<MatchDateModel> match) {
-    int tabIndex = match.indexOf(match
-        .where((element) =>
-            DateTime.parse(element.date).formated() ==
-            DateTime.now().formated())
-        .first);
-    return tabIndex == -1 ? match.length - 1 : tabIndex;
+    var tabDate = match.where((element) =>
+        DateTime.parse(element.date).formated() == DateTime.now().formated());
+    if (tabDate.isEmpty) {
+      return (match.length - 1);
+    }
+    int tabIndex = match.indexOf(tabDate.first);
+    return tabIndex;
   }
 
   @override
   void initState() {
     super.initState();
-    setUpMessage();
+    // setUpMessage();
     Provider.of<DataController>(context, listen: false)
         .fetchLeagueData(leagueId);
 
@@ -86,7 +87,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       if (tabs == 0) {
         tabController = TabController(
           length: tabs,
-          initialIndex: tabs == 0 ? 0 : tabs - 1,
+          // initialIndex: tabs == 0 ? 0 : tabs - 1,
           vsync: this,
         );
       }

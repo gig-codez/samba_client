@@ -50,9 +50,9 @@ class DataController with ChangeNotifier {
   }
 
   // live fixture time
-  String _liveFixtureTime = "";
-  String get liveFixtureTime => _liveFixtureTime;
-  set liveFixtureTime(String time) {
+  Map<String,dynamic> _liveFixtureTime = {};
+  Map<String,dynamic> get liveFixtureTime => _liveFixtureTime;
+  set liveFixtureTime(Map<String, dynamic> time) {
     _liveFixtureTime = time;
     notifyListeners();
   }
