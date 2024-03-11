@@ -1,5 +1,5 @@
-name: nganwa_league
-description: "A client app for nganwa league."
+name: fau
+description: "A client app for Fustal."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -52,7 +52,7 @@ flutter:
 # setting up UI launcher splash screen
 flutter_native_splash:
   color: "##FAFAFA"
-  image: "assets/leagues/nangwa-logo.png"
+  image: "assets/leagues/fufa.png"
   android_12:
     color: "##FAFAFA"
   android_gravity: center
@@ -64,5 +64,5 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/leagues/nangwa-logo.png"
+  image_path: "assets/leagues/fufa.png"
   min_sdk_android: 21 # android min sdk min:16, default 21

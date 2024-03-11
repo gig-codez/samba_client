@@ -118,19 +118,14 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                   child: SizedBox(
                     width: 20,
                     child: Text(
-                      fixture!.matchEnded
-                          ? "FT"
-                          : fixture.halfEnded && fixture.firstHalfEnded
-                              ? "HT"
-                              : socket['running'] == true
-                                  ? socket['elapsedTime']
-                                  : fixture.kickofftime,
+                      timeUpdates(fixture!),
                       style: textStyle.copyWith(fontSize: 15),
                       textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-              if (socket['running'] == true) const GlowingWidget(glowSize: Size(5, 5)),
+                if (fixture.isRunning == true)
+                  const GlowingWidget(glowSize: Size(5, 5)),
                 Expanded(
                   flex: 4,
                   child: FittedBox(
@@ -255,33 +250,23 @@ class _LeagueWidgetState extends State<LeagueWidget> {
             ),
             child:
                 Consumer<DataController>(builder: (context, controller, child) {
-              return StreamBuilder(
-                  stream: streamSocket.getResponse,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data != null) {
-                        // print("Responses => ${snapshot.data}");
-                        socketData = snapshot.data;
-                      }
-                    }
-                    return Column(
-                      children: [
-                        _cardHeader(
-                          title: widget.data.name,
-                        ),
-                        Divider(
-                          color: Colors.grey.shade300,
-                        ),
-                        ...List.generate(
-                          controller.fixtureData.length,
-                          (i) => cardContent(
-                            fixture: controller.fixtureData[i],
-                            socket: socketData,
-                          ),
-                        ),
-                      ],
-                    );
-                  });
+              return Column(
+                children: [
+                  _cardHeader(
+                    title: widget.data.name,
+                  ),
+                  Divider(
+                    color: Colors.grey.shade300,
+                  ),
+                  ...List.generate(
+                    controller.fixtureData.length,
+                    (i) => cardContent(
+                      fixture: controller.fixtureData[i],
+                      socket: socketData,
+                    ),
+                  ),
+                ],
+              );
             }),
           );
   }

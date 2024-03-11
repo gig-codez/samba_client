@@ -38,7 +38,7 @@ class PlayingTeams extends StatelessWidget {
                   TextSpan(
                     text: data.isLive
                         ? "${data.homeGoals} - ${data.awayGoals}"
-                        : "${data.kickofftime}\n",
+                        : timeUpdates(data),
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   // TextSpan(

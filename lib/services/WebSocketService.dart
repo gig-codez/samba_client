@@ -4,7 +4,8 @@ import '/exports/exports.dart';
 import '/streams/SocketStateStream.dart';
 import '/streams/StreamSocket.dart';
 
-const String socketURL = "http://165.232.121.139/";//'http://10.10.134.39:3000';
+const String socketURL =
+    "http://165.232.121.139:80"; //'http://10.10.134.39:3000';
 
 StreamSocket streamSocket = StreamSocket();
 SocketStateStream socketState = SocketStateStream();
@@ -18,10 +19,14 @@ class WebSocketService {
 
   // first establish server connection
   static void _connectToServer() {
-    _socket.on('connect', (_) {
-      showMessage(
-          msg: 'Connected to socket.io server!', color: Colors.green.shade600);
-    });
+    try {
+      _socket.on('connect', (_) {
+        // showMessage(
+        //     msg: 'Connected to socket.io server!', color: Colors.green.shade600);
+      });
+    } on Exception catch (_, e) {
+      print(e.toString());
+    }
   }
 
   // function to start fetch current live match time.
@@ -48,7 +53,7 @@ class WebSocketService {
     _connectToServer();
     // Listen for any event emitted by the server
     _socket.on("fixture-running", (data) {
-      if(data['league'] == leagueId){
+      if (data['league'] == leagueId) {
         socketState.addResponse(data);
       }
     });

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 
 import '../../controllers/data_controller.dart';
-// import 'package:url_launcher/url_launcher.dart';
-// import '../../main.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../main.dart';
 import '../../models/match_date.dart';
 import '../../services/match_date_service.dart';
 import '../../widgets/LeagueWidget.dart';
@@ -133,17 +133,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-            // TapEffect(
-            //   child: Image.asset(
-            //     "assets/images/betpawa.jpeg",
-            //     width: MediaQuery.of(context).size.width,
-            //     height: 50,
-            //   ),
-            //   onClick: () {
-            //     launchUrl(Uri.parse("https://betpawa.com/"),
-            //         mode: LaunchMode.externalApplication);
-            //   },
-            // ),
+            // for fau
+            TapEffect(
+              child: Image.asset(
+                "assets/images/betpawa.jpeg",
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                fit: BoxFit.cover,
+              ),
+              onClick: () {
+                launchUrl(Uri.parse("https://betpawa.com/games"),
+                    mode: LaunchMode.externalApplication);
+              },
+            ),
           ],
         ),
       );
