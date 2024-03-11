@@ -43,6 +43,7 @@ class WebSocketService {
       if (data['league'] == leagueId) {
         // stream data from the server
         streamSocket.addResponse(data);
+        print(data);
       }
     });
   }

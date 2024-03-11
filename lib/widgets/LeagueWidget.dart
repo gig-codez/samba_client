@@ -4,7 +4,7 @@ import '../services/WebSocketService.dart';
 import '/exports/exports.dart';
 import '/models/fixture.dart';
 import '/models/league.dart';
-import 'glowing_widget.dart';
+import 'RunningTimeWidget.dart';
 
 class LeagueWidget extends StatefulWidget {
   final Message data;
@@ -114,18 +114,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: SizedBox(
-                    width: 20,
-                    child: Text(
-                      timeUpdates(fixture!),
-                      style: textStyle.copyWith(fontSize: 15),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                if (fixture.isRunning == true)
-                  const GlowingWidget(glowSize: Size(5, 5)),
+                RunningTimeWidget(fixture: fixture),
                 Expanded(
                   flex: 4,
                   child: FittedBox(
@@ -139,7 +128,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image.network(
-                                  fixture.hometeam.image,
+                                  fixture!.hometeam.image,
                                   width: 44,
                                   height: 44,
                                 ),
@@ -221,8 +210,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   @override
   Widget build(BuildContext context) {
     // log(widget.matchId);
-    // WebSocketService.fetchMatchTime();
-    // WebSocketService.getServerState();
+    WebSocketService.fetchMatchTime();
+    WebSocketService.getServerState();
     return widget.controller.fixtureData.isEmpty
         ? Center(
             child: Column(
