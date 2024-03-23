@@ -20,7 +20,7 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _topTabController = TabController(length: 3, vsync: this);
+    _topTabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -33,11 +33,11 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.data.hometeam.name} vs ${widget.data.awayteam.name}"),
-        leading: BackButton(
-          onPressed: () => Routes.popPage(),
-        )
-      ),
+          title: Text(
+              "${widget.data.hometeam.name} Vs ${widget.data.awayteam.name}"),
+          leading: BackButton(
+            onPressed: () => Routes.popPage(),
+          )),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -54,6 +54,9 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
                         tabs: const [
                           Tab(
                             text: "Line Up",
+                          ),
+                          Tab(
+                            text: "Stats",
                           ),
                           Tab(
                             text: "Table",
@@ -73,6 +76,9 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
                             LineUpPage(
                               homeTeamId: widget.data.hometeam.id,
                               awayTeamId: widget.data.awayteam.id,
+                            ),
+                            StatsPage(
+                            team: widget.data,
                             ),
                             TablePage(
                               leagueId: widget.data.league,

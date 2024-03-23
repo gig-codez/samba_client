@@ -127,8 +127,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
-                                child: Image.network(
-                                  fixture!.hometeam.image,
+                                child: Image(
+                                  image: CachedNetworkImageProvider(fixture!.hometeam.image),
                                   width: 44,
                                   height: 44,
                                 ),
@@ -154,8 +154,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
-                                child: Image.network(
-                                  fixture.awayteam.image,
+                                child: Image(
+                                    image: CachedNetworkImageProvider(fixture.awayteam.image),
                                   width: 44,
                                   height: 44,
                                 ),
@@ -180,18 +180,16 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                 Expanded(
                   child: SizedBox(
                     width: 20,
-                    child: fixture.isLive
-                        ? Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(text: "${fixture.homeGoals}\n"),
-                                TextSpan(text: "\n ${fixture.awayGoals}"),
-                              ],
-                            ),
-                            textAlign: TextAlign.center,
-                            style: textStyle,
-                          )
-                        : null,
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(text: "${fixture.homeGoals}\n"),
+                          TextSpan(text: "\n ${fixture.awayGoals}"),
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
+                      style: textStyle,
+                    ),
                   ),
                 ),
               ],

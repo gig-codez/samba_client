@@ -10,7 +10,7 @@ class TableService {
       if (response.statusCode == 200) {
         res = response.body;
       } else {
-        showMessage(msg: "Something went wrong");
+        // showMessage(msg: "Something went wrong");
       }
     } on ClientException catch (e) {
       // showMessage(msg: e.message);
@@ -25,7 +25,7 @@ class TableService {
       if (response.statusCode == 200) {
         showMessage(msg: "Table Data added successfully");
       } else {
-        showMessage(msg: "Something went wrong");
+        // showMessage(msg: "Something went wrong");
       }
     } catch (e) {
       print(e);
@@ -41,7 +41,7 @@ class TableService {
       if (response.statusCode == 200) {
         showMessage(msg: "Table Data deleted successfully");
       } else {
-        showMessage(msg: "Something went wrong, Couldn't delete data");
+        // showMessage(msg: "Something went wrong, Couldn't delete data");
       }
     } on ClientException catch (e) {
       // showMessage(msg: e.message);
@@ -57,7 +57,7 @@ class TableService {
       if (response.statusCode == 200) {
         showMessage(msg: "Table Data updated successfully");
       } else {
-        showMessage(msg: "Something went wrong, Couldn't update data");
+        // showMessage(msg: "Something went wrong, Couldn't update data");
       }
     } on ClientException catch (e) {
       // showMessage(msg: e.message);

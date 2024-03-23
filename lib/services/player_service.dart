@@ -14,17 +14,17 @@ class PlayerService {
       );
       if (response.statusCode == 200) {
         res = response.body;
-          return playersModelFromJson(res).message;
+        return playersModelFromJson(res).message;
       } else {
         return Future.error(json.decode(response.body)['message']);
       }
     } on ClientException catch (e) {
-       return Future.error(e.message);
+      return Future.error(e.message);
     } on SocketException catch (e) {
-       return Future.error(e.message);
+      return Future.error(e.message);
     } on HttpException catch (e) {
-         return Future.error(e.message);
-    } 
+      return Future.error(e.message);
+    }
   }
 
   static Future<List<Message>> getTransferredPlayers(String teamId) async {
@@ -36,20 +36,16 @@ class PlayerService {
       if (response.statusCode == 200) {
         res = response.body;
         return playersModelFromJson(res).message;
-      } else{
-         return Future.error(jsonDecode(response.body)['message']);
+      } else {
+        return Future.error(jsonDecode(response.body)['message']);
       }
     } on ClientException catch (e) {
-
       return Future.error(e.message);
     } on SocketException catch (e) {
-      
-       return Future.error(e.message);
+      return Future.error(e.message);
     } on HttpException catch (e) {
-
-       return Future.error(e.message);
+      return Future.error(e.message);
     }
-    
   }
 
 // delete player
@@ -86,7 +82,7 @@ class PlayerService {
   }
 
   // edit players
-  static updatePlayer(String id, Map<String, dynamic> data) async {
+  static void updatePlayer(String id, Map<String, dynamic> data) async {
     try {
       Response response =
           await Client().put(Uri.parse(Apis.updatePlayer + id), body: data);
@@ -100,6 +96,39 @@ class PlayerService {
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
+    }
+  }
+
+  static Future<List<Message>> getTopScorers(String teamId) async {
+    try {
+      print("teamId => $teamId");
+      Response response = await Client().get(
+        Uri.parse(Apis.scorers + teamId),
+      );
+      if (response.statusCode == 200) {
+        print(response.body);
+        return playersModelFromJson(response.body).message;
+      } else {
+         print("Error => ${response.body}");
+        return Future.error(json.decode(response.body)['message']);
+      }
+    } on ClientException catch (_, e) {
+      return Future.error("Error fetching data");
+    }
+  }
+
+  static Future<List<Message>> getTopAssists(String teamId) async {
+    try {
+      Response response = await Client().get(
+        Uri.parse(Apis.topAssists + teamId),
+      );
+      if (response.statusCode == 200) {
+        return playersModelFromJson(response.body).message;
+      } else {
+        return Future.error(json.decode(response.body)['message']);
+      }
+    } on ClientException catch (_, e) {
+      return Future.error("Error fetching data");
     }
   }
 }

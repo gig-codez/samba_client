@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import '../../controllers/data_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../main.dart';
+// import '../../main.dart';
 import '../../models/match_date.dart';
 import '../../services/match_date_service.dart';
 import '../../widgets/LeagueWidget.dart';
@@ -21,13 +21,30 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Timer? _timer;
   // int tabs = 0;
   int currentTab(List<MatchDateModel> match) {
-    var tabDate = match.where((element) =>
-        DateTime.parse(element.date).formated() == DateTime.now().formated());
-    if (tabDate.isEmpty) {
-      return (match.length - 1);
+    try {
+      // Find the index of the match date matching today's date
+      int tabIndex = match.indexWhere((element) =>
+          DateTime.parse(element.date).formated() == DateTime.now().formated());
+
+      // If no match found, look for the next upcoming match
+      if (tabIndex == -1) {
+        List<DateTime> matchDates =
+            match.map((e) => DateTime.parse(e.date)).toList();
+        matchDates.sort(); // Ensure dates are in ascending order
+
+        DateTime nextMatchDate =
+            matchDates.firstWhere((date) => date.isAfter(DateTime.now(),),);
+        tabIndex = match.indexWhere(
+            (element) => DateTime.parse(element.date) == nextMatchDate);
+      }
+
+      return tabIndex;
+    } catch (error) {
+      // Handle any potential errors during date parsing or index retrieval
+      print("Error occurred: $error");
+      // Consider logging or reporting the error appropriately
+      return match.length - 1; // If an error occurs, default to the last index
     }
-    int tabIndex = match.indexOf(tabDate.first);
-    return tabIndex;
   }
 
   @override

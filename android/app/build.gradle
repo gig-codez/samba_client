@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.app.fau"
+    namespace "com.app.nganwa"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 

@@ -21,4 +21,5 @@ extension DateTimeUtil on DateTime {
       return DateFormat('EEE d MMM').format(this);
     }
   }
+
 }

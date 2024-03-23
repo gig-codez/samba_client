@@ -1,9 +1,9 @@
-name: fau
+name: nganwa
 description: "A client app for Fustal."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+1
+version: 1.3.5
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -30,6 +30,7 @@ dependencies:
   device_info_plus: ^9.1.1
   url_launcher: ^6.2.5
   socket_io_client: ^2.0.3+1
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -52,7 +53,7 @@ flutter:
 # setting up UI launcher splash screen
 flutter_native_splash:
   color: "##FAFAFA"
-  image: "assets/leagues/fufa.png"
+  image: "assets/leagues/nangwa-no-bg.png"
   android_12:
     color: "##FAFAFA"
   android_gravity: center
@@ -64,5 +65,5 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/leagues/fufa.png"
+  image_path: "assets/leagues/nangwa-no-bg.png"
   min_sdk_android: 21 # android min sdk min:16, default 21

@@ -1,3 +1,6 @@
+// import "package:http/retry.dart";
+// import "package:http/http.dart" as http;
+
 class Apis {
   static String apiUrl = "http://165.232.121.139/";
   // Socket.IO server url
@@ -44,4 +47,8 @@ class Apis {
   static String updateTableData = "${apiUrl}table/update/";
   static String deleteTableData = "${apiUrl}table/delete/";
   static String addTableData = "${apiUrl}table/add";
+  // stats
+  static String scorers = "${apiUrl}player/topScorers/";
+  static String topAssists = "${apiUrl}player/topAssists/";
+  static String cleanSheets = "${apiUrl}player/cleanSheets/";
 }

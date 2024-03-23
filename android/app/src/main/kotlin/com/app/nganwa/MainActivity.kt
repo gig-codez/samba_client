@@ -1,4 +1,4 @@
-package com.app.fau
+package com.app.nganwa
 
 import io.flutter.embedding.android.FlutterActivity
 
