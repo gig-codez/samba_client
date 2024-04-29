@@ -151,18 +151,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               ),
             // for fau
-            TapEffect(
-              child: Image.asset(
-                "assets/images/betpawa.jpeg",
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-                fit: BoxFit.cover,
-              ),
-              onClick: () {
-                launchUrl(Uri.parse("https://betpawa.com/games"),
-                    mode: LaunchMode.externalApplication);
-              },
-            ),
+            // TapEffect(
+            //   child: Image.asset(
+            //     "assets/images/betpawa.jpeg",
+            //     width: MediaQuery.of(context).size.width,
+            //     height: 50,
+            //     fit: BoxFit.cover,
+            //   ),
+            //   onClick: () {
+            //     launchUrl(Uri.parse("https://betpawa.com/games"),
+            //         mode: LaunchMode.externalApplication);
+            //   },
+            // ),
           ],
         ),
       );
