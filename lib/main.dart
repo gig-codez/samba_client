@@ -14,7 +14,6 @@ import '/services/fixture_service.dart';
 import '/theme/Theme.dart';
 
 import '/exports/exports.dart';
-import 'controllers/player_controller.dart';
 import 'controllers/data_controller.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -271,7 +270,8 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => PlayerController(),
-        ), ChangeNotifierProvider(
+        ),
+        ChangeNotifierProvider(
           create: (context) => StatsController(),
         ),
       ],
@@ -280,6 +280,7 @@ void main() async {
           return MaterialApp(
             navigatorKey: navigatorKey,
             initialRoute: Routes.splash,
+            debugShowCheckedModeBanner: false,
             routes: Routes.routes,
             theme: controller.isDarkMode ? Themes.darkTheme : Themes.lightTheme,
           );
