@@ -21,7 +21,8 @@ export '/views/index.dart';
 export '/views/pages/homePage.dart';
 export '/views/pages/Profile.dart';
 export '/views/pages/Teams.dart';
-
+// news
+export '/views/pages/news/index.dart';
 // third-party libraries
 export 'package:provider/provider.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
