@@ -50,10 +50,24 @@ class DataController with ChangeNotifier {
   }
 
   // live fixture time
-  Map<String,dynamic> _liveFixtureTime = {};
-  Map<String,dynamic> get liveFixtureTime => _liveFixtureTime;
+  Map<String, dynamic> _liveFixtureTime = {};
+  Map<String, dynamic> get liveFixtureTime => _liveFixtureTime;
   set liveFixtureTime(Map<String, dynamic> time) {
     _liveFixtureTime = time;
     notifyListeners();
+  }
+
+  // blogs
+  List<BlogsModel> _blogs = [];
+  List<BlogsModel> get blogs {
+     _fetchBlogs();
+     return _blogs;
+  }
+
+  void _fetchBlogs() {
+    BlogService.getBlogs(leagueId).then((value) {
+      _blogs = value;
+      notifyListeners();
+    });
   }
 }

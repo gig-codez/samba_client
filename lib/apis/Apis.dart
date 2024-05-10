@@ -2,7 +2,7 @@
 // import "package:http/http.dart" as http;
 
 class Apis {
-  static String apiUrl = "http://165.232.121.139/";
+  static String apiUrl = "http://209.38.140.141:3000/";
   // Socket.IO server url
 
   // players routes
@@ -51,4 +51,9 @@ class Apis {
   static String scorers = "${apiUrl}player/topScorers/";
   static String topAssists = "${apiUrl}player/topAssists/";
   static String cleanSheets = "${apiUrl}player/cleanSheets/";
+
+  // blogs
+  static String blogs = "${apiUrl}blogs";
+  // update
+  static String update = "${apiUrl}update";
 }
