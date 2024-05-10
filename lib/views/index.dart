@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import '/exports/exports.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +11,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+    String _currentVersion = '';
+  String _latestVersion = '';
+  Future<void> _checkForUpdates() async {
+    // Retrieve the current version of the app
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      _currentVersion = packageInfo.version;
+    });
+    // log("Current Version: $_currentVersion");
+    // Make an API call to get the latest version from the server
+    String latestVersion = await UpdateService.getVersion();
+
+    // Compare versions and prompt for an update if necessary
+   if(latestVersion.isNotEmpty){
+     if (_currentVersion != latestVersion) {
+      if (mounted) {
+        setState(() {
+          _latestVersion = latestVersion;
+        });
+        showUpdateDialog(
+            latestVersion: _latestVersion, version: _currentVersion);
+      }
+    }
+   }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+     _checkForUpdates();
+  }
   // selected nav item
   int selected = 0;
 

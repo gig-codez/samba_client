@@ -51,4 +51,9 @@ class Apis {
   static String scorers = "${apiUrl}player/topScorers/";
   static String topAssists = "${apiUrl}player/topAssists/";
   static String cleanSheets = "${apiUrl}player/cleanSheets/";
+
+  // blogs
+  static String blogs = "${apiUrl}blogs";
+  // update
+  static String update = "${apiUrl}update";
 }

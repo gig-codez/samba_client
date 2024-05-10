@@ -23,6 +23,7 @@ export '/views/pages/Profile.dart';
 export '/views/pages/Teams.dart';
 // news
 export '/views/pages/news/index.dart';
+export '/views/pages/news/blog_detail_page.dart';
 // third-party libraries
 export 'package:provider/provider.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -38,9 +39,10 @@ export '/extensions/int_extension.dart';
 // controllers
 export '../controllers/app_controller.dart';
 export '/controllers/stats_controller.dart';
+export '/controllers/data_controller.dart';
 export '/controllers/player_controller.dart';
 // apis
-export '../apis/apis.dart';
+export '/apis/apis.dart';
 // widgets
 export '/widgets/CustomButton.dart';
 export '/widgets/CommonTextField.dart';
@@ -59,3 +61,9 @@ export '/tools/tools.dart';
 
 // extensions
 export '/extensions/datetime_extension.dart';
+// models
+export "/models/blogs_model.dart";
+
+// services
+export "/services/blogs_service.dart";
+export "/services/update_service.dart";

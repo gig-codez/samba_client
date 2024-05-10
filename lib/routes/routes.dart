@@ -25,7 +25,7 @@ class Routes {
     createAccount: (context) => const CreateAccount(),
     completeProfile: (context) => const CompleteUserProfile(),
     login: (context) => const LoginScreen(),
-    home: (context) => const HomePage(),
+    home: (context) => const HomeScreen(),
     settings: (context) => const GeneralSettings(),
   };
   // routes methods
