@@ -1,4 +1,3 @@
-
 import '/exports/exports.dart';
 
 class Routes {
@@ -58,11 +57,18 @@ class Routes {
   static void animateToPage(Widget page, {type = 'fade'}) {
     Navigator.of(context).push(
       PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds:900),
-        reverseTransitionDuration:const Duration(milliseconds:900),
-        pageBuilder: (context, animation, secondaryAnimation) => type == 'scale'
-            ? ScaleTransition(
-                scale: animation,
+        transitionDuration: const Duration(milliseconds: 600),
+        reverseTransitionDuration: const Duration(milliseconds: 400),
+        pageBuilder: (context, animation, secondaryAnimation) => type == 'slide'
+            ? SlideTransition(
+                position: animation.drive(Tween<Offset>(
+                  begin: const Offset(1.0, 0.0),
+                  end: Offset.zero,
+                ).chain(
+                  CurveTween(
+                    curve: Curves.decelerate,
+                  ),
+                )),
                 child: page,
               )
             : FadeTransition(

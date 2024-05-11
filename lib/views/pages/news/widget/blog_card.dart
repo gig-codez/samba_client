@@ -15,13 +15,14 @@ class _BlogCardState extends State<BlogCard> {
     return InkWell(
       onTap: () {
         Routes.animateToPage(
-          BlogDetailPage(blog: widget.blog),
+          BlogDetailPage(blog: widget.blog,),
+          type: "slide",
         );
       },
       child: Row(
         children: [
-          Image.asset(
-            "assets/leagues/fufa.png",
+          Image.network(
+            widget.blog.image,
             width: 150,
             height: 100,
           ),

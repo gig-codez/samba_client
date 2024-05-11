@@ -12,6 +12,7 @@ class BlogTrendCard extends StatelessWidget {
         onTap: () {
           Routes.animateToPage(
             BlogDetailPage(blog: blog),
+            type: "slide",
           );
         },
         child: Column(
@@ -35,14 +36,14 @@ class BlogTrendCard extends StatelessWidget {
                     "Trending ",
                     style: Theme.of(context).textTheme.bodyLarge!.apply(
                           fontWeightDelta: 3,
-                          fontSizeDelta: 4,
+                          fontSizeDelta: 7,
                         ),
                   ),
                 ],
               ),
             ),
-            Image.asset(
-              "assets/leagues/fufa.png",
+            Image.network(
+              blog.image,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.width / 2,
               fit: BoxFit.cover,
@@ -74,7 +75,7 @@ class BlogTrendCard extends StatelessWidget {
                     radius: 17,
                     backgroundColor: Theme.of(context).primaryColor,
                     child: Icon(
-                      Icons.trending_up,
+                      Icons.article,
                       color: Theme.of(context).scaffoldBackgroundColor,
                       size: 16,
                     ),
@@ -84,7 +85,7 @@ class BlogTrendCard extends StatelessWidget {
                     "Latest Articles ",
                     style: Theme.of(context).textTheme.bodyLarge!.apply(
                           fontWeightDelta: 3,
-                          fontSizeDelta: 4,
+                          fontSizeDelta: 7,
                         ),
                   ),
                 ],

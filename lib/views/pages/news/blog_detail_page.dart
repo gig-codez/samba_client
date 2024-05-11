@@ -21,7 +21,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
           Padding(
             padding: const EdgeInsets.fromLTRB(18, 5, 18, 0),
             child: Text(
-              widget.blog.title,
+             "${ widget.blog.title}\n",
               style: Theme.of(context).textTheme.bodyLarge!.apply(
                     fontWeightDelta: 3,
                     fontSizeDelta: 6,
