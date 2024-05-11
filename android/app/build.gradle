@@ -27,7 +27,7 @@ if (flutterVersionName == null) {
        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
    }
 android {
-    namespace "com.app.nganwa"
+    namespace "com.app.ndejje"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
