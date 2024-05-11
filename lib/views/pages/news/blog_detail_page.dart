@@ -21,7 +21,7 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
           Padding(
             padding: const EdgeInsets.fromLTRB(18, 5, 18, 0),
             child: Text(
-             "${ widget.blog.title}\n",
+              "${widget.blog.title}\n",
               style: Theme.of(context).textTheme.bodyLarge!.apply(
                     fontWeightDelta: 3,
                     fontSizeDelta: 6,
@@ -29,14 +29,14 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
             ),
           ),
           Text(
-              widget.blog.summary,
-              style: Theme.of(context).textTheme.bodyLarge!.apply(
-                    fontWeightDelta: 3,
-                    fontSizeDelta: 6,
-                  ),
-            ),
-          Image.asset(
-            "assets/leagues/fufa.png",
+            widget.blog.summary,
+            style: Theme.of(context).textTheme.bodyLarge!.apply(
+                  fontWeightDelta: 3,
+                  fontSizeDelta: 6,
+                ),
+          ),
+          Image.network(
+            widget.blog.image,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.width / 2,
             fit: BoxFit.cover,
