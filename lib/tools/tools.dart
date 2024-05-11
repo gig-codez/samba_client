@@ -62,7 +62,7 @@ void showUpdateDialog({String version = '', String latestVersion = ''}) {
                 textColor:Colors.white,
                 onPress: () {
                   StoreRedirect.redirect(
-                    androidAppId: "com.app.ndejje",
+                    androidAppId: "com.app.fau",
                     iOSAppId: "6451200513",
                   ).then((value) => Routes.popPage());
                   // launchPlayStore(context);
