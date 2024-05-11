@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:nganwa/extensions/datetime_extension.dart';
+
 List<BlogsModel> blogsModelFromJson(String str) =>
     List<BlogsModel>.from(json.decode(str).map((x) => BlogsModel.fromJson(x)));
 
@@ -11,9 +13,10 @@ class BlogsModel {
   final String league;
   final String title;
   final String content;
+  final String summary;
   final String image;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final String createdAt;
+  final String updatedAt;
   final int v;
 
   BlogsModel({
@@ -21,6 +24,7 @@ class BlogsModel {
     required this.league,
     required this.title,
     required this.content,
+    required this.summary,
     required this.image,
     required this.createdAt,
     required this.updatedAt,
@@ -32,9 +36,10 @@ class BlogsModel {
         league: json["league"],
         title: json["title"],
         content: json["content"],
+        summary: json["summary"],
         image: json["image"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+        createdAt: DateTime.parse(json["createdAt"]).timeAgo,
+        updatedAt: DateTime.parse(json["updatedAt"]).timeAgo,
         v: json["__v"],
       );
 
@@ -43,9 +48,10 @@ class BlogsModel {
         "league": league,
         "title": title,
         "content": content,
+        "summary": summary,
         "image": image,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt,
+        "updatedAt": updatedAt,
         "__v": v,
       };
 }

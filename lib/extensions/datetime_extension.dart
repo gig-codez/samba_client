@@ -1,7 +1,9 @@
 import 'package:intl/intl.dart';
 
+// import '../exports/exports.dart';
+
 extension DateTimeUtil on DateTime {
-    String  formated() {
+  String formated() {
     String stringDate = DateFormat('EEE d MMM').format(this);
     String currentDate = DateFormat('EEE d MMM').format(DateTime.now());
     // Customize the logic to determine the label based on the relation to the current date
@@ -22,4 +24,24 @@ extension DateTimeUtil on DateTime {
     }
   }
 
+  String get timeAgo {
+    // final locale = Localizations.localeOf(context);
+    // print(toUtc().toString());
+    DateTime now = DateTime.now().toUtc();
+    final difference = now.difference(toUtc());
+    // final formattedWithLocale = DateFormat.yMMMMd(locale)
+    //     .add_jms()
+    //     .format(DateTime.now().subtract(difference));
+    if (difference.inSeconds < 60) {
+      return '${difference.inSeconds} seconds ago';
+    } else if (difference.inMinutes < 60) {
+      return '${difference.inMinutes} minutes ago';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours} hours ago';
+    } else if (difference.inDays < 7) {
+      return '${difference.inDays} days ago';
+    } else {
+      return DateFormat('dd MMM yyyy').format(toUtc());
+    }
+  }
 }

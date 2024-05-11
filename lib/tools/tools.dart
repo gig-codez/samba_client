@@ -3,6 +3,7 @@ import '/models/fixture.dart';
 import 'package:store_redirect/store_redirect.dart';
 
 var navigatorKey = GlobalKey<NavigatorState>();
+BuildContext context = navigatorKey.currentContext!;
 
 void showMessage({String msg = "", Color? color}) {
   ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
@@ -51,15 +52,15 @@ void showUpdateDialog({String version = '', String latestVersion = ''}) {
               ),
               Text("New Version: $latestVersion",
                   style: TextStyles(context).getRegularStyle()),
-                SizedBox.square(dimension:20),
+              SizedBox.square(dimension: 20),
               Text(
                   'A new version of the app is available. Please update to the latest version to continue using the app.',
                   style: TextStyles(context).getRegularStyle()),
-              SizedBox.square(dimension:20),
+              SizedBox.square(dimension: 20),
               CustomButton(
                 text: 'Update',
-                buttonColor:Theme.of(context).primaryColor,
-                textColor:Colors.white,
+                buttonColor: Theme.of(context).primaryColor,
+                textColor: Colors.white,
                 onPress: () {
                   StoreRedirect.redirect(
                     androidAppId: "com.app.fau",
