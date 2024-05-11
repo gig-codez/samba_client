@@ -58,6 +58,8 @@ class Routes {
   static void animateToPage(Widget page, {type = 'fade'}) {
     Navigator.of(context).push(
       PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds:900),
+        reverseTransitionDuration:const Duration(milliseconds:900),
         pageBuilder: (context, animation, secondaryAnimation) => type == 'scale'
             ? ScaleTransition(
                 scale: animation,
