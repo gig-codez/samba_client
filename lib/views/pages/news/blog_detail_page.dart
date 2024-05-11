@@ -35,8 +35,8 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
                     fontSizeDelta: 6,
                   ),
             ),
-          Image.asset(
-            "assets/leagues/fufa.png",
+          Image.network(
+           widget.blog.image,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.width / 2,
             fit: BoxFit.cover,
