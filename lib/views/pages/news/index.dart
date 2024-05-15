@@ -45,10 +45,10 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
                         ),
                       ),
                       Text(
-                        "No Articles found!!",
+                        "No records found!!",
                         style: Theme.of(context)
                             .textTheme
-                            .headlineMedium!
+                            .bodyLarge!
                             .apply(fontWeightDelta: 1),
                       ),
                     ])

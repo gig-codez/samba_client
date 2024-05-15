@@ -41,4 +41,16 @@ class PlayerController with ChangeNotifier {
       notifyListeners();
     });
   }
+  // function to work on transfers
+  List<dynamic> _transfers = [];
+  List<dynamic> get transfers {
+    _fetchTransfers();
+    return _transfers;
+  }
+  void _fetchTransfers(){
+    PlayerService.getTransferredPlayers(leagueId).then((data){
+                    _transfers = data;
+                    notifyListeners();
+                  });
+  }
 }

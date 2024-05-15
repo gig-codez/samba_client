@@ -51,8 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
     {"label": "Home", "icon": "home.svg", "un": "home_un.svg"},
     {"label": "News", "icon": "livescore.svg", "un": "livescore_un.svg"},
     {"label": "Stats", "icon": "stats.svg", "un": "stats_un.svg"},
-    {"label": "Logs", "icon": "page.svg", "un": "page_un.svg"},
-    {"label": "Profile", "icon": "profile.svg", "un": "profile_un.svg"},
+    {"label": "Transfers", "icon": "page.svg", "un": "page_un.svg"},
+    {"label": "Settings", "icon": "profile.svg", "un": "profile_un.svg"},
   ];
   // page controller
   final PageController pageController = PageController();
@@ -61,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> pages = [
     const HomePage(),
     const NewsPage(),
-    const StatsPage(),
-     TransfersPage(),
+    const IndexStats(),
+    const TransfersPage(),
     const GeneralSettings(),
   ];
   @override

@@ -23,6 +23,7 @@ export '/views/pages/Teams.dart';
 export '/views/pages/Transfers.dart';
 // news
 export '/views/pages/news/index.dart';
+export '/views/pages/stats/index.dart';
 export '/views/pages/news/blog_detail_page.dart';
 // third-party libraries
 export 'package:provider/provider.dart';
