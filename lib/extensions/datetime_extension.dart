@@ -29,9 +29,6 @@ extension DateTimeUtil on DateTime {
     // print(toUtc().toString());
     DateTime now = DateTime.now().toUtc();
     final difference = now.difference(toUtc());
-    // final formattedWithLocale = DateFormat.yMMMMd(locale)
-    //     .add_jms()
-    //     .format(DateTime.now().subtract(difference));
     if (difference.inSeconds < 60) {
       return '${difference.inSeconds} seconds ago';
     } else if (difference.inMinutes < 60) {

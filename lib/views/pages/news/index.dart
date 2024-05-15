@@ -20,8 +20,8 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
     );
   }
 
-@override
- void dispose() {
+  @override
+  void dispose() {
     _controller!.dispose();
     super.dispose();
   }
@@ -45,10 +45,10 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
                         ),
                       ),
                       Text(
-                        "No Articles found!!",
+                        "No records found!!",
                         style: Theme.of(context)
                             .textTheme
-                            .headlineMedium!
+                            .bodyLarge!
                             .apply(fontWeightDelta: 1),
                       ),
                     ])
@@ -58,8 +58,10 @@ class _NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
                     var blog = blogs[index];
                     return index == 0
                         ? BlogTrendCard(blog: blog)
-                        :BlogCard(controller:_controller!,blog:blog,)
-                        ;
+                        : BlogCard(
+                            controller: _controller!,
+                            blog: blog,
+                          );
                   },
                 );
         },

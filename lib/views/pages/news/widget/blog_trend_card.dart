@@ -7,7 +7,7 @@ class BlogTrendCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(5, 8, 5, 0),
+      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
       child: InkWell(
         onTap: () {
           Routes.animateToPage(

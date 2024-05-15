@@ -72,8 +72,9 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                 borderRadius: BorderRadius.circular(50),
                 child: const SizedBox(),
               ),
-              Text(
+              AutoSizeText(
                 title ?? "League name",
+                maxLines: 1,
                 style: Theme.of(context).textTheme.bodyLarge!.apply(
                       fontWeightDelta: 5,
                       fontSizeDelta: 3,
@@ -128,7 +129,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image(
-                                  image: CachedNetworkImageProvider(fixture!.hometeam.image),
+                                  image: CachedNetworkImageProvider(
+                                      fixture!.hometeam.image),
                                   width: 44,
                                   height: 44,
                                 ),
@@ -138,7 +140,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                               ),
                               SizedBox(
                                 width: 170,
-                                child: Text(
+                                child: AutoSizeText(
                                   fixture.hometeam.name,
                                   style: textStyle,
                                   overflow: TextOverflow.ellipsis,
@@ -155,7 +157,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image(
-                                    image: CachedNetworkImageProvider(fixture.awayteam.image),
+                                  image: CachedNetworkImageProvider(
+                                      fixture.awayteam.image),
                                   width: 44,
                                   height: 44,
                                 ),
@@ -195,7 +198,9 @@ class _LeagueWidgetState extends State<LeagueWidget> {
               ],
             ),
             Divider(
-              color: Colors.grey.shade300,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.grey.shade300
+                  : Colors.white30,
             ),
           ],
         ),
@@ -229,10 +234,14 @@ class _LeagueWidgetState extends State<LeagueWidget> {
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
             margin: const EdgeInsets.fromLTRB(10, 11, 10, 11),
             decoration: BoxDecoration(
-              color: Colors.grey.shade100,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.grey[100]
+                  : Colors.black,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: Colors.grey.shade300,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.grey.shade300
+                    : Colors.white30,
               ),
             ),
             child:
@@ -243,7 +252,9 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                     title: widget.data.name,
                   ),
                   Divider(
-                    color: Colors.grey.shade300,
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.grey.shade300
+                        : Colors.white30,
                   ),
                   ...List.generate(
                     controller.fixtureData.length,

@@ -1,9 +1,8 @@
-import "../../../services/player_service.dart";
+
 import "/exports/exports.dart";
 
 class TopScorers extends StatefulWidget {
-  final String team;
-  const TopScorers({super.key, required this.team});
+  const TopScorers({super.key});
 
   @override
   State<TopScorers> createState() => _TopScorersState();
@@ -12,9 +11,9 @@ class TopScorers extends StatefulWidget {
 class _TopScorersState extends State<TopScorers> {
   @override
   Widget build(BuildContext context) {
-    PlayerService.getTopScorers(widget.team);
+
     return Consumer<PlayerController>(builder: (c, controller, homeSnap) {
-      controller.fetchScorers(widget.team);
+      controller.fetchScorers();
       var data = controller.topScorers;
       return data.isNotEmpty
           ? ListView.builder(

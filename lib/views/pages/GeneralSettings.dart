@@ -18,33 +18,37 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Card(
-              elevation: 0,
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.grey.shade100
-                  : Colors.white12,
-              child: ListTile(
-                leading: const Icon(Icons.contrast),
-                title: const Text("Theme"),
-                subtitle: const Text("Light theme"),
-                onTap: () {
-                  showModalBottomSheet(
-                      showDragHandle: true,
-                      context: context,
-                      builder: (context) {
-                        return BottomSheet(
-                            // backgroundColor: Colors.transparent,
-                            onClosing: () {},
-                            builder: (context) {
-                              return const ThemeWidget();
-                            });
-                      });
-                },
-              ),
-            )
-          ],
+        child: Consumer<AppController>(
+          builder: (context,controller,c) {
+            return Column(
+              children: [
+                Card(
+                  elevation: 0,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.grey.shade100
+                      : Colors.white12,
+                  child: ListTile(
+                    leading: const Icon(Icons.contrast),
+                    title: const Text("Theme"),
+                    subtitle:  Text(controller.appTheme == 1 ? "Light theme" : controller.appTheme == 2 ? "Dark theme" : "Follow the system"),
+                    onTap: () {
+                      showModalBottomSheet(
+                          showDragHandle: true,
+                          context: context,
+                          builder: (context) {
+                            return BottomSheet(
+                                // backgroundColor: Colors.transparent,
+                                onClosing: () {},
+                                builder: (context) {
+                                  return const ThemeWidget();
+                                });
+                          });
+                    },
+                  ),
+                )
+              ],
+            );
+          }
         ),
       ),
     );

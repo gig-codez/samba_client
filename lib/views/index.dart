@@ -11,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-    String _currentVersion = '';
+  String _currentVersion = '';
   String _latestVersion = '';
   Future<void> _checkForUpdates() async {
     // Retrieve the current version of the app
@@ -24,24 +24,25 @@ class _HomeScreenState extends State<HomeScreen> {
     String latestVersion = await UpdateService.getVersion();
 
     // Compare versions and prompt for an update if necessary
-   if(latestVersion.isNotEmpty){
-     if (_currentVersion != latestVersion) {
-      if (mounted) {
-        setState(() {
-          _latestVersion = latestVersion;
-        });
-        showUpdateDialog(
-            latestVersion: _latestVersion, version: _currentVersion);
+    if (latestVersion.isNotEmpty) {
+      if (_currentVersion != latestVersion) {
+        if (mounted) {
+          setState(() {
+            _latestVersion = latestVersion;
+          });
+          showUpdateDialog(
+              latestVersion: _latestVersion, version: _currentVersion);
+        }
       }
     }
-   }
   }
 
   @override
   void initState() {
     super.initState();
-     _checkForUpdates();
+    _checkForUpdates();
   }
+
   // selected nav item
   int selected = 0;
 
@@ -49,9 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> bottomNavs = [
     {"label": "Home", "icon": "home.svg", "un": "home_un.svg"},
     {"label": "News", "icon": "livescore.svg", "un": "livescore_un.svg"},
-    // {"label": "Stats", "icon": "stats.svg", "un": "stats_un.svg"},
-    // {"label": "Pages", "icon": "page.svg", "un": "page_un.svg"},
-    // {"label": "Profile", "icon": "profile.svg", "un": "profile_un.svg"},
+    {"label": "Stats", "icon": "stats.svg", "un": "stats_un.svg"},
+    {"label": "Transfers", "icon": "page.svg", "un": "page_un.svg"},
+    {"label": "Settings", "icon": "profile.svg", "un": "profile_un.svg"},
   ];
   // page controller
   final PageController pageController = PageController();
@@ -60,7 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> pages = [
     const HomePage(),
     const NewsPage(),
-    // const StatsPage(),
+    const IndexStats(),
+    const TransfersPage(),
+    const GeneralSettings(),
   ];
   @override
   Widget build(BuildContext context) {
