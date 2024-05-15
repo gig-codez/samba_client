@@ -1,8 +1,8 @@
 import '/exports/exports.dart';
 
 class TopAsists extends StatefulWidget {
-  final String team;
-  const TopAsists({super.key, required this.team});
+
+  const TopAsists({super.key,});
 
   @override
   State<TopAsists> createState() => _TopAsistsState();
@@ -14,7 +14,7 @@ class _TopAsistsState extends State<TopAsists> {
     // PlayerService.getTopAssists(widget.team);
     return Consumer<PlayerController>(
       builder: (context, controller, c) {
-        controller.fetchAssists(widget.team);
+        controller.fetchAssists();
         var data = controller.topAssists;
         return data.isNotEmpty
             ? ListView.builder(

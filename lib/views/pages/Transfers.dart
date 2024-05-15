@@ -5,8 +5,8 @@ import '../../models/fixture.dart';
 import '../../widgets/TransferWidget.dart';
 
 class TransfersPage extends StatefulWidget {
-  final Datum data;
-  const TransfersPage({super.key, required this.data});
+
+  const TransfersPage({super.key});
 
   @override
   State<TransfersPage> createState() => _TransfersPageState();
@@ -33,7 +33,7 @@ class _TransfersPageState extends State<TransfersPage> {
       body: SafeArea(
         child: FutureBuilder(
                 future: PlayerService.getTransferredPlayers(
-                    widget.data.league),
+                  leagueId),
                 builder: (context, snapshot) {
                   return snapshot.hasData
                       ? snapshot.data!.isEmpty ? const Center(child: Text("No transferred player yet."),) : ListView.builder(

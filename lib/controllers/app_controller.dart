@@ -1,13 +1,17 @@
 import '/exports/exports.dart';
 
 class AppController with ChangeNotifier {
-  // SharedPreferences _prefs = SharedPreferences.getInstance();
-  // AppController() {}
-  bool _isDarkMode = false;
-  bool get isDarkMode => _isDarkMode;
-  set isDarkMode(bool mode) {
-    _isDarkMode = mode;
-    notifyListeners();
+  // dark mode
+  int _appTheme = 1;
+  int get appTheme {
+    _setAppTheme();
+    return _appTheme;
+    }
+  void _setAppTheme() {
+    StorageSerivce.retriveData("theme").then((theme) {
+      _appTheme = theme;
+      notifyListeners();
+    });
   }
 
   // heamTeam data
@@ -29,9 +33,9 @@ class AppController with ChangeNotifier {
   }
 
 // match date
-   Map<String, dynamic> _matchDateId = {};
+  Map<String, dynamic> _matchDateId = {};
   Map<String, dynamic> get matchDateId => _matchDateId;
-  set matchDateId( Map<String, dynamic> id) {
+  set matchDateId(Map<String, dynamic> id) {
     _matchDateId = id;
     notifyListeners();
   }

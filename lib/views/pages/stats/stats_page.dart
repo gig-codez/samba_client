@@ -1,15 +1,15 @@
 import "/exports/exports.dart";
 
-class HomeTeamStatsDetailPage extends StatefulWidget {
-  final String homeTeam;
-  const HomeTeamStatsDetailPage({super.key, required this.homeTeam});
+class StatsPage extends StatefulWidget {
+
+  const StatsPage({super.key});
 
   @override
-  State<HomeTeamStatsDetailPage> createState() =>
-      _HomeTeamStatsDetailPageState();
+  State<StatsPage> createState() =>
+      _StatsPageState();
 }
 
-class _HomeTeamStatsDetailPageState extends State<HomeTeamStatsDetailPage>
+class _StatsPageState extends State<StatsPage>
     with SingleTickerProviderStateMixin {
   TabController? _topTabController;
 
@@ -53,9 +53,9 @@ class _HomeTeamStatsDetailPageState extends State<HomeTeamStatsDetailPage>
             physics: const NeverScrollableScrollPhysics(),
             controller: _topTabController,
             children: [
-              TopScorers(team: widget.homeTeam),
-              TopAsists(team: widget.homeTeam),
-              CleanSheets(team: widget.homeTeam),
+              TopScorers(),
+              TopAsists(),
+              CleanSheets(),
             ],
           ),
         )

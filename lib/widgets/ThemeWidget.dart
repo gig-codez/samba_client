@@ -20,34 +20,32 @@ class _ThemeWidgetState extends State<ThemeWidget> {
           children: [
             RadioListTile(
               title: const Text("Light Theme"),
-              value: isLight,
+              value: controller.appTheme == 1 ? 1 : -1,
               groupValue: 1,
               onChanged: (x) {
-                controller.isDarkMode = false;
-                if (!controller.isDarkMode) {
-                  setState(() {
-                    isDark = 0;
-                    isLight = 1;
-                  });
-                }
+                  StorageSerivce.storeData("theme",1);
                 Routes.popPage();
               },
             ),
             RadioListTile(
               title: const Text("Dark Theme"),
-              value: isDark,
+              value: controller.appTheme == 2 ? 1 : -1,
               groupValue: 1,
               onChanged: (x) {
-                controller.isDarkMode = true;
-                if (controller.isDarkMode) {
-                  setState(() {
-                    isDark = 1;
-                    isLight = 0;
-                  });
-                }
+                StorageSerivce.storeData("theme",2);
                 Routes.popPage();
               },
-            )
+            ),
+            RadioListTile(
+              title: const Text("Follow System"),
+              value: controller.appTheme == 3 ? 1 : -1,
+              groupValue: 1,
+              onChanged: (x) {
+                
+                StorageSerivce.storeData("theme", 3);
+                Routes.popPage();
+              },
+            ),
           ],
         ),
       );

@@ -20,23 +20,23 @@ class PlayerController with ChangeNotifier {
   }
 
   // function to fetch top scorers
-  void fetchScorers(String teamId) {
-    PlayerService.getTopScorers(teamId).then((value) {
+  void fetchScorers() {
+    PlayerService.getTopScorers().then((value) {
       _topScorers = value;
       notifyListeners();
 
     });
   }
   // function to fetch top assists
-  void fetchAssists(String teamId) {
-    PlayerService.getTopAssists(teamId).then((value) {
+  void fetchAssists() {
+    PlayerService.getTopAssists().then((value) {
       _topAssists = value;
       notifyListeners();
     });
   }
   // function to fetch clean sheets
-  void fetchCleanSheets(String teamId) {
-    PlayerService.getTopCleanSheets(teamId).then((value) {
+  void fetchCleanSheets() {
+    PlayerService.getTopCleanSheets().then((value) {
       _topCleanSheets = value;
       notifyListeners();
     });

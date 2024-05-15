@@ -80,7 +80,6 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
                             const StatsPage(),
                             const TablePage(),
                             TransfersPage(
-                              data: widget.data,
                             )
                           ],
                         ),

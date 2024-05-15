@@ -191,6 +191,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp(
+      name: 'fau',
         options: DefaultFirebaseOptions.currentPlatform);
   }
 
@@ -282,7 +283,11 @@ void main() async {
             initialRoute: Routes.splash,
             debugShowCheckedModeBanner: false,
             routes: Routes.routes,
-            theme: controller.isDarkMode ? Themes.darkTheme : Themes.lightTheme,
+            theme:Themes.lightTheme,
+            darkTheme:Themes.darkTheme,
+            themeMode: controller.appTheme == 1
+                ? ThemeMode.light
+                : controller.appTheme == 3 ? ThemeMode.system : ThemeMode.dark,
           );
         },
       ),
