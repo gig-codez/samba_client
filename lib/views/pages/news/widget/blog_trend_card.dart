@@ -88,6 +88,7 @@ class BlogTrendCard extends StatelessWidget {
                           fontSizeDelta: 7,
                         ),
                   ),
+                  const SizedBox.square(dimension: 10),
                 ],
               ),
             ),
