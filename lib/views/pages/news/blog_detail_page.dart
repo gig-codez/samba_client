@@ -34,7 +34,6 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
               ],),
             ),
           ),
-         
           Image.network(
             widget.blog.image,
             width: MediaQuery.of(context).size.width,
