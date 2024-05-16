@@ -190,9 +190,14 @@ void main() async {
   // Ensuring that all widgets are properly assembled.
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(
-      name: 'fau',
+    if(Platform.isIOS){
+      await Firebase.initializeApp(
+      name: 'ndejje',
         options: DefaultFirebaseOptions.currentPlatform);
+    } else {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+    }
   }
 
   FirebaseMessaging.instance.requestPermission(
