@@ -9,7 +9,7 @@ class AppController with ChangeNotifier {
     }
   void _setAppTheme() {
     StorageSerivce.retriveData("theme").then((theme) {
-      _appTheme = theme;
+      _appTheme = theme ?? 1;
       notifyListeners();
     });
   }
