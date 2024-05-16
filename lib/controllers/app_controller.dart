@@ -6,10 +6,11 @@ class AppController with ChangeNotifier {
   int get appTheme {
     _setAppTheme();
     return _appTheme;
-    }
+  }
+
   void _setAppTheme() {
     StorageSerivce.retriveData("theme").then((theme) {
-      _appTheme = theme;
+      _appTheme = theme ?? 1;
       notifyListeners();
     });
   }
