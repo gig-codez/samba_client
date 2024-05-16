@@ -285,9 +285,9 @@ void main() async {
             routes: Routes.routes,
             theme:Themes.lightTheme,
             darkTheme:Themes.darkTheme,
-            themeMode: controller.appTheme == 1
-                ? ThemeMode.light
-                : controller.appTheme == 3 ? ThemeMode.system : ThemeMode.dark,
+            themeMode: controller.appTheme == 3
+                ? ThemeMode.system
+                : controller.appTheme == 2 ? ThemeMode.dark : ThemeMode.light,
           );
         },
       ),
