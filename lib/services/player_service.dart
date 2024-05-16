@@ -99,7 +99,7 @@ class PlayerService {
     }
   }
 
-  static Future<List<Message>> getTopScorers(String leagueId) async {
+  static Future<List<Message>> getTopScorers() async {
     try {
       // print("teamId => $teamId");
       Response response = await Client().get(
@@ -118,7 +118,7 @@ class PlayerService {
     }
   }
 
-  static Future<List<Message>> getTopCleanSheets(String leagueId) async {
+  static Future<List<Message>> getTopCleanSheets() async {
     try {
       // print("teamId => $teamId");
       Response response = await Client().get(
@@ -137,10 +137,10 @@ class PlayerService {
     }
   }
 
-  static Future<List<Message>> getTopAssists(String teamId) async {
+  static Future<List<Message>> getTopAssists() async {
     try {
       Response response = await Client().get(
-        Uri.parse(Apis.topAssists + teamId),
+        Uri.parse(Apis.topAssists + leagueId),
       );
       if (response.statusCode == 200) {
         return playersModelFromJson(response.body).message;

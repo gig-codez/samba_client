@@ -13,28 +13,28 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("News"),
+        title: const Text("News"),
       ),
       body: ListView(
         //  padd,
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(18, 5, 18, 0),
-            child: Text(
-              "${widget.blog.title}\n",
+            child: AutoSizeText.rich(
+              TextSpan(children:[
+                TextSpan(text:"${widget.blog.title}\n",
               style: Theme.of(context).textTheme.bodyLarge!.apply(
                     fontWeightDelta: 3,
                     fontSizeDelta: 6,
-                  ),
+                  ),),
+                   TextSpan(
+            text:widget.blog.summary,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+              ],),
             ),
           ),
-          Text(
-            widget.blog.summary,
-            style: Theme.of(context).textTheme.bodyLarge!.apply(
-                  fontWeightDelta: 3,
-                  fontSizeDelta: 6,
-                ),
-          ),
+         
           Image.network(
             widget.blog.image,
             width: MediaQuery.of(context).size.width,

@@ -7,7 +7,7 @@ class BlogTrendCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(5, 8, 5, 0),
+      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
       child: InkWell(
         onTap: () {
           Routes.animateToPage(
@@ -36,7 +36,7 @@ class BlogTrendCard extends StatelessWidget {
                     "Trending ",
                     style: Theme.of(context).textTheme.bodyLarge!.apply(
                           fontWeightDelta: 3,
-                          fontSizeDelta: 7,
+                          fontSizeDelta: 4,
                         ),
                   ),
                 ],
@@ -85,12 +85,14 @@ class BlogTrendCard extends StatelessWidget {
                     "Latest Articles ",
                     style: Theme.of(context).textTheme.bodyLarge!.apply(
                           fontWeightDelta: 3,
-                          fontSizeDelta: 7,
+                          fontSizeDelta: 4,
                         ),
                   ),
+                  const SizedBox.square(dimension: 50),
                 ],
               ),
             ),
+            const SizedBox.square(dimension: 10),
           ],
         ),
       ),

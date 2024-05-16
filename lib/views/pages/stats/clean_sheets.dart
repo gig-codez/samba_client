@@ -1,9 +1,8 @@
-import '../../../services/player_service.dart';
 import '/exports/exports.dart';
 
 class CleanSheets extends StatefulWidget {
-  final String team;
-  const CleanSheets({super.key, required this.team});
+  
+  const CleanSheets({super.key});
 
   @override
   State<CleanSheets> createState() => _CleanSheetsState();
@@ -14,7 +13,7 @@ class _CleanSheetsState extends State<CleanSheets> {
   Widget build(BuildContext context) {
     return Consumer<PlayerController>(
       builder: (context, controller, c) {
-        controller.fetchCleanSheets(widget.team);
+        controller.fetchCleanSheets();
         var data = controller.topCleanSheets;
         return data.isNotEmpty
             ? ListView.builder(

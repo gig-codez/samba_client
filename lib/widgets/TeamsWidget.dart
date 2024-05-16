@@ -17,7 +17,7 @@ class TeamsWidget extends StatelessWidget {
       onClick: onTap ?? () {},
       child: Card(
         elevation: 0,
-        color: Colors.grey[200],
+        color: Theme.of(context).brightness == Brightness.light ? Colors.grey[200] : Colors.black,
         child: SizedBox(
           height: 90,
           child: Row(

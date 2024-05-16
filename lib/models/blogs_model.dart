@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:nganwa/extensions/datetime_extension.dart';
+import '/extensions/datetime_extension.dart';
 
 List<BlogsModel> blogsModelFromJson(String str) =>
     List<BlogsModel>.from(json.decode(str).map((x) => BlogsModel.fromJson(x)));
