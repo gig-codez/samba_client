@@ -191,8 +191,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp(
-      name: 'fau',
-        options: DefaultFirebaseOptions.currentPlatform);
+        name: 'fau', options: DefaultFirebaseOptions.currentPlatform);
   }
 
   FirebaseMessaging.instance.requestPermission(
@@ -283,11 +282,13 @@ void main() async {
             initialRoute: Routes.splash,
             debugShowCheckedModeBanner: false,
             routes: Routes.routes,
-            theme:Themes.lightTheme,
-            darkTheme:Themes.darkTheme,
-        themeMode: controller.appTheme == 3
+            theme: Themes.lightTheme,
+            darkTheme: Themes.darkTheme,
+            themeMode: controller.appTheme == 3
                 ? ThemeMode.system
-                : controller.appTheme == 2 ? ThemeMode.dark : ThemeMode.light,
+                : controller.appTheme == 2
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
           );
         },
       ),
