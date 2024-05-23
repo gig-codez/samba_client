@@ -50,8 +50,13 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
+    if (Platform.isIOS) {
+      await Firebase.initializeApp(
+          name: 'ndejje', options: DefaultFirebaseOptions.currentPlatform);
+    } else {
+      await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform);
+    }
   }
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setupFlutterNotifications();
@@ -190,25 +195,33 @@ void main() async {
   // Ensuring that all widgets are properly assembled.
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
-    if(Platform.isIOS){
+    if (Platform.isIOS) {
       await Firebase.initializeApp(
-      name: 'ndejje',
-        options: DefaultFirebaseOptions.currentPlatform);
+          options: DefaultFirebaseOptions.currentPlatform);
+      FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
     } else {
       await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
+          options: DefaultFirebaseOptions.currentPlatform);
+      FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
     }
   }
 
-  FirebaseMessaging.instance.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
   // Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   // FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
@@ -288,11 +301,13 @@ void main() async {
             initialRoute: Routes.splash,
             debugShowCheckedModeBanner: false,
             routes: Routes.routes,
-            theme:Themes.lightTheme,
-            darkTheme:Themes.darkTheme,
-           themeMode: controller.appTheme == 3
+            theme: Themes.lightTheme,
+            darkTheme: Themes.darkTheme,
+            themeMode: controller.appTheme == 3
                 ? ThemeMode.system
-                : controller.appTheme == 2 ? ThemeMode.dark : ThemeMode.light,
+                : controller.appTheme == 2
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
           );
         },
       ),
