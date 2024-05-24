@@ -38,13 +38,17 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   @override
   void initState() {
     super.initState();
+    // widget.controller.fetchLeagueData(
+    //   leagueId,
+    // );
+    // widget.controller.fetchFixtureData(leagueId, widget.matchId);
     Timer.periodic(const Duration(seconds: 1), (timer) {
       if (mounted) _timer = timer;
-      // WebSocketService.fetchMatchTime();
-      widget.controller.fetchLeagueData(
+        widget.controller.fetchLeagueData(
         leagueId,
       );
       widget.controller.fetchFixtureData(leagueId, widget.matchId);
+      // WebSocketService.fetchMatchTime();
     });
   }
 
@@ -56,6 +60,11 @@ class _LeagueWidgetState extends State<LeagueWidget> {
 
 // card header
   Widget _cardHeader({String? title, String? teamLogo}) {
+    //
+    widget.controller.fetchLeagueData(
+      leagueId,
+    );
+    widget.controller.fetchFixtureData(leagueId, widget.matchId);
     BuildContext? context = navigatorKey.currentContext;
     WebSocketService.fetchMatchTime();
     WebSocketService.getServerState();
@@ -75,13 +84,12 @@ class _LeagueWidgetState extends State<LeagueWidget> {
               AutoSizeText(
                 title ?? "League name",
                 maxLines: 1,
-                style: Theme.of(context).textTheme.bodyLarge!.apply(
+                style: Theme.of(context).textTheme.titleMedium!.apply(
                       fontWeightDelta: 5,
-                      fontSizeDelta: 3,
                     ),
               ),
               const SizedBox.square(
-                dimension: 60,
+                dimension: 50,
                 child: Icon(Icons.arrow_forward_ios),
               )
             ],
