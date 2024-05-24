@@ -1,8 +1,9 @@
 import '/exports/exports.dart';
 
 class TopAsists extends StatefulWidget {
-
-  const TopAsists({super.key,});
+  const TopAsists({
+    super.key,
+  });
 
   @override
   State<TopAsists> createState() => _TopAsistsState();
@@ -28,7 +29,7 @@ class _TopAsistsState extends State<TopAsists> {
                   title: Text(data[index].name),
                   subtitle: Text(data[index].team.name),
                   trailing: Text(
-                    data[index].goal.toString(),
+                    data[index].assist.toString(),
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
