@@ -1,7 +1,6 @@
 import '/exports/exports.dart';
 
 class CleanSheets extends StatefulWidget {
-  
   const CleanSheets({super.key});
 
   @override
@@ -26,11 +25,13 @@ class _CleanSheetsState extends State<CleanSheets> {
                   ),
                   title: Text(data[index].name),
                   subtitle: Text(data[index].team.name),
-                  trailing: Text(data[index].goal.toString(),
-                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          )),
+                  trailing: Text(
+                    data[index].cleanSheet.toString(),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
                 ),
               )
             : Center(

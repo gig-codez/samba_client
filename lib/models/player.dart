@@ -1,3 +1,8 @@
+// To parse this JSON data, do
+//
+//     final playersModel = playersModelFromJson(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 PlayersModel playersModelFromJson(String str) =>
@@ -27,9 +32,11 @@ class PlayersModel {
 }
 
 class Message {
+  final int cleanSheet;
   final String id;
   final String name;
   final Team team;
+  final bool transferred;
   final String soldOut;
   final String position;
   final int goal;
@@ -42,9 +49,11 @@ class Message {
   final Team oldTeam;
 
   Message({
+    required this.cleanSheet,
     required this.id,
     required this.name,
     required this.team,
+    required this.transferred,
     required this.soldOut,
     required this.position,
     required this.goal,
@@ -58,9 +67,11 @@ class Message {
   });
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
+        cleanSheet: json["clean_sheet"],
         id: json["_id"],
         name: json["name"],
-        team: Team.fromJson(json["team"] ?? {}),
+        team: Team.fromJson(json["team"]),
+        transferred: json["transferred"],
         soldOut: json["sold_out"],
         position: json["position"],
         goal: json["goal"],
@@ -74,9 +85,11 @@ class Message {
       );
 
   Map<String, dynamic> toJson() => {
+        "clean_sheet": cleanSheet,
         "_id": id,
         "name": name,
         "team": team.toJson(),
+        "transferred": transferred,
         "sold_out": soldOut,
         "position": position,
         "goal": goal,
