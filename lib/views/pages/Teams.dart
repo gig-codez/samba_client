@@ -1,14 +1,15 @@
 import '/models/fixture.dart';
 import '/views/pages/teamPages/LineUp.dart';
-
 import '../../widgets/PlayingTeams.dart';
 import '/exports/exports.dart';
-import 'Transfers.dart';
 import 'teamPages/table_page.dart';
 
 class TeamsPage extends StatefulWidget {
   final Datum data;
-  const TeamsPage({super.key, required this.data});
+  final int? index;
+  final String matchId;
+  const TeamsPage(
+      {super.key, required this.matchId, this.index, required this.data});
 
   @override
   State<TeamsPage> createState() => _TeamsPageState();
@@ -43,7 +44,10 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              PlayingTeams(data: widget.data),
+              PlayingTeams(
+                data: widget.index,
+                matchId: widget.matchId,
+              ),
               Expanded(
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height,
@@ -79,8 +83,7 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
                             ),
                             const StatsPage(),
                             const TablePage(),
-                            TransfersPage(
-                            )
+                            TransfersPage()
                           ],
                         ),
                       )

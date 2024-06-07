@@ -1,11 +1,10 @@
 import '/exports/exports.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+
 class DeviceManager {
   static const String _deviceKey = 'deviceKey';
 
   static void saveDeviceKey(String deviceKey, String deviceUuid) {
-
     Client().post(
       Uri.parse(Apis.saveDeviceId),
       body: {

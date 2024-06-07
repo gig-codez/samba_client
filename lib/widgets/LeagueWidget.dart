@@ -1,5 +1,5 @@
+// ignore: file_names
 import 'dart:async';
-import '../controllers/data_controller.dart';
 import '../services/WebSocketService.dart';
 import '/exports/exports.dart';
 import '/models/fixture.dart';
@@ -41,10 +41,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
     Timer.periodic(const Duration(seconds: 1), (timer) {
       if (mounted) _timer = timer;
       // WebSocketService.fetchMatchTime();
-      widget.controller.fetchLeagueData(
-        leagueId,
-      );
-      widget.controller.fetchFixtureData(leagueId, widget.matchId);
+      widget.controller.fetchLeagueData();
+      widget.controller.fetchFixtureData(widget.matchId);
     });
   }
 
@@ -94,7 +92,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   // variable to hold socketData
   Map<String, dynamic> socketData = {};
 
-  Widget cardContent({Datum? fixture, required Map<String, dynamic> socket}) {
+  Widget cardContent(
+      {Datum? fixture, int? index, required Map<String, dynamic> socket}) {
     BuildContext? context = navigatorKey.currentContext;
     TextStyle textStyle = Theme.of(context!)
         .textTheme
@@ -105,6 +104,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
         Routes.animateToPage(
           TeamsPage(
             data: fixture,
+            matchId: widget.matchId,
+            index: index,
           ),
         );
       },
@@ -219,6 +220,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
         ? Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset(
                   "assets/empty.svg",
@@ -259,6 +261,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                   ...List.generate(
                     controller.fixtureData.length,
                     (i) => cardContent(
+                      index: i,
                       fixture: controller.fixtureData[i],
                       socket: socketData,
                     ),

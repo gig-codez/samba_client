@@ -14,8 +14,9 @@ import '/services/fixture_service.dart';
 import '/theme/Theme.dart';
 
 import '/exports/exports.dart';
-import 'controllers/data_controller.dart';
+import 'controllers/fixture_controller.dart';
 import 'firebase_options.dart';
+// ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -147,6 +148,7 @@ void setUpMessage() {
           Routes.animateToPage(
             TeamsPage(
               data: fixture,
+              matchId: '',
             ),
           );
         });
@@ -164,6 +166,7 @@ void setUpMessage() {
         Routes.animateToPage(
           TeamsPage(
             data: fixture,
+            matchId: '',
           ),
         );
       });
@@ -181,6 +184,7 @@ void setUpMessage() {
         Routes.animateToPage(
           TeamsPage(
             data: fixture,
+            matchId: '',
           ),
         );
       });
@@ -270,8 +274,10 @@ void main() async {
     DeviceManager.checkDeviceId().asStream().listen((event) {
       if (event) {
         FirebaseMessaging.instance.getToken().asStream().listen((token) {
-          DeviceManager.saveDeviceKey(
-              token!, "${androidInfo.model}_${androidInfo.fingerprint}");
+          if (token != null) {
+            DeviceManager.saveDeviceKey(
+                token, "${androidInfo.model}_${androidInfo.fingerprint}");
+          }
         });
       }
     });
@@ -292,6 +298,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => StatsController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FixtureController(),
         ),
       ],
       child: Consumer<AppController>(

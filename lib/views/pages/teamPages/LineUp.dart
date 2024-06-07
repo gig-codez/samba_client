@@ -1,6 +1,4 @@
-import '../../../controllers/player_controller.dart';
-
-import '../../../exports/exports.dart';
+import '/exports/exports.dart';
 
 class LineUpPage extends StatefulWidget {
   final String homeTeamId;
