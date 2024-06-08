@@ -2,7 +2,7 @@
 // import "package:http/http.dart" as http;
 
 class Apis {
-  static String apiUrl = "http://209.38.140.141:3000/";
+  static String apiUrl = "http://45.10.160.145:3000/";
   // Socket.IO server url
 
   // players routes
