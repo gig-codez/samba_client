@@ -18,7 +18,7 @@ class _BlogCardState extends State<BlogCard> {
           BlogDetailPage(
             blog: widget.blog,
           ),
-          type: "slide",
+          // type: "slide",
         );
       },
       child: Padding(
@@ -28,34 +28,40 @@ class _BlogCardState extends State<BlogCard> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.network(
-                widget.blog.image,
-                width: 100,
-                height: 80,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: widget.blog.image,
+                child: Image.network(
+                  widget.blog.image,
+                  width: 100,
+                  height: 80,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox.square(dimension: 10),
-            AutoSizeText.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: widget.blog.title,
-                    style: Theme.of(context).textTheme.bodyMedium!.apply(
-                          fontWeightDelta: 3,
-                          fontSizeDelta: 1,
-                        ),
-                  ),
-                  const TextSpan(text: "\n"),
-                  TextSpan(
-                    text:
-                        "${widget.blog.content.substring(0, 37)}\n${widget.blog.content.substring(37, 70)}...",
-                    style: Theme.of(context).textTheme.bodySmall!.apply(),
-                  ),
-                ],
+            Hero(
+              tag: widget.blog.title,
+              child: AutoSizeText.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: widget.blog.title,
+                      style: Theme.of(context).textTheme.bodyMedium!.apply(
+                            fontWeightDelta: 3,
+                            fontSizeDelta: 1,
+                          ),
+                    ),
+                    const TextSpan(text: "\n"),
+                    TextSpan(
+                      text:
+                          "${widget.blog.content.substring(0, 37)}\n${widget.blog.content.substring(37, 70)}...",
+                      style: Theme.of(context).textTheme.bodySmall!.apply(),
+                    ),
+                  ],
+                ),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
             )
           ],
         ),

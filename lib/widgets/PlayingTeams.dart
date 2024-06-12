@@ -25,8 +25,12 @@ class PlayingTeams extends StatelessWidget {
                     height: 55,
                   ),
                 ),
-                Text(controller.fixtureData[data!].hometeam.name,
-                    style: Theme.of(context).textTheme.titleMedium),
+                AutoSizeText(
+                  controller.fixtureData[data!].hometeam.name,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  maxFontSize: 14,
+                  minFontSize: 10,
+                ),
               ],
             ),
           ),
@@ -34,7 +38,7 @@ class PlayingTeams extends StatelessWidget {
             width: 100,
             child: Padding(
               padding: const EdgeInsets.all(5),
-              child: Text.rich(
+              child: AutoSizeText.rich(
                 TextSpan(
                   children: [
                     TextSpan(
@@ -50,6 +54,8 @@ class PlayingTeams extends StatelessWidget {
                   ],
                 ),
                 textAlign: TextAlign.center,
+                maxFontSize: 13,
+                minFontSize: 10,
               ),
             ),
           ),
@@ -65,8 +71,12 @@ class PlayingTeams extends StatelessWidget {
                     height: 55,
                   ),
                 ),
-                Text(controller.fixtureData[data!].awayteam.name,
-                    style: Theme.of(context).textTheme.titleMedium),
+                AutoSizeText(
+                  controller.fixtureData[data!].awayteam.name,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  minFontSize: 10,
+                  maxFontSize: 14,
+                ),
               ],
             ),
           ),

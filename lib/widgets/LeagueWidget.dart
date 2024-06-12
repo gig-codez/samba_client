@@ -1,6 +1,5 @@
 // ignore: file_names
-import 'dart:async';
-import '../services/WebSocketService.dart';
+
 import '/exports/exports.dart';
 import '/models/fixture.dart';
 import '/models/league.dart';
@@ -9,12 +8,10 @@ import 'RunningTimeWidget.dart';
 class LeagueWidget extends StatefulWidget {
   final Message data;
   final String matchId;
-  final DataController controller;
   const LeagueWidget({
     super.key,
     required this.data,
     required this.matchId,
-    required this.controller,
   });
 
   @override
@@ -23,49 +20,20 @@ class LeagueWidget extends StatefulWidget {
 
 class _LeagueWidgetState extends State<LeagueWidget> {
   bool showHide = true;
-  Timer? _timer;
-  // void fetchLeagues() async {
-  //   var leagues =
-  //       await FixtureService.getRunningFixtures(widget.data.id, widget.matchId);
-  //   _leaguesController.add(leagues);
-  //   _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-  //     var leagues = await FixtureService.getRunningFixtures(
-  //         widget.data.id, widget.matchId);
-  //     _leaguesController.add(leagues);
-  //   });
-  // }
-
   @override
   void initState() {
     super.initState();
-    // widget.controller.fetchLeagueData(
-    //   leagueId,
-    // );
-    // widget.controller.fetchFixtureData(leagueId, widget.matchId);
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (mounted) _timer = timer;
-      widget.controller.fetchLeagueData();
-      widget.controller.fetchFixtureData(
-        leagueId,
-      );
-      // WebSocketService.fetchMatchTime();
-    });
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
     super.dispose();
   }
 
 // card header
-  Widget _cardHeader({String? title, String? teamLogo}) {
-    //
-    widget.controller.fetchLeagueData();
-    widget.controller.fetchFixtureData(leagueId);
+  Widget _cardHeader({String? title}) {
     BuildContext? context = navigatorKey.currentContext;
-    WebSocketService.fetchMatchTime();
-    WebSocketService.getServerState();
+
     return FittedBox(
       child: SizedBox(
         width: MediaQuery.of(context!).size.width,
@@ -221,62 +189,66 @@ class _LeagueWidgetState extends State<LeagueWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // log(widget.matchId);
-    WebSocketService.fetchMatchTime();
-    WebSocketService.getServerState();
-    return widget.controller.fixtureData.isEmpty
-        ? Center(
-            child: Column(
+    return Consumer<DataController>(builder: (context, controller, x) {
+      controller.fetchLeagueData();
+      controller.fetchFixtureData(widget.matchId);
+      return controller.fixtureData.isEmpty
+          ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  "assets/empty.svg",
-                  height: 150,
-                  width: 150,
+                Center(
+                  child: SvgPicture.asset(
+                    "assets/empty.svg",
+                    height: 150,
+                    width: 150,
+                  ),
                 ),
-                const Text("No fixture yet set for today!"),
+                Text(
+                  "No fixture yet set for today!",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
                 // OutlinedButton.icon(onPressed: (){}, icon: icon, label: Text("Add "))
               ],
-            ),
-          )
-        : Container(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-            margin: const EdgeInsets.fromLTRB(10, 11, 10, 11),
-            decoration: BoxDecoration(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.grey[100]
-                  : Colors.black,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
+            )
+          : Container(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              margin: const EdgeInsets.fromLTRB(10, 11, 10, 11),
+              decoration: BoxDecoration(
                 color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.grey.shade300
-                    : Colors.white30,
+                    ? Colors.grey[100]
+                    : Colors.black,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.grey.shade300
+                      : Colors.white30,
+                ),
               ),
-            ),
-            child:
-                Consumer<DataController>(builder: (context, controller, child) {
-              return Column(
-                children: [
-                  _cardHeader(
-                    title: widget.data.name,
-                  ),
-                  Divider(
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Colors.grey.shade300
-                        : Colors.white30,
-                  ),
-                  ...List.generate(
-                    controller.fixtureData.length,
-                    (i) => cardContent(
-                      index: i,
-                      fixture: controller.fixtureData[i],
-                      socket: socketData,
+              child: Consumer<DataController>(
+                  builder: (context, controller, child) {
+                return Column(
+                  children: [
+                    _cardHeader(
+                      title: widget.data.name,
                     ),
-                  ),
-                ],
-              );
-            }),
-          );
+                    Divider(
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.grey.shade300
+                          : Colors.white30,
+                    ),
+                    ...List.generate(
+                      controller.fixtureData.length,
+                      (i) => cardContent(
+                        index: i,
+                        fixture: controller.fixtureData[i],
+                        socket: socketData,
+                      ),
+                    ),
+                  ],
+                );
+              }),
+            );
+    });
   }
 }

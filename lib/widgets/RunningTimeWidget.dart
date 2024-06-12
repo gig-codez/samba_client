@@ -27,13 +27,15 @@ class RunningTimeWidget extends StatelessWidget {
               child: SizedBox.square(
                 // dimension: 30,
                 child: Center(
-                  child: Text(
+                  child: AutoSizeText(
                     timeUpdates(fixture!),
                     style: textStyle.copyWith(
-                      fontSize: 14,
+                      // fontSize: 14,
                       fontWeight: FontWeight.w900,
                       color: Colors.white,
                     ),
+                    maxFontSize: 13,
+                    minFontSize: 10,
                     textAlign: TextAlign.center,
                   ),
                 ),

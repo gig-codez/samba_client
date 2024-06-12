@@ -20,26 +20,35 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(18, 5, 18, 0),
-            child: Text.rich(
-              TextSpan(children:[
-                TextSpan(text:"${widget.blog.title}\n",
-              style: Theme.of(context).textTheme.bodyLarge!.apply(
-                    fontWeightDelta: 3,
-                    fontSizeDelta: 6,
-                  ),),
-                   TextSpan(
-            text:widget.blog.summary,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-              ],),
+            child: Hero(
+              tag: widget.blog.title,
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "${widget.blog.title}\n",
+                      style: Theme.of(context).textTheme.bodyLarge!.apply(
+                            fontWeightDelta: 3,
+                            fontSizeDelta: 6,
+                          ),
+                    ),
+                    TextSpan(
+                      text: widget.blog.summary,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
-         
-          Image.network(
-            widget.blog.image,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.width / 2,
-            fit: BoxFit.cover,
+          Hero(
+            tag: widget.blog.image,
+            child: Image.network(
+              widget.blog.image,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width / 2,
+              fit: BoxFit.cover,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(18, 5, 18, 5),

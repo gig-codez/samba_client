@@ -12,7 +12,7 @@ class BlogTrendCard extends StatelessWidget {
         onTap: () {
           Routes.animateToPage(
             BlogDetailPage(blog: blog),
-            type: "slide",
+            // type: "slide",
           );
         },
         child: Column(
@@ -42,29 +42,38 @@ class BlogTrendCard extends StatelessWidget {
                 ],
               ),
             ),
-            Image.network(
-              blog.image,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width / 2,
-              fit: BoxFit.cover,
+            Hero(
+              tag: blog.image,
+              child: Image.network(
+                blog.image,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width / 2,
+                fit: BoxFit.cover,
+              ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(18, 5, 18, 0),
-              child: Text(
-                blog.title,
-                style: Theme.of(context).textTheme.bodyLarge!.apply(
-                      fontWeightDelta: 3,
-                      fontSizeDelta: 2,
-                    ),
+            Hero(
+              tag: blog.title,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(18, 5, 18, 0),
+                child: Text(
+                  blog.title,
+                  style: Theme.of(context).textTheme.bodyLarge!.apply(
+                        fontWeightDelta: 3,
+                        fontSizeDelta: 2,
+                      ),
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(18, 5, 5, 5),
-              child: Text(
-                blog.content,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: Theme.of(context).textTheme.bodyLarge!,
+              child: Hero(
+                tag: blog.summary,
+                child: Text(
+                  blog.content,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: Theme.of(context).textTheme.bodyLarge!,
+                ),
               ),
             ),
             Padding(

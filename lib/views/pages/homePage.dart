@@ -106,8 +106,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       // debounce++;
       return Scaffold(
         appBar: AppBar(
-          leading: Image(
-            image: AssetImage(leagueLogo),
+          leading: Hero(
+            tag: "splash",
+            child: Image(
+              image: AssetImage(leagueLogo),
+            ),
           ),
           title: Text(appTitle.toUpperCase()),
         ),
@@ -137,7 +140,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         child: LeagueWidget(
                           data: controller.leagueData,
                           matchId: controller.matchDates[i].id,
-                          controller: controller,
                         ),
                       ),
                     ),

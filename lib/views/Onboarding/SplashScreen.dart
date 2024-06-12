@@ -61,10 +61,13 @@ class _SplashScreenState extends State<SplashScreen>
                   child: child,
                 );
               },
-              child: Image.asset(
-                leagueLogo,
-                height: 120,
-                width: 120,
+              child: Hero(
+                tag: "splash",
+                child: Image.asset(
+                  leagueLogo,
+                  height: 120,
+                  width: 120,
+                ),
               ),
             ),
           ),

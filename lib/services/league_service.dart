@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '/exports/exports.dart';
 import '/models/league.dart';
 
@@ -8,13 +10,14 @@ class LeagueService {
       Response response = await Client().get(Uri.parse(Apis.fetchLeagues));
       if (response.statusCode == 200) {
         res = response.body;
+        return leaguesModelFromJson(res).message;
       } else {
+        return Future.error(json.decode(response.body)['message']);
         // showMessage(msg: "Something went wrong", color: Colors.red);
       }
     } on ClientException catch (e) {
-      debugPrint(e.message);
+      return Future.error(e.message);
     }
-    return leaguesModelFromJson(res).message;
   }
 
   // function to create a league

@@ -19,16 +19,15 @@ class FixtureService {
     return fixtureModelFromJson(res).data;
   }
 
-  static Future<List<Datum>> getRunningFixtures(
-      String leagueId, String matchId) async {
-
+  static Future<List<Datum>> getRunningFixtures(String matchId) async {
     try {
       Response response = await Client().get(
         Uri.parse("${Apis.runningFixture}$leagueId/$matchId"),
       );
+      // print("${Apis.runningFixture}$leagueId/$matchId");
       if (response.statusCode == 200) {
-       return fixtureModelFromJson(response.body).data;
-        // print(res);
+        // print(response.body);
+        return fixtureModelFromJson(response.body).data;
       } else {
         return Future.error(jsonDecode(response.body)['message']);
       }
@@ -36,10 +35,9 @@ class FixtureService {
       debugPrint(e.message);
       return Future.error(e.message);
     } on FormatException catch (e) {
-        debugPrint(e.message);
+      debugPrint(e.message);
       return Future.error(e.message);
     }
-   
   }
 
   // function to add a fixture

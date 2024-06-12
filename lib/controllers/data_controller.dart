@@ -27,7 +27,7 @@ class DataController with ChangeNotifier {
   }
 
   void fetchFixtureData(String matchId) {
-    FixtureService.getRunningFixtures(leagueId, matchId).then((value) {
+    FixtureService.getRunningFixtures(matchId).then((value) {
       _fixtureData = value;
       notifyListeners();
     });
@@ -41,7 +41,6 @@ class DataController with ChangeNotifier {
       });
     } on FormatException catch (_, e) {
       e.toString();
-      debugPrint(_.message);
     }
   }
 
