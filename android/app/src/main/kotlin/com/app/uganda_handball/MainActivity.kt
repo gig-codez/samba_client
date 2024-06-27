@@ -1,4 +1,4 @@
-package com.app.handball
+package com.app.uganda_handball
 
 import io.flutter.embedding.android.FlutterActivity
 
