@@ -8,6 +8,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:fau/controllers/league_controller.dart';
 import 'package:flutter/services.dart';
 import '/services/device_manager.dart';
 import '/services/fixture_service.dart';
@@ -275,6 +276,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => FixtureController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LeagueController(),
         ),
       ],
       child: Consumer<AppController>(

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:fau/controllers/league_controller.dart';
+
 import '../../models/match_date.dart';
 import '../../services/match_date_service.dart';
 import '../../widgets/LeagueWidget.dart';
@@ -113,6 +115,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
           ),
           title: Text(appTitle.toUpperCase()),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () {
+                Provider.of<DataController>(context, listen: false)
+                    .fetchLeagueData();
+                Provider.of<DataController>(context, listen: false)
+                    .fetchMatchDates();
+              },
+            ),
+            Consumer<LeagueController>(builder: (context, controller, x) {
+              return PopupMenuButton(
+                itemBuilder: (context) {
+                  return controller.leagues.map((league) {
+                    return PopupMenuItem(
+                      child: ListTile(
+                        title: Text(league.appTitle),
+                        onTap: () {
+                          controller.switchLeague(league);
+                        },
+                      ),
+                    );
+                  }).toList();
+                },
+              );
+            }),
+          ],
         ),
         body: Column(
           children: [
