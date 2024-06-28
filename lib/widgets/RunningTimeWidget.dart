@@ -24,18 +24,18 @@ class RunningTimeWidget extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: SizedBox.square(
-                // dimension: 30,
+              child: SizedBox(
+                height: 35,
                 child: Center(
                   child: AutoSizeText(
                     timeUpdates(fixture!),
                     style: textStyle.copyWith(
-                      // fontSize: 14,
+                      fontSize: 14,
                       fontWeight: FontWeight.w900,
                       color: Colors.white,
                     ),
-                    maxFontSize: 13,
-                    minFontSize: 10,
+                    // maxFontSize: 13,
+                    // minFontSize: 10,
                     textAlign: TextAlign.center,
                   ),
                 ),
