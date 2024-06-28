@@ -102,7 +102,6 @@ class _HomeFixtureWidgetState extends State<HomeFixtureWidget> {
                             Routes.animateToPage(
                               TeamsPage(
                                 data: s.data![index],
-                                matchId: ' widget.',
                               ),
                             );
                           },

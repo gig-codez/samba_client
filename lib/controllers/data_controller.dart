@@ -26,7 +26,15 @@ class DataController with ChangeNotifier {
     });
   }
 
-  void fetchFixtureData(String matchId) {
+  // capture match id
+  String _matchId = "";
+  String get matchId => _matchId;
+  set matchId(String id) {
+    _matchId = id;
+    // notifyListeners();
+  }
+
+  void fetchFixtureData() {
     FixtureService.getRunningFixtures(matchId).then((value) {
       _fixtureData = value;
       notifyListeners();

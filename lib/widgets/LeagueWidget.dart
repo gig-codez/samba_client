@@ -80,7 +80,6 @@ class _LeagueWidgetState extends State<LeagueWidget> {
         Routes.animateToPage(
           TeamsPage(
             data: fixture,
-            matchId: widget.matchId,
             index: index,
           ),
         );
@@ -190,8 +189,9 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   @override
   Widget build(BuildContext context) {
     return Consumer<DataController>(builder: (context, controller, x) {
+      controller.matchId = widget.matchId;
       controller.fetchLeagueData();
-      controller.fetchFixtureData(widget.matchId);
+      controller.fetchFixtureData();
       return controller.fixtureData.isEmpty
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,

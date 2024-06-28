@@ -7,9 +7,8 @@ import 'teamPages/table_page.dart';
 class TeamsPage extends StatefulWidget {
   final Datum data;
   final int? index;
-  final String matchId;
-  const TeamsPage(
-      {super.key, required this.matchId, this.index, required this.data});
+
+  const TeamsPage({super.key, this.index, required this.data});
 
   @override
   State<TeamsPage> createState() => _TeamsPageState();
@@ -46,7 +45,6 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
             children: [
               PlayingTeams(
                 data: widget.index,
-                matchId: widget.matchId,
               ),
               Expanded(
                 child: SizedBox(

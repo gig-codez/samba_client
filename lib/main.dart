@@ -4,6 +4,7 @@
 /// Date: 03/11/2023
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -22,43 +23,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-/// Working example of FirebaseMessaging.
-/// Please use this in order to verify messages are working in foreground, background & terminated state.
-/// Setup your app following this guide:
-/// https://firebase.google.com/docs/cloud-messaging/flutter/client#platform-specific_setup_and_requirements):
-///
-/// Once you've completed platform specific requirements, follow these instructions:
-/// 1. Install melos tool by running `flutter pub global activate melos`.
-/// 2. Run `melos bootstrap` in FlutterFire project.
-/// 3. In your terminal, root to ./packages/firebase_messaging/firebase_messaging/example directory.
-/// 4. Run `flutterfire configure` in the example/ directory to setup your app with your Firebase project.
-/// 5. Open `token_monitor.dart` and change `vapidKey` to yours.
-/// 6. Run the app on an actual device for iOS, android is fine to run on an emulator.
-/// 7. Use the following script to send a message to your device: scripts/send-message.js. To run this script,
-///    you will need nodejs installed on your computer. Then the following:
-///     a. Download a service account key (JSON file) from your Firebase console, rename it to "google-services.json" and add to the example/scripts directory.
-///     b. Ensure your device/emulator is running, and run the FirebaseMessaging example app using `flutter run`.
-///     c. Copy the token that is printed in the console and paste it here: https://github.com/firebase/flutterfire/blob/01b4d357e1/packages/firebase_messaging/firebase_messaging/example/lib/main.dart#L32
-///     c. From your terminal, root to example/scripts directory & run `npm install`.
-///     d. Run `npm run send-message` in the example/scripts directory and your app will receive messages in any state; foreground, background, terminated.
-///  Note: Flutter API documentation for receiving messages: https://firebase.google.com/docs/cloud-messaging/flutter/receive
-///  Note: If you find your messages have stopped arriving, it is extremely likely they are being throttled by the platform. iOS in particular
-///  are aggressive with their throttling policy.
-///
-/// To verify that your messages are being received, you ought to see a notification appearon your device/emulator via the flutter_local_notifications plugin.
-/// Define a top-level named handler which background/terminated messages will
-/// call. Be sure to annotate the handler with `@pragma('vm:entry-point')` above the function declaration.
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  if (Firebase.apps.isEmpty) {
-    if (Platform.isIOS) {
-      await Firebase.initializeApp(
-          name: 'ndejje', options: DefaultFirebaseOptions.currentPlatform);
-    } else {
-      await Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform);
-    }
-  }
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setupFlutterNotifications();
   showFlutterNotification(message);
@@ -148,7 +114,6 @@ void setUpMessage() {
           Routes.animateToPage(
             TeamsPage(
               data: fixture,
-              matchId: '',
             ),
           );
         });
@@ -166,7 +131,6 @@ void setUpMessage() {
         Routes.animateToPage(
           TeamsPage(
             data: fixture,
-            matchId: '',
           ),
         );
       });
@@ -184,12 +148,35 @@ void setUpMessage() {
         Routes.animateToPage(
           TeamsPage(
             data: fixture,
-            matchId: '',
           ),
         );
       });
     }
   });
+}
+
+// get token after retry
+Future<String?> getTokenWithRetry({int maxAttempts = 3}) async {
+  for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      if (Platform.isIOS) {
+        await FirebaseMessaging.instance.getAPNSToken();
+      }
+      return await FirebaseMessaging.instance.getToken();
+    } catch (e) {
+      if (e is FirebaseException && e.code == 'service-not-available') {
+        if (attempt == maxAttempts) {
+          print('Failed to retrieve FCM token after $maxAttempts attempts');
+          return null;
+        }
+        // Wait before retrying, with exponential backoff
+        await Future.delayed(Duration(seconds: 2 * attempt));
+      } else {
+        rethrow; // For other exceptions, rethrow
+      }
+    }
+  }
+  return null;
 }
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
@@ -198,45 +185,31 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 void main() async {
   // Ensuring that all widgets are properly assembled.
   WidgetsFlutterBinding.ensureInitialized();
-  if (Firebase.apps.isEmpty) {
-    if (Platform.isIOS) {
-      await Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform);
-      FirebaseMessaging.instance.requestPermission(
-        alert: true,
-        announcement: false,
-        badge: true,
-        carPlay: false,
-        criticalAlert: false,
-        provisional: false,
-        sound: true,
-      );
-    } else {
-      await Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform);
-      FirebaseMessaging.instance.requestPermission(
-        alert: true,
-        announcement: false,
-        badge: true,
-        carPlay: false,
-        criticalAlert: false,
-        provisional: false,
-        sound: true,
-      );
+  try {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+    FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    // Set the background messaging handler early on, as a named top-level function
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    if (!kIsWeb) {
+      await setupFlutterNotifications();
     }
+
+    FirebaseMessaging.onMessage.listen(showFlutterNotification);
+    setUpMessage();
+  } catch (e) {
+    log(e.toString());
   }
-
-  // Set the background messaging handler early on, as a named top-level function
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  // FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-  //     alert: true, badge: true, sound: true);
-
-  if (!kIsWeb) {
-    await setupFlutterNotifications();
-  }
-
-  FirebaseMessaging.onMessage.listen(showFlutterNotification);
-  setUpMessage();
   // await DeviceManager.clearAll();
   // Rendering the app in full screen mode.
   SystemChrome.setEnabledSystemUIMode(
@@ -257,23 +230,24 @@ void main() async {
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
     // DeviceManager.clearAll();
     DeviceManager.checkDeviceId().asStream().listen((event) {
-      if (event) {
-        FirebaseMessaging.instance.getAPNSToken().asStream().listen((apn) {
-          FirebaseMessaging.instance.getToken().asStream().listen((token) {
-            if (token != null) {
-              DeviceManager.saveDeviceKey(
-                  token, "${iosInfo.model}_${iosInfo.identifierForVendor}");
-            }
-          });
-        });
-      }
+      // if (event) {
+      //   FirebaseMessaging.instance.getAPNSToken().asStream().listen((apn) {
+      //     FirebaseMessaging.instance.getToken().asStream().listen((token) {
+      //       if (token != null) {
+      //         DeviceManager.saveDeviceKey(
+      //             token, "${iosInfo.model}_${iosInfo.identifierForVendor}");
+      //       }
+      //     });
+      //   });
+      // }
     });
   } else {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     // DeviceManager.clearAll();
     DeviceManager.checkDeviceId().asStream().listen((event) {
       if (event) {
-        FirebaseMessaging.instance.getToken().asStream().listen((token) {
+        // FirebaseMessaging.instance.getToken().asStream().listen((token) {
+        getTokenWithRetry().asStream().listen((token) {
           if (token != null) {
             DeviceManager.saveDeviceKey(
                 token, "${androidInfo.model}_${androidInfo.fingerprint}");
