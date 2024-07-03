@@ -11,7 +11,7 @@ class DataController with ChangeNotifier {
   // String _leagueId = "";
 
   void setLeagueId(String id) {
-    fetchMatchDates(id);
+    fetchMatchDates();
     // notifyListeners();
   }
 
@@ -24,21 +24,29 @@ class DataController with ChangeNotifier {
 // league data
   late Message _leagueData;
   Message get leagueData => _leagueData;
-  void fetchMatchDates(String leagueId) {
+  void fetchMatchDates() {
     MatchDateService.getMatchDates(leagueId).then((value) {
       _matchDates = value;
       notifyListeners();
     });
   }
 
-  void fetchFixtureData(String leagueId, String matchId) {
+  String _matchId = "";
+  String get matchId => _matchId;
+  set matchId(String id) {
+    _matchId = id;
+    fetchFixtureData(id);
+    // notifyListeners();
+  }
+
+  void fetchFixtureData(String matchId) {
     FixtureService.getRunningFixtures(leagueId, matchId).then((value) {
       _fixtureData = value;
       notifyListeners();
     });
   }
 
-  void fetchLeagueData(String leagueId) {
+  void fetchLeagueData() {
     try {
       LeagueService.getLeague().then((value) {
         _leagueData = value.where((element) => element.id == leagueId).first;
@@ -60,8 +68,8 @@ class DataController with ChangeNotifier {
   // blogs
   List<BlogsModel> _blogs = [];
   List<BlogsModel> get blogs {
-     _fetchBlogs();
-     return _blogs;
+    _fetchBlogs();
+    return _blogs;
   }
 
   void _fetchBlogs() {

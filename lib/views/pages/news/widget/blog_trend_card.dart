@@ -42,20 +42,26 @@ class BlogTrendCard extends StatelessWidget {
                 ],
               ),
             ),
-            Image.network(
-              blog.image,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width / 2,
-              fit: BoxFit.cover,
+            Hero(
+              tag: blog.id,
+              child: Image.network(
+                blog.image,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width / 2,
+                fit: BoxFit.cover,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(18, 5, 18, 0),
-              child: Text(
-                blog.title,
-                style: Theme.of(context).textTheme.bodyLarge!.apply(
-                      fontWeightDelta: 3,
-                      fontSizeDelta: 2,
-                    ),
+              child: Hero(
+                tag: blog.title,
+                child: Text(
+                  blog.title,
+                  style: Theme.of(context).textTheme.bodyLarge!.apply(
+                        fontWeightDelta: 3,
+                        fontSizeDelta: 2,
+                      ),
+                ),
               ),
             ),
             Padding(

@@ -28,8 +28,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             match.map((e) => DateTime.parse(e.date)).toList();
         matchDates.sort(); // Ensure dates are in ascending order
 
-        DateTime nextMatchDate =
-            matchDates.firstWhere((date) => date.isAfter(DateTime.now(),),);
+        DateTime nextMatchDate = matchDates.firstWhere(
+          (date) => date.isAfter(
+            DateTime.now(),
+          ),
+        );
         tabIndex = match.indexWhere(
             (element) => DateTime.parse(element.date) == nextMatchDate);
       }
@@ -47,15 +50,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     // setUpMessage();
-    Provider.of<DataController>(context, listen: false)
-        .fetchLeagueData(leagueId);
+    Provider.of<DataController>(context, listen: false).fetchLeagueData();
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      Provider.of<DataController>(context, listen: false)
-          .fetchLeagueData(leagueId);
-      Provider.of<DataController>(context, listen: false)
-          .fetchMatchDates(leagueId);
-    });
     Timer.periodic(const Duration(milliseconds: 200), (timer) async {
       log("${timer.tick} $tabs");
       var matchDates = await MatchDateService.getMatchDates(leagueId);
@@ -81,44 +77,44 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    Provider.of<DataController>(context, listen: false)
-        .fetchLeagueData(leagueId);
-  }
-
   int debounce = 0;
   int tabs = 0;
   @override
   Widget build(BuildContext context) {
-    Provider.of<DataController>(context, listen: false)
-        .fetchLeagueData(leagueId);
-    return Consumer<DataController>(builder: (context, controller, child) {
-      controller.fetchMatchDates(leagueId);
-      // }
-      if (tabs == 0) {
-        tabController = TabController(
-          length: tabs,
-          // initialIndex: tabs == 0 ? 0 : tabs - 1,
-          vsync: this,
-        );
-      }
-
-      // debounce++;
-      return Scaffold(
-        appBar: AppBar(
-          leading: Image(
-            image: AssetImage(leagueLogo),
-          ),
-          title: Text(appTitle.toUpperCase()),
+    return Scaffold(
+      appBar: AppBar(
+        leading: Image(
+          image: AssetImage(leagueLogo),
         ),
-        body: Column(
+        title: Text(appTitle.toUpperCase()),
+      ),
+      body: Consumer<DataController>(builder: (context, controller, x) {
+        if (mounted) {
+          controller.fetchMatchDates();
+        }
+        // }
+        if (tabs == 0) {
+          tabController = TabController(
+            length: tabs,
+            // initialIndex: tabs == 0 ? 0 : tabs - 1,
+            vsync: this,
+          );
+        } else {
+          if (mounted) {
+            log("swiper ${tabController?.index}");
+            controller.matchId = controller.matchDates[tabController!.index].id;
+          }
+        }
+        return Column(
           children: [
             if (tabs != 0)
               TabBar(
                 controller: tabController,
                 isScrollable: true,
+                onTap: (value) {
+                  log(value.toString());
+                  controller.matchId = controller.matchDates[value].id;
+                },
                 tabs: List.generate(
                   tabs,
                   (index) => Tab(
@@ -160,8 +156,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             //   },
             // ),
           ],
-        ),
-      );
-    });
+        );
+      }),
+    );
   }
 }

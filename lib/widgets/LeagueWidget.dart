@@ -1,5 +1,5 @@
 import 'dart:async';
-import '../controllers/data_controller.dart';
+// import '../controllers/data_controller.dart';
 import '../services/WebSocketService.dart';
 import '/exports/exports.dart';
 import '/models/fixture.dart';
@@ -38,18 +38,15 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   @override
   void initState() {
     super.initState();
-    // widget.controller.fetchLeagueData(
-    //   leagueId,
-    // );
+    // widget.controller.fetchLeagueData();
+    // widget.controller.fetchFixtureData(widget.matchId);
     // widget.controller.fetchFixtureData(leagueId, widget.matchId);
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (mounted) _timer = timer;
-        widget.controller.fetchLeagueData(
-        leagueId,
-      );
-      widget.controller.fetchFixtureData(leagueId, widget.matchId);
-      // WebSocketService.fetchMatchTime();
-    });
+    // Timer.periodic(const Duration(seconds: 1), (timer) {
+    //   if (mounted) _timer = timer;
+    //   // widget.controller.fetchLeagueData();
+    //   widget.controller.fetchFixtureData(widget.matchId);
+    //   // WebSocketService.fetchMatchTime();
+    // });
   }
 
   @override
@@ -61,10 +58,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
 // card header
   Widget _cardHeader({String? title, String? teamLogo}) {
     //
-    widget.controller.fetchLeagueData(
-      leagueId,
-    );
-    widget.controller.fetchFixtureData(leagueId, widget.matchId);
+    // widget.controller.fetchLeagueData();
+    // widget.controller.fetchFixtureData(widget.matchId);
     BuildContext? context = navigatorKey.currentContext;
     WebSocketService.fetchMatchTime();
     WebSocketService.getServerState();
@@ -254,6 +249,10 @@ class _LeagueWidgetState extends State<LeagueWidget> {
             ),
             child:
                 Consumer<DataController>(builder: (context, controller, child) {
+              if (mounted) {
+                controller.fetchMatchDates();
+                controller.fetchLeagueData();
+              }
               return Column(
                 children: [
                   _cardHeader(

@@ -57,8 +57,8 @@ class Routes {
   static void animateToPage(Widget page, {type = 'fade'}) {
     Navigator.of(context).push(
       PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 600),
-        reverseTransitionDuration: const Duration(milliseconds: 400),
+        transitionDuration: const Duration(milliseconds: 300),
+        reverseTransitionDuration: const Duration(milliseconds: 300),
         pageBuilder: (context, animation, secondaryAnimation) => type == 'slide'
             ? SlideTransition(
                 position: animation.drive(Tween<Offset>(
