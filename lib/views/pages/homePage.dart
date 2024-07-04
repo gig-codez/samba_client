@@ -94,7 +94,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     Provider.of<DataController>(context, listen: false).fetchLeagueData();
     return Consumer<DataController>(builder: (context, controller, child) {
-      controller.fetchMatchDates(leagueId);
+      if (mounted) {
+        controller.fetchMatchDates(leagueId);
+        controller.fetchFixtures();
+      }
       // }
       if (tabs == 0) {
         tabController = TabController(
