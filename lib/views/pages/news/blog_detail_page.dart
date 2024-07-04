@@ -19,29 +19,39 @@ class _BlogDetailPageState extends State<BlogDetailPage> {
         //  padd,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(18, 5, 18, 0),
-            child: AutoSizeText.rich(
-              TextSpan(children:[
-                TextSpan(text:"${widget.blog.title}\n",
-              style: Theme.of(context).textTheme.bodyLarge!.apply(
-                    fontWeightDelta: 3,
-                    fontSizeDelta: 6,
-                  ),),
-                   TextSpan(
-            text:widget.blog.summary,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-              ],),
+            padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+            child: Hero(
+              tag: widget.blog.title,
+              child: AutoSizeText.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "${widget.blog.title}\n",
+                      style: Theme.of(context).textTheme.bodyLarge!.apply(
+                            fontWeightDelta: 3,
+                            fontSizeDelta: 6,
+                          ),
+                    ),
+                    TextSpan(
+                      text: widget.blog.summary,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
-          Image.network(
-            widget.blog.image,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.width / 2,
-            fit: BoxFit.cover,
+          Hero(
+            tag: widget.blog.image,
+            child: Image.network(
+              widget.blog.image,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width / 2,
+              fit: BoxFit.cover,
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(18, 5, 18, 5),
+            padding: const EdgeInsets.fromLTRB(10, 8, 10, 5),
             child: Text(
               widget.blog.content,
             ),

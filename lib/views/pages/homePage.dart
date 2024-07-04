@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController? tabController;
-  Timer? _timer;
+
   // int tabs = 0;
   int currentTab(List<MatchDateModel> match) {
     try {
@@ -28,8 +28,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             match.map((e) => DateTime.parse(e.date)).toList();
         matchDates.sort(); // Ensure dates are in ascending order
 
-        DateTime nextMatchDate =
-            matchDates.firstWhere((date) => date.isAfter(DateTime.now(),),);
+        DateTime nextMatchDate = matchDates.firstWhere(
+          (date) => date.isAfter(
+            DateTime.now(),
+          ),
+        );
         tabIndex = match.indexWhere(
             (element) => DateTime.parse(element.date) == nextMatchDate);
       }
@@ -47,15 +50,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     // setUpMessage();
-    Provider.of<DataController>(context, listen: false)
-        .fetchLeagueData(leagueId);
+    Provider.of<DataController>(context, listen: false).fetchLeagueData();
+    Provider.of<DataController>(context, listen: false).fetchFixtures();
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      Provider.of<DataController>(context, listen: false)
-          .fetchLeagueData(leagueId);
-      Provider.of<DataController>(context, listen: false)
-          .fetchMatchDates(leagueId);
-    });
+    // _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    //   Provider.of<DataController>(context, listen: false).fetchLeagueData();
+    //   Provider.of<DataController>(context, listen: false)
+    //       .fetchMatchDates(leagueId);
+    // });
     Timer.periodic(const Duration(milliseconds: 200), (timer) async {
       log("${timer.tick} $tabs");
       var matchDates = await MatchDateService.getMatchDates(leagueId);
@@ -76,7 +78,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _timer?.cancel();
     tabController?.dispose();
     super.dispose();
   }
@@ -84,16 +85,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Provider.of<DataController>(context, listen: false)
-        .fetchLeagueData(leagueId);
+    Provider.of<DataController>(context, listen: false).fetchLeagueData();
   }
 
   int debounce = 0;
   int tabs = 0;
   @override
   Widget build(BuildContext context) {
-    Provider.of<DataController>(context, listen: false)
-        .fetchLeagueData(leagueId);
+    Provider.of<DataController>(context, listen: false).fetchLeagueData();
     return Consumer<DataController>(builder: (context, controller, child) {
       controller.fetchMatchDates(leagueId);
       // }
@@ -121,10 +120,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 isScrollable: true,
                 tabs: List.generate(
                   tabs,
-                  (index) => Tab(
-                    text: DateTime.parse(controller.matchDates[index].date)
-                        .formated(),
-                  ),
+                  (index) {
+                    // updating match id
+                    controller.matchId = controller.matchDates[index].id;
+                    //
+                    return Tab(
+                      text: DateTime.parse(controller.matchDates[index].date)
+                          .formated(),
+                    );
+                  },
                 ),
               ),
             if (tabs != 0)

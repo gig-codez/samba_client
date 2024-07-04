@@ -7,8 +7,25 @@ import '../services/league_service.dart';
 import '../services/match_date_service.dart';
 
 class DataController with ChangeNotifier {
-  // leagueId
-  // String _leagueId = "";
+  // match id
+  String _matchId = "";
+  String get matchId => _matchId;
+  set matchId(String id) {
+    _matchId = id;
+    _fixtureData =
+        fixtures.where((element) => element.fixtureDate == id).toList();
+  }
+
+  // fixtures
+  List<Datum> _fixtures = [];
+  List<Datum> get fixtures => _fixtures;
+  // function to fetch all fxitures
+  void fetchFixtures() {
+    FixtureService.getFixtures(leagueId).then((fixtures) {
+      _fixtures = fixtures;
+      notifyListeners();
+    });
+  }
 
   void setLeagueId(String id) {
     fetchMatchDates(id);
@@ -31,14 +48,12 @@ class DataController with ChangeNotifier {
     });
   }
 
-  void fetchFixtureData(String leagueId, String matchId) {
-    FixtureService.getRunningFixtures(leagueId, matchId).then((value) {
-      _fixtureData = value;
-      notifyListeners();
-    });
+  void fetchFixtureData() {
+    _fixtureData =
+        fixtures.where((element) => element.fixtureDate == matchId).toList();
   }
 
-  void fetchLeagueData(String leagueId) {
+  void fetchLeagueData() {
     try {
       LeagueService.getLeague().then((value) {
         _leagueData = value.where((element) => element.id == leagueId).first;
@@ -60,8 +75,8 @@ class DataController with ChangeNotifier {
   // blogs
   List<BlogsModel> _blogs = [];
   List<BlogsModel> get blogs {
-     _fetchBlogs();
-     return _blogs;
+    _fetchBlogs();
+    return _blogs;
   }
 
   void _fetchBlogs() {
@@ -69,5 +84,15 @@ class DataController with ChangeNotifier {
       _blogs = value;
       notifyListeners();
     });
+  }
+
+  // constructor invocation
+  DataController() {
+    fetchFixtures();
+    fetchLeagueData();
+    // fetch blogs
+    _fetchBlogs();
+    // fetch fixtures
+    fetchFixtures();
   }
 }

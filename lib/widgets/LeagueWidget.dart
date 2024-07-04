@@ -1,5 +1,5 @@
 import 'dart:async';
-import '../controllers/data_controller.dart';
+
 import '../services/WebSocketService.dart';
 import '/exports/exports.dart';
 import '/models/fixture.dart';
@@ -41,10 +41,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
     Timer.periodic(const Duration(seconds: 1), (timer) {
       if (mounted) _timer = timer;
       // WebSocketService.fetchMatchTime();
-      widget.controller.fetchLeagueData(
-        leagueId,
-      );
-      widget.controller.fetchFixtureData(leagueId, widget.matchId);
+      widget.controller.fetchLeagueData();
+      widget.controller.fetchFixtureData();
     });
   }
 
@@ -57,8 +55,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
 // card header
   Widget _cardHeader({String? title, String? teamLogo}) {
     BuildContext? context = navigatorKey.currentContext;
-    WebSocketService.fetchMatchTime();
-    WebSocketService.getServerState();
+    // WebSocketService.fetchMatchTime();
+    // WebSocketService.getServerState();
     return FittedBox(
       child: SizedBox(
         width: MediaQuery.of(context!).size.width,
@@ -213,8 +211,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   @override
   Widget build(BuildContext context) {
     // log(widget.matchId);
-    WebSocketService.fetchMatchTime();
-    WebSocketService.getServerState();
+    // WebSocketService.fetchMatchTime();
+    // WebSocketService.getServerState();
     return widget.controller.fixtureData.isEmpty
         ? Center(
             child: Column(
@@ -246,6 +244,9 @@ class _LeagueWidgetState extends State<LeagueWidget> {
             ),
             child:
                 Consumer<DataController>(builder: (context, controller, child) {
+              if (mounted) {
+                controller.fetchFixtureData();
+              }
               return Column(
                 children: [
                   _cardHeader(
