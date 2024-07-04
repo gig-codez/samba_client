@@ -26,6 +26,10 @@ class _BlogCardState extends State<BlogCard> {
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            const SizedBox(
+              width: 10,
+              height: 0,
+            ),
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Hero(
@@ -62,7 +66,11 @@ class _BlogCardState extends State<BlogCard> {
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),
-            )
+            ),
+            const SizedBox(
+              width: 10,
+              height: 0,
+            ),
           ],
         ),
       ),

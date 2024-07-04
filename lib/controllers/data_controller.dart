@@ -7,8 +7,25 @@ import '../services/league_service.dart';
 import '../services/match_date_service.dart';
 
 class DataController with ChangeNotifier {
-  // leagueId
-  // String _leagueId = "";
+  // match id
+  String _matchId = "";
+  String get matchId => _matchId;
+  set matchId(String id) {
+    _matchId = id;
+    _fixtureData =
+        fixtures.where((element) => element.fixtureDate == id).toList();
+    // notifyListeners();
+  }
+
+// fetch fixtures
+  List<Datum> _fixtures = [];
+  List<Datum> get fixtures => _fixtures;
+  void fetchFixtures() {
+    FixtureService.getFixtures().then((value) {
+      _fixtures = value;
+      notifyListeners();
+    });
+  }
 
   List<MatchDateModel> _matchDates = [];
   List<MatchDateModel> get matchDates => _matchDates;
@@ -26,11 +43,9 @@ class DataController with ChangeNotifier {
     });
   }
 
-  void fetchFixtureData(String matchId) {
-    FixtureService.getRunningFixtures(matchId).then((value) {
-      _fixtureData = value;
-      notifyListeners();
-    });
+  void fetchFixtureData() {
+    _fixtureData =
+        fixtures.where((element) => element.fixtureDate == matchId).toList();
   }
 
   void fetchLeagueData() {
@@ -64,5 +79,19 @@ class DataController with ChangeNotifier {
       _blogs = value;
       notifyListeners();
     });
+  }
+
+  // constructor invocation
+  DataController() {
+    // fetch match dates
+    fetchMatchDates();
+    // fetch league data
+    fetchLeagueData();
+    // fetch blogs
+    _fetchBlogs();
+    // fetch fixture data
+    fetchFixtureData();
+    // fetch fixtures
+    fetchFixtures();
   }
 }

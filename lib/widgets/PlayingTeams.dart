@@ -9,7 +9,7 @@ class PlayingTeams extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DataController>(builder: (context, controller, c) {
       controller.fetchLeagueData();
-      controller.fetchFixtureData(matchId);
+      controller.fetchFixtureData();
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

@@ -51,11 +51,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
     // setUpMessage();
     Provider.of<DataController>(context, listen: false).fetchLeagueData();
+    Provider.of<DataController>(context, listen: false).fetchFixtures();
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      Provider.of<DataController>(context, listen: false).fetchLeagueData();
-      Provider.of<DataController>(context, listen: false).fetchMatchDates();
-    });
     Timer.periodic(const Duration(milliseconds: 200), (timer) async {
       log("${timer.tick} $tabs");
       var matchDates = await MatchDateService.getMatchDates(leagueId);
@@ -81,19 +78,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    Provider.of<DataController>(context, listen: false).fetchLeagueData();
-  }
-
   int debounce = 0;
   int tabs = 0;
   @override
   Widget build(BuildContext context) {
-    Provider.of<DataController>(context, listen: false).fetchLeagueData();
     return Consumer<DataController>(builder: (context, controller, child) {
-      controller.fetchMatchDates();
+      if (mounted) {
+        controller.fetchMatchDates();
+        controller.fetchFixtures();
+        controller.fetchFixtureData();
+      }
+
       // }
       if (tabs == 0) {
         tabController = TabController(
@@ -122,10 +117,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 isScrollable: true,
                 tabs: List.generate(
                   tabs,
-                  (index) => Tab(
-                    text: DateTime.parse(controller.matchDates[index].date)
-                        .formated(),
-                  ),
+                  (index) {
+                    //  setting global matchId
+                    controller.matchId = controller.matchDates[index].id;
+                    // s
+                    return Tab(
+                      text: DateTime.parse(controller.matchDates[index].date)
+                          .formated(),
+                    );
+                  },
                 ),
               ),
             if (tabs != 0)

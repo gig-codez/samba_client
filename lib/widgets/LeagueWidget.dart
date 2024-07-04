@@ -191,7 +191,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   Widget build(BuildContext context) {
     return Consumer<DataController>(builder: (context, controller, x) {
       controller.fetchLeagueData();
-      controller.fetchFixtureData(widget.matchId);
+      controller.fetchFixtureData();
       return controller.fixtureData.isEmpty
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
