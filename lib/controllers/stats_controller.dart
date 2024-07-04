@@ -6,8 +6,14 @@ class StatsController with ChangeNotifier {
   List<Message> _tableData = [];
   List<Message> get tableData => _tableData;
   void fetchTableData() async {
-    var teams = await TableService().getTeams(leagueId);
-    _tableData = teams;
-    notifyListeners();
+    TableService().getTeams(leagueId).then((teams) {
+      _tableData = teams;
+      notifyListeners();
+    });
+  }
+
+  // constructor invocation
+  StatsController() {
+    fetchTableData();
   }
 }

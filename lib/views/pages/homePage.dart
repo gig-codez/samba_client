@@ -51,13 +51,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    // setUpMessage();
     Provider.of<DataController>(context, listen: false).fetchLeagueData();
-
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      Provider.of<DataController>(context, listen: false).fetchLeagueData();
-      Provider.of<DataController>(context, listen: false).fetchMatchDates();
-    });
+    Provider.of<DataController>(context, listen: false).fetchMatchDates();
     Timer.periodic(const Duration(milliseconds: 200), (timer) async {
       log("${timer.tick} $tabs");
       var matchDates = await MatchDateService.getMatchDates(leagueId);
@@ -81,12 +76,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _timer?.cancel();
     tabController?.dispose();
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    Provider.of<DataController>(context, listen: false).fetchLeagueData();
   }
 
   int debounce = 0;
@@ -117,12 +106,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           title: Text(appTitle.toUpperCase()),
           actions: [
             IconButton(
-              icon: Icon(Icons.refresh),
+              icon: const Icon(Icons.refresh),
               onPressed: () {
                 Provider.of<DataController>(context, listen: false)
-                    .fetchLeagueData();
+                    .fetchFixtures();
                 Provider.of<DataController>(context, listen: false)
-                    .fetchMatchDates();
+                    .fetchFixtureData();
+                showMessage(msg: "Data refreshed");
               },
             ),
             Consumer<LeagueController>(builder: (context, controller, x) {

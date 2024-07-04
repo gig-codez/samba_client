@@ -64,10 +64,10 @@ class _HomeFixtureWidgetState extends State<HomeFixtureWidget> {
   Timer? _timer;
 
   void fetchLeagues() async {
-    var leagues = await FixtureService.getFixtures(widget.leagueId);
+    var leagues = await FixtureService.getFixtures();
     _leaguesController.add(leagues);
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      var leagues = await FixtureService.getFixtures(widget.leagueId);
+      var leagues = await FixtureService.getFixtures();
       _leaguesController.add(leagues);
     });
   }

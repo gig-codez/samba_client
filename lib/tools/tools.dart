@@ -5,13 +5,17 @@ import 'package:store_redirect/store_redirect.dart';
 var navigatorKey = GlobalKey<NavigatorState>();
 BuildContext context = navigatorKey.currentContext!;
 
-void showMessage({String msg = "", Color? color}) {
+void showMessage({String msg = "", Color? color, bool float = false}) {
   ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
     SnackBar(
       backgroundColor: color,
-      content: Text(
-        msg,
+      content: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          msg,
+        ),
       ),
+      behavior: float ? SnackBarBehavior.floating : SnackBarBehavior.fixed,
     ),
   );
 }
@@ -19,22 +23,22 @@ void showMessage({String msg = "", Color? color}) {
 // helper function
 String quarterTimes(Datum data) {
   return data.quarterEnded
-      ? "QT"
+      ? "QT 1"
       : data.halfEnded
-          ? "HT"
+          ? "QT 2"
           : data.secondHalfEnded == true
-              ? "TQT"
+              ? "QT 3"
               : data.matchEnded == true
                   ? "FT"
-                  : "${data.kickofftime}\n";
+                  : data.kickofftime;
 }
 
 String halfTimes(Datum data) {
   return (data.halfEnded == true) && (data.matchEnded == false)
-      ? "HT\n"
+      ? "HT"
       : (data.halfEnded == true) && (data.matchEnded == true)
-          ? "FT\n"
-          : "${data.kickofftime}\n";
+          ? "FT"
+          : data.kickofftime;
 }
 
 String timeUpdates(Datum fixture) {

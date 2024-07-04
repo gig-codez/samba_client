@@ -31,14 +31,23 @@ class DataController with ChangeNotifier {
   String get matchId => _matchId;
   set matchId(String id) {
     _matchId = id;
-    // notifyListeners();
+    _fixtureData =
+        fixtures.where((element) => element.fixtureDate == id).toList();
+  }
+
+// fetch fixtures for league
+  List<Datum> _fixtures = [];
+  List<Datum> get fixtures => _fixtures;
+  void fetchFixtures() {
+    FixtureService.getFixtures().then((value) {
+      _fixtures = value;
+      notifyListeners();
+    });
   }
 
   void fetchFixtureData() {
-    FixtureService.getRunningFixtures(matchId).then((value) {
-      _fixtureData = value;
-      notifyListeners();
-    });
+    _fixtureData =
+        fixtures.where((element) => element.fixtureDate == matchId).toList();
   }
 
   void fetchLeagueData() {
@@ -72,5 +81,19 @@ class DataController with ChangeNotifier {
       _blogs = value;
       notifyListeners();
     });
+  }
+
+  // constructor invocation
+  DataController() {
+    // fetching match dates
+    fetchMatchDates();
+    // fetching league data
+    fetchLeagueData();
+    // fetching blogs
+    _fetchBlogs();
+    // fetching fixtures
+    fetchFixtures();
+    // fixture data
+    fetchFixtureData();
   }
 }
