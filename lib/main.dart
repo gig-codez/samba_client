@@ -232,24 +232,24 @@ void main() async {
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
     // DeviceManager.clearAll();
     DeviceManager.checkDeviceId().asStream().listen((event) {
-      // if (event) {
-      //   FirebaseMessaging.instance.getAPNSToken().asStream().listen((apn) {
-      //     FirebaseMessaging.instance.getToken().asStream().listen((token) {
-      //       if (token != null) {
-      //         DeviceManager.saveDeviceKey(
-      //             token, "${iosInfo.model}_${iosInfo.identifierForVendor}");
-      //       }
-      //     });
-      //   });
-      // }
+      if (event) {
+        FirebaseMessaging.instance.getAPNSToken().asStream().listen((apn) {
+          FirebaseMessaging.instance.getToken().asStream().listen((token) {
+            if (token != null) {
+              DeviceManager.saveDeviceKey(
+                  token, "${iosInfo.model}_${iosInfo.identifierForVendor}");
+            }
+          });
+        });
+      }
     });
   } else {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     // DeviceManager.clearAll();
     DeviceManager.checkDeviceId().asStream().listen((event) {
       if (event) {
-        // FirebaseMessaging.instance.getToken().asStream().listen((token) {
-        getTokenWithRetry().asStream().listen((token) {
+        FirebaseMessaging.instance.getToken().asStream().listen((token) {
+          // getTokenWithRetry().asStream().listen((token) {
           if (token != null) {
             DeviceManager.saveDeviceKey(
                 token, "${androidInfo.model}_${androidInfo.fingerprint}");
