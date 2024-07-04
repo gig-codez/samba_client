@@ -140,7 +140,7 @@ void setUpMessage() {
   FirebaseMessaging.instance.getInitialMessage().asStream().listen((message) {
     if (message != null) {
       if (message.data["type"] == "fixture") {
-        FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
+        FixtureService.getFixtures().asStream().listen((fixtures) {
           var fixture = fixtures
               .where((element) => element.id == message.data["data"])
               .first;
@@ -157,7 +157,7 @@ void setUpMessage() {
     // log("On message event.");
     // debugPrint(message.data.toString());
     if (message.data["type"] == "fixture") {
-      FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
+      FixtureService.getFixtures().asStream().listen((fixtures) {
         var fixture = fixtures
             .where((element) => element.id == message.data["data"])
             .first;
@@ -174,7 +174,7 @@ void setUpMessage() {
     // debugPrint(message.data.toString());
     // working on match rooms when notification opens the app
     if (message.data["type"] == "fixture") {
-      FixtureService.getFixtures(leagueId).asStream().listen((fixtures) {
+      FixtureService.getFixtures().asStream().listen((fixtures) {
         var fixture = fixtures
             .where((element) => element.id == message.data["data"])
             .first;

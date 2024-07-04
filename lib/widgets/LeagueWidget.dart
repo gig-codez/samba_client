@@ -98,6 +98,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   Map<String, dynamic> socketData = {};
 
   Widget cardContent({Datum? fixture, required Map<String, dynamic> socket}) {
+    // print("Half ended  ${fixture!.toJson()['halfEnded']}");
     BuildContext? context = navigatorKey.currentContext;
     TextStyle textStyle = Theme.of(context!)
         .textTheme

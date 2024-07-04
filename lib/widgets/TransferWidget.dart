@@ -18,7 +18,7 @@ class TransferWidget extends StatelessWidget {
           width: 1,
         ),
       ),
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.fromLTRB(10, 25, 10, 0),
       child: Column(
         children: [
           FittedBox(
@@ -31,8 +31,8 @@ class TransferWidget extends StatelessWidget {
                 ),
                 title: Text(player.name),
                 trailing: Text(
-                  player.soldOut,
-                  style: const TextStyle(fontSize: 20),
+                  "UGX ${player.soldOut}",
+                  style: const TextStyle(fontSize: 15),
                 ),
               ),
             ),

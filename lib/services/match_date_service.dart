@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../exports/exports.dart';
 import '../models/match_date.dart';
 
@@ -19,18 +21,17 @@ class MatchDateService {
   }
 
   static Future<List<MatchDateModel>> getMatchDates(String leagueId) async {
-    String r = "";
     try {
       Response res =
           await Client().get(Uri.parse(Apis.getMatchDates + leagueId));
       if (res.statusCode == 200) {
-        r = res.body;
-        // print(r);
+        return matchDateModelFromJson(res.body);
+      } else {
+        return Future.error(json.decode(res.body)['message']);
       }
     } on Exception catch (e) {
-      debugPrint(e.toString());
+      return Future.error(e.toString());
     }
-    return matchDateModelFromJson(r);
   }
 
   static void savedMatchDate(Map<String, dynamic> data) async {

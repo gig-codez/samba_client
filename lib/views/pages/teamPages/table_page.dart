@@ -12,6 +12,7 @@ class _TablePageState extends State<TablePage> {
   @override
   void initState() {
     super.initState();
+    Provider.of<StatsController>(context, listen: false).fetchTableData();
   }
 
   @override

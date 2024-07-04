@@ -16,14 +16,42 @@ void showMessage({String msg = "", Color? color}) {
   );
 }
 
+// helper function
+String quarterTimes(Datum data) {
+  return data.quarterEnded == true &&
+          data.halfEnded == false &&
+          data.secondHalfEnded == false &&
+          data.matchEnded == false
+      ? "QT 1"
+      : data.halfEnded == true &&
+              data.secondHalfEnded == false &&
+              data.quarterEnded == true &&
+              data.matchEnded == false
+          ? "QT 2"
+          : data.secondHalfEnded == true &&
+                  data.halfEnded == true &&
+                  data.quarterEnded == true &&
+                  data.matchEnded == false
+              ? "QT 3"
+              : data.matchEnded == true &&
+                      data.secondHalfEnded == true &&
+                      data.quarterEnded == true &&
+                      data.halfEnded == true
+                  ? "FT"
+                  : data.kickofftime;
+}
+
+String halfTimes(Datum data) {
+  return (data.halfEnded == true) && (data.matchEnded == false)
+      ? "HT"
+      : (data.halfEnded == true) && (data.matchEnded == true)
+          ? "FT"
+          : data.kickofftime;
+}
+
 String timeUpdates(Datum fixture) {
   if (fixture.isRunning == false) {
-    if (fixture.matchEnded) {
-      return "FT";
-    } else if (fixture.halfEnded && fixture.firstHalfEnded) {
-      return "HT";
-    }
-    return fixture.kickofftime;
+    return fixture.twohalves ? halfTimes(fixture) : quarterTimes(fixture);
   }
   return fixture.elapsedTime;
 }

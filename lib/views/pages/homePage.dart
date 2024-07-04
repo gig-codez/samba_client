@@ -49,8 +49,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    // setUpMessage();
+    Provider.of<StatsController>(context, listen: false).fetchTableData();
     Provider.of<DataController>(context, listen: false).fetchLeagueData();
+    Provider.of<DataController>(context, listen: false).loadFixtures();
 
     Timer.periodic(const Duration(milliseconds: 200), (timer) async {
       log("${timer.tick} $tabs");
@@ -91,6 +92,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       body: Consumer<DataController>(builder: (context, controller, x) {
         if (mounted) {
           controller.fetchMatchDates();
+          // fetch fixtures
+          controller.loadFixtures();
         }
         // }
         if (tabs == 0) {

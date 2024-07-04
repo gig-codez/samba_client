@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import '/models/fixture.dart';
-import '/models/league.dart';
+// import '/models/league.dart';
 import '/widgets/TeamsWidget.dart';
 
 import '../exports/exports.dart';
-import '../services/fixture_service.dart';
+// import '../services/fixture_service.dart';
 
 // class LeagueCard extends StatelessWidget {
 //   final List<Message> data;
@@ -63,14 +63,14 @@ class _HomeFixtureWidgetState extends State<HomeFixtureWidget> {
       StreamController<List<Datum>>();
   Timer? _timer;
 
-  void fetchLeagues() async {
-    var leagues = await FixtureService.getFixtures(widget.leagueId);
-    _leaguesController.add(leagues);
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      var leagues = await FixtureService.getFixtures(widget.leagueId);
-      _leaguesController.add(leagues);
-    });
-  }
+  // void fetchLeagues() async {
+  //   var leagues = await FixtureService.getFixtures(widget.leagueId);
+  //   _leaguesController.add(leagues);
+  //   _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+  //     var leagues = await FixtureService.getFixtures(widget.leagueId);
+  //     _leaguesController.add(leagues);
+  //   });
+  // }
 
   @override
   void initState() {

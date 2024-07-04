@@ -1,12 +1,10 @@
 import "/exports/exports.dart";
 
 class StatsPage extends StatefulWidget {
-
   const StatsPage({super.key});
 
   @override
-  State<StatsPage> createState() =>
-      _StatsPageState();
+  State<StatsPage> createState() => _StatsPageState();
 }
 
 class _StatsPageState extends State<StatsPage>
@@ -52,7 +50,7 @@ class _StatsPageState extends State<StatsPage>
           child: TabBarView(
             physics: const NeverScrollableScrollPhysics(),
             controller: _topTabController,
-            children: [
+            children: const [
               TopScorers(),
               TopAsists(),
               CleanSheets(),
