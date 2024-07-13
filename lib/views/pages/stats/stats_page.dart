@@ -49,6 +49,7 @@ class _StatsPageState extends State<StatsPage>
      */
         Flexible(
           child: TabBar(
+            isScrollable: true,
             tabs: const [
               // cater for handball stats
               Tab(
@@ -86,7 +87,7 @@ class _StatsPageState extends State<StatsPage>
         Flexible(
           flex: 5,
           child: TabBarView(
-            physics: const NeverScrollableScrollPhysics(),
+            // physics: const NeverScrollableScrollPhysics(),
             controller: _topTabController,
             children: const [
               // display handball stats

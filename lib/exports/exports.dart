@@ -11,8 +11,6 @@ export '/views/auth/login.dart';
 export '/views/pages/GeneralSettings.dart';
 // pages
 export '../views/pages/stats/to_page.dart';
-export '/views/pages/stats/top_assists.dart';
-export '/views/pages/stats/top_scorers.dart';
 export '/views/pages/stats/stats_page.dart';
 // export '/views/pages/stats/home_team_stats.dart';
 // inner pages

@@ -25,7 +25,7 @@ class _BlkPageState extends State<BlkPage> {
                     radius: 20,
                     child: Icon(Icons.person),
                   ),
-                  title: Text(data[index].player),
+                  title: Text(data[index].player.name),
                   subtitle: Text(data[index].shirtNo),
                   trailing: Text(
                     data[index].blk.toString(),

@@ -25,7 +25,9 @@ class _KsPageState extends State<KsPage> {
                     radius: 20,
                     child: Icon(Icons.person),
                   ),
-                  title: Text(data[index].player),
+                  title: Text(
+                    data[index].player.name,
+                  ),
                   subtitle: Text(data[index].shirtNo),
                   trailing: Text(
                     data[index].ks.toString(),
