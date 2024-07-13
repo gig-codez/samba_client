@@ -1,3 +1,12 @@
+import "package:fau/views/pages/stats/ast_page.dart";
+import "package:fau/views/pages/stats/blk_page.dart";
+import "package:fau/views/pages/stats/gsl_page.dart";
+import "package:fau/views/pages/stats/ks_page.dart";
+import "package:fau/views/pages/stats/mx_page.dart";
+import "package:fau/views/pages/stats/rc_page.dart";
+import "package:fau/views/pages/stats/ste_page.dart";
+import "package:fau/views/pages/stats/two_min_page.dart";
+
 import "/exports/exports.dart";
 
 class StatsPage extends StatefulWidget {
@@ -79,7 +88,18 @@ class _StatsPageState extends State<StatsPage>
           child: TabBarView(
             physics: const NeverScrollableScrollPhysics(),
             controller: _topTabController,
-            children: [],
+            children: const [
+              // display handball stats
+              TOPage(),
+              GslPage(),
+              MxPage(),
+              AstPage(),
+              BlkPage(),
+              StePage(),
+              KsPage(),
+              TwoMinPage(),
+              RcPage(),
+            ],
           ),
         )
       ],

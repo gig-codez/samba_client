@@ -276,7 +276,7 @@ class PlayerService {
   }
 
   // get two min
-  static Future<List<Message>> getTopTWO_MIN() async {
+  static Future<List<HandBallPlayerModel>> getTopTWO_MIN() async {
     try {
       Response response = await Client().get(
         Uri.parse(Apis.topTWO_MIN + leagueId),
@@ -292,7 +292,7 @@ class PlayerService {
   }
 
   // get rc
-  static Future<List<Message>> getTopRC() async {
+  static Future<List<HandBallPlayerModel>> getTopRC() async {
     try {
       Response response = await Client().get(
         Uri.parse(Apis.topRC + leagueId),

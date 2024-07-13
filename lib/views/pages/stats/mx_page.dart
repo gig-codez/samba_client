@@ -1,19 +1,21 @@
 import '/exports/exports.dart';
 
-class TOPage extends StatefulWidget {
-  const TOPage({super.key});
+class MxPage extends StatefulWidget {
+  const MxPage({super.key});
 
   @override
-  State<TOPage> createState() => _TOPageState();
+  State<MxPage> createState() => _MxPageState();
 }
 
-class _TOPageState extends State<TOPage> {
+class _MxPageState extends State<MxPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<PlayerController>(
       builder: (context, controller, c) {
-        controller.fetchCleanSheets();
-        var data = controller.topCleanSheets;
+        if (mounted) {
+          controller.fetchMX();
+        }
+        var data = controller.topMX;
         return data.isNotEmpty
             ? ListView.builder(
                 itemCount: data.length,
@@ -23,10 +25,10 @@ class _TOPageState extends State<TOPage> {
                     radius: 20,
                     child: Icon(Icons.person),
                   ),
-                  title: Text(data[index].name),
-                  subtitle: Text(data[index].team.name),
+                  title: Text(data[index].player),
+                  subtitle: Text(data[index].shirtNo),
                   trailing: Text(
-                    data[index].cleanSheet.toString(),
+                    data[index].mx.toString(),
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -36,7 +38,7 @@ class _TOPageState extends State<TOPage> {
               )
             : Center(
                 child: Text(
-                  "No stats for clean sheets yet",
+                  "No stats for TO yet",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               );
