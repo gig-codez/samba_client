@@ -1,6 +1,8 @@
 // import "package:http/retry.dart";
 // import "package:http/http.dart" as http;
 
+// ignore_for_file: non_constant_identifier_names, slash_for_doc_comments
+
 class Apis {
   static String apiUrl = "http://45.10.160.145:3000/";
   // Socket.IO server url
@@ -56,4 +58,14 @@ class Apis {
   static String blogs = "${apiUrl}blogs";
   // update
   static String update = "${apiUrl}update";
+  // hand ball stats
+  static String topTO = "${apiUrl}handBall/TO/";
+  static String topGLS = "${apiUrl}handBall/GLS/";
+  static String topAST = "${apiUrl}handBall/AST/";
+  static String topMX = "${apiUrl}handBall/MX/";
+  static String topBLK = "${apiUrl}handBall/BLK/";
+  static String topSTE = "${apiUrl}handBall/STE/";
+  static String topKS = "${apiUrl}handBall/KS/";
+  static String topTWO_MIN = "${apiUrl}handBall/TWO_MIN/";
+  static String topRC = "${apiUrl}handBall/RC/";
 }

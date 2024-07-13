@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import '../exports/exports.dart';
+import '../models/handball_model.dart';
 import '../models/player.dart';
 
 class PlayerService {
@@ -144,6 +145,160 @@ class PlayerService {
       );
       if (response.statusCode == 200) {
         return playersModelFromJson(response.body).message;
+      } else {
+        return Future.error(json.decode(response.body)['message']);
+      }
+    } on ClientException catch (_, e) {
+      return Future.error("Error fetching data");
+    }
+  }
+
+// handball stats
+  /**  "TO": 0,
+    "GLS": 0,
+    "AST": 0,
+    "MX": 0,
+    "BLK": 0,
+    "STE": 0,
+    "KS": 0,
+    "TWO_MIN": 0,
+    "RC": 0,
+     */
+  static Future<List<HandBallPlayerModel>> getTopTO() async {
+    try {
+      Response response = await Client().get(
+        Uri.parse(Apis.topTO + leagueId),
+      );
+      if (response.statusCode == 200) {
+        return handBallPlayerModelFromJson(response.body);
+      } else {
+        return Future.error(json.decode(response.body)['message']);
+      }
+    } on ClientException catch (_, e) {
+      return Future.error("Error fetching data");
+    }
+  }
+
+  // get gls
+  static Future<List<HandBallPlayerModel>> getTopGLS() async {
+    try {
+      Response response = await Client().get(
+        Uri.parse(Apis.topGLS + leagueId),
+      );
+      if (response.statusCode == 200) {
+        return handBallPlayerModelFromJson(response.body);
+      } else {
+        return Future.error(json.decode(response.body)['message']);
+      }
+    } on ClientException catch (_, e) {
+      return Future.error("Error fetching data");
+    }
+  }
+
+  // get ast
+  static Future<List<HandBallPlayerModel>> getTopAST() async {
+    try {
+      Response response = await Client().get(
+        Uri.parse(Apis.topAST + leagueId),
+      );
+      if (response.statusCode == 200) {
+        return handBallPlayerModelFromJson(response.body);
+      } else {
+        return Future.error(json.decode(response.body)['message']);
+      }
+    } on ClientException catch (_, e) {
+      return Future.error("Error fetching data");
+    }
+  }
+
+  // get mx
+  static Future<List<HandBallPlayerModel>> getTopMX() async {
+    try {
+      Response response = await Client().get(
+        Uri.parse(Apis.topMX + leagueId),
+      );
+      if (response.statusCode == 200) {
+        return handBallPlayerModelFromJson(response.body);
+      } else {
+        return Future.error(json.decode(response.body)['message']);
+      }
+    } on ClientException catch (_, e) {
+      return Future.error("Error fetching data");
+    }
+  }
+
+  // get blk
+  static Future<List<HandBallPlayerModel>> getTopBLK() async {
+    try {
+      Response response = await Client().get(
+        Uri.parse(Apis.topBLK + leagueId),
+      );
+      if (response.statusCode == 200) {
+        return handBallPlayerModelFromJson(response.body);
+      } else {
+        return Future.error(json.decode(response.body)['message']);
+      }
+    } on ClientException catch (_, e) {
+      return Future.error("Error fetching data");
+    }
+  }
+
+  // get ste
+  static Future<List<HandBallPlayerModel>> getTopSTE() async {
+    try {
+      Response response = await Client().get(
+        Uri.parse(Apis.topSTE + leagueId),
+      );
+      if (response.statusCode == 200) {
+        return handBallPlayerModelFromJson(response.body);
+      } else {
+        return Future.error(json.decode(response.body)['message']);
+      }
+    } on ClientException catch (_, e) {
+      return Future.error("Error fetching data");
+    }
+  }
+
+  // get ks
+  static Future<List<HandBallPlayerModel>> getTopKS() async {
+    try {
+      Response response = await Client().get(
+        Uri.parse(Apis.topKS + leagueId),
+      );
+      if (response.statusCode == 200) {
+        return handBallPlayerModelFromJson(response.body);
+      } else {
+        return Future.error(json.decode(response.body)['message']);
+      }
+    } on ClientException catch (_, e) {
+      return Future.error("Error fetching data");
+    }
+  }
+
+  // get two min
+  static Future<List<Message>> getTopTWO_MIN() async {
+    try {
+      Response response = await Client().get(
+        Uri.parse(Apis.topTWO_MIN + leagueId),
+      );
+      if (response.statusCode == 200) {
+        return handBallPlayerModelFromJson(response.body);
+      } else {
+        return Future.error(json.decode(response.body)['message']);
+      }
+    } on ClientException catch (_, e) {
+      return Future.error("Error fetching data");
+    }
+  }
+
+  // get rc
+  static Future<List<Message>> getTopRC() async {
+    try {
+      Response response = await Client().get(
+        Uri.parse(Apis.topRC + leagueId),
+      );
+      if (response.statusCode == 200) {
+        return handBallPlayerModelFromJson(response.body);
       } else {
         return Future.error(json.decode(response.body)['message']);
       }
