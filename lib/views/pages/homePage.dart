@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:fau/controllers/league_controller.dart';
+import '/controllers/league_controller.dart';
 
 import '../../models/match_date.dart';
 import '../../services/match_date_service.dart';
