@@ -151,6 +151,11 @@ void setUpMessage() {
           );
         });
       }
+      if (message.data["type"] == "transfer") {
+        Routes.animateToPage(
+          const TransfersPage(),
+        );
+      }
     }
   });
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -167,6 +172,11 @@ void setUpMessage() {
           ),
         );
       });
+    }
+    if (message.data["type"] == "transfer") {
+      Routes.animateToPage(
+        const TransfersPage(),
+      );
     }
   });
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
