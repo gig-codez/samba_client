@@ -9,16 +9,20 @@ class TransferWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.grey.shade100,
+      color: Theme.of(context).brightness == Brightness.light
+          ? Colors.grey.shade100
+          : Colors.white30,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
         side: BorderSide(
-          color: Colors.grey.shade300,
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.grey.shade300
+              : Colors.white38,
           width: 1,
         ),
       ),
-      margin: const EdgeInsets.fromLTRB(10, 25, 10, 0),
+      margin: const EdgeInsets.all(10),
       child: Column(
         children: [
           FittedBox(
@@ -31,8 +35,8 @@ class TransferWidget extends StatelessWidget {
                 ),
                 title: Text(player.name),
                 trailing: Text(
-                  "UGX ${player.soldOut}",
-                  style: const TextStyle(fontSize: 15),
+                  player.soldOut,
+                  style: const TextStyle(fontSize: 20),
                 ),
               ),
             ),
