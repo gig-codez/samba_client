@@ -1,9 +1,10 @@
+// ignore: file_names
 import '../exports/exports.dart';
 
 class PlayingTeams extends StatelessWidget {
   final int? data;
-  final String matchId;
-  const PlayingTeams({super.key, required this.matchId, required this.data});
+
+  const PlayingTeams({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {

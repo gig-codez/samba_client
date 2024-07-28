@@ -80,7 +80,6 @@ class _LeagueWidgetState extends State<LeagueWidget> {
         Routes.animateToPage(
           TeamsPage(
             data: fixture,
-            matchId: widget.matchId,
             index: index,
           ),
         );

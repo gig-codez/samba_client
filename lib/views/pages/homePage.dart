@@ -132,9 +132,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               Expanded(
                 child: TabBarView(
                   controller: tabController,
-                  children: List.generate(
-                    tabs,
-                    (i) => Padding(
+                  children: List.generate(tabs, (i) {
+                    controller.matchId = controller.matchDates[i].id;
+                    return Padding(
                       padding: const EdgeInsets.only(left: 10.0, right: 10),
                       child: SingleChildScrollView(
                         child: LeagueWidget(
@@ -142,8 +142,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           matchId: controller.matchDates[i].id,
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  }),
                 ),
               ),
             // for fau

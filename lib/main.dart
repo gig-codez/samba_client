@@ -146,13 +146,19 @@ void setUpMessage() {
           var fixture = fixtures
               .where((element) => element.id == message.data["data"])
               .first;
+          int? fixtureId = fixtures
+              .indexWhere((element) => element.id == message.data["data"]);
           Routes.animateToPage(
             TeamsPage(
               data: fixture,
-              matchId: '',
+              index: fixtureId,
             ),
           );
         });
+      }
+      // transfers
+      if (message.data['type'] == "transfer") {
+        Routes.animateToPage(const TransfersPage());
       }
     }
   });
@@ -164,13 +170,19 @@ void setUpMessage() {
         var fixture = fixtures
             .where((element) => element.id == message.data["data"])
             .first;
+        int? fixtureId = fixtures
+            .indexWhere((element) => element.id == message.data["data"]);
         Routes.animateToPage(
           TeamsPage(
             data: fixture,
-            matchId: '',
+            index: fixtureId,
           ),
         );
       });
+    }
+    // transfers
+    if (message.data['type'] == "transfer") {
+      Routes.animateToPage(const TransfersPage());
     }
   });
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
@@ -182,13 +194,20 @@ void setUpMessage() {
         var fixture = fixtures
             .where((element) => element.id == message.data["data"])
             .first;
+        int? fixtureId = fixtures
+            .indexWhere((element) => element.id == message.data["data"]);
+
         Routes.animateToPage(
           TeamsPage(
             data: fixture,
-            matchId: '',
+            index: fixtureId,
           ),
         );
       });
+    }
+    // transfers
+    if (message.data['type'] == "transfer") {
+      Routes.animateToPage(const TransfersPage());
     }
   });
 }
@@ -256,7 +275,7 @@ void main() async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   if (Platform.isIOS) {
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    // DeviceManager.clearAll();
+    DeviceManager.clearAll();
     DeviceManager.checkDeviceId().asStream().listen((event) {
       if (event) {
         FirebaseMessaging.instance.getAPNSToken().asStream().listen((apn) {
