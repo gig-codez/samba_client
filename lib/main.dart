@@ -159,7 +159,6 @@ void setUpMessage() {
     }
   });
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    // log("On message event.");
     // debugPrint(message.data.toString());
     if (message.data["type"] == "fixture") {
       FixtureService.getFixtures().asStream().listen((fixtures) {
@@ -180,8 +179,6 @@ void setUpMessage() {
     }
   });
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    // log("Message opened app");
-    // debugPrint(message.data.toString());
     // working on match rooms when notification opens the app
     if (message.data["type"] == "fixture") {
       FixtureService.getFixtures().asStream().listen((fixtures) {
@@ -261,7 +258,7 @@ void main() async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   if (Platform.isIOS) {
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    // DeviceManager.clearAll();
+    DeviceManager.clearAll();
     DeviceManager.checkDeviceId().asStream().listen((event) {
       if (event) {
         FirebaseMessaging.instance.getAPNSToken().asStream().listen((apn) {
