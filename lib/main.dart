@@ -144,11 +144,13 @@ void setUpMessage() {
       });
     }
     // transfers
-    if (message.data["type"] == "transfer") {}
+    if (message.data["type"] == "transfer") {
+      Routes.animateToPage(
+        const TransfersPage(),
+      );
+    }
   });
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    // log("Message opened app");
-    // debugPrint(message.data.toString());
     // working on match rooms when notification opens the app
     if (message.data["type"] == "fixture") {
       FixtureService.getFixtures().asStream().listen((fixtures) {
@@ -161,6 +163,12 @@ void setUpMessage() {
           ),
         );
       });
+    }
+    // transfers
+    if (message.data["type"] == "transfer") {
+      Routes.animateToPage(
+        const TransfersPage(),
+      );
     }
   });
 }
