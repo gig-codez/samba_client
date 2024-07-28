@@ -2,7 +2,6 @@
 //
 //     final playersModel = playersModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 PlayersModel playersModelFromJson(String str) =>

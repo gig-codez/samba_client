@@ -113,8 +113,11 @@ void setUpMessage() {
           var fixture = fixtures
               .where((element) => element.id == message.data["data"])
               .first;
+          int? id = fixtures.indexWhere((x) => x.id == message.data["data"]);
+
           Routes.animateToPage(
             TeamsPage(
+              index: id,
               data: fixture,
             ),
           );
@@ -130,13 +133,18 @@ void setUpMessage() {
         var fixture = fixtures
             .where((element) => element.id == message.data["data"])
             .first;
+        int? id = fixtures.indexWhere((x) => x.id == message.data["data"]);
+
         Routes.animateToPage(
           TeamsPage(
+            index: id,
             data: fixture,
           ),
         );
       });
     }
+    // transfers
+    if (message.data["type"] == "transfer") {}
   });
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     // log("Message opened app");

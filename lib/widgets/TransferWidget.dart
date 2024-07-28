@@ -9,12 +9,16 @@ class TransferWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.grey.shade100,
+      color: Theme.of(context).brightness == Brightness.light
+          ? Colors.grey.shade100
+          : Colors.white30,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
         side: BorderSide(
-          color: Colors.grey.shade300,
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.grey.shade300
+              : Colors.white38,
           width: 1,
         ),
       ),

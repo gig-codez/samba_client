@@ -22,28 +22,29 @@ void showMessage({String msg = "", Color? color, bool float = false}) {
 
 // helper function
 String quarterTimes(Datum data) {
-  return data.quarterEnded
-      ? "QT 1"
-      : data.halfEnded
-          ? "QT 2"
-          : data.secondHalfEnded == true
-              ? "QT 3"
-              : data.matchEnded == true
-                  ? "FT"
-                  : data.kickofftime;
+  if (data.matchEnded == true) return "QT 4";
+  if (data.secondHalfEnded == true) return "QT 3";
+  if (data.halfEnded == true) return "QT 2";
+  if (data.quarterEnded == true) return "QT 1";
+  return data.kickofftime;
 }
 
 String halfTimes(Datum data) {
-  return (data.halfEnded == true) && (data.matchEnded == false)
-      ? "HT"
-      : (data.halfEnded == true) && (data.matchEnded == true)
-          ? "FT"
-          : data.kickofftime;
+  if (data.halfEnded && !data.matchEnded) {
+    return "HT";
+  } else if (data.halfEnded && data.matchEnded) {
+    return "FT";
+  } else {
+    return data.kickofftime;
+  }
 }
 
 String timeUpdates(Datum fixture) {
+  // print("half => ${fixture.halfEnded}");
   if (fixture.isRunning == false) {
-    return fixture.twohalves ? halfTimes(fixture) : quarterTimes(fixture);
+    return fixture.twohalves == true
+        ? halfTimes(fixture)
+        : quarterTimes(fixture);
   }
   return fixture.elapsedTime;
 }

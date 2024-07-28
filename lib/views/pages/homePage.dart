@@ -84,7 +84,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     Provider.of<DataController>(context, listen: false).fetchLeagueData();
     return Consumer<DataController>(builder: (context, controller, child) {
-      controller.fetchMatchDates();
+      if (mounted) {
+        controller.fetchMatchDates();
+        controller.fetchFixtures();
+        controller.fetchFixtureData();
+      }
       // }
       if (tabs == 0) {
         tabController = TabController(
@@ -115,26 +119,60 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 showMessage(msg: "Data refreshed");
               },
             ),
-            Consumer<LeagueController>(builder: (context, controller, x) {
-              return PopupMenuButton(
-                itemBuilder: (context) {
-                  return controller.leagues.map((league) {
-                    return PopupMenuItem(
-                      child: ListTile(
-                        title: Text(league.appTitle),
-                        onTap: () {
-                          controller.switchLeague(league);
-                        },
-                      ),
-                    );
-                  }).toList();
-                },
-              );
-            }),
           ],
         ),
         body: Column(
           children: [
+            Flexible(
+              child: SizedBox(
+                height: 50,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.all(3),
+                  children:
+                      context.read<LeagueController>().leagues.map((league) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: TapEffect(
+                        onClick: () {
+                          context.read<LeagueController>().switchLeague(league);
+                        },
+                        child: Chip(
+                          side: BorderSide(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          backgroundColor: leagueId == league.leagueId
+                              ? Theme.of(context).primaryColor
+                              : null,
+                          avatar: Icon(
+                            leagueId == league.leagueId
+                                ? Icons.check_circle
+                                : Icons.check_circle_outline,
+                            color: leagueId == league.leagueId
+                                ? Colors.white
+                                : null,
+                          ),
+                          label: AutoSizeText(
+                            league.appTitle,
+                            style:
+                                Theme.of(context).textTheme.bodyMedium!.apply(
+                                      color: leagueId == league.leagueId
+                                          ? Colors.white
+                                          : Theme.of(context).primaryColor,
+                                      fontWeightDelta: 4,
+                                    ),
+                            maxFontSize: 18,
+                            minFontSize: 10,
+                            group: AutoSizeGroup(),
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+
             if (tabs != 0)
               TabBar(
                 controller: tabController,
@@ -149,6 +187,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             if (tabs != 0)
               Expanded(
+                flex: 5,
                 child: TabBarView(
                   controller: tabController,
                   children: List.generate(
